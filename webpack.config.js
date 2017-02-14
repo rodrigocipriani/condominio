@@ -73,7 +73,7 @@ const rules = [
     },
     {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        use: 'file-loader?name=public/fonts/[name].[ext]'
+        use: 'file-loader?name=fonts/[name].[ext]'
     },{
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
