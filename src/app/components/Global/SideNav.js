@@ -33,11 +33,14 @@ var SideNav = React.createClass({
                 {/*<li><a href="#!" className="waves-effect waves-ripple">First Sidebar Link</a></li>*/}
                 {/*<li><a href="#!" className="waves-effect waves-ripple">Second Sidebar Link</a></li>*/}
                 {/*</ul>*/}
-                <div className="main">
+                <div className="main-small hide-on-large-only">
+                    {children}
+                </div>
+                <div className="main hide-on-med-and-down">
                     {children}
                 </div>
 
-                <ul id="slide-out" className="side-nav fixed">
+                <ul id="slide-out" className="side-nav fixed hide-on-med-and-down">
                     <li>
                         <div className="userView" style={{height: '170px'}}>
                             <div className="background">

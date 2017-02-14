@@ -36,7 +36,7 @@ export default class Documentos extends Component {
                             MINUTA ESTATUTO ASSOCIAÇÃO DOS PROMITENTES COMPRADORES DO RESIDENCIAL CONTEMPORÂNEO
                             (Exemplo)
                             <a href={estatuto} target="_blank" className="secondary-content">
-                                <i className="fa fa-download" aria-hidden="true"></i>
+                                <i className="fa fa-lg fa-download" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li className="collection-item">
@@ -44,7 +44,7 @@ export default class Documentos extends Component {
                                 <small>(Desatualizado) </small>
                                 Vistoria
                                 <a href={vistoria} target="_blank" className="secondary-content">
-                                    <i className="fa fa-download" aria-hidden="true"></i>
+                                    <i className="fa fa-lg fa-download" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </li>
