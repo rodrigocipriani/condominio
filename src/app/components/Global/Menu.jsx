@@ -1,22 +1,33 @@
-import React, { Component } from 'react';
-import { IndexLink, Link } from 'react-router';
-import { routeCodes } from '../../routes';
+import React, {Component} from 'react';
+import {IndexLink, Link} from 'react-router';
+import {routeCodes} from '../../routes';
 
 export default class Menu extends Component {
 
-  render() {
-    return (
-      <div className='Menu'>
-        <IndexLink to={ routeCodes.HOME }>
-          Home
-        </IndexLink>
-        <Link to={ routeCodes.ABOUT }>
-          About
-        </Link>
-        <Link to='404'>
-          404
-        </Link>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <ul>
+                <li>
+                    <IndexLink className="waves-effect waves-ripple" to={ routeCodes.DOCUMENTOS }>
+                        Documentos
+                    </IndexLink>
+                </li>
+                <li>
+                    <IndexLink className="waves-effect waves-ripple" to={ routeCodes.FORUM }>
+                        Fórum
+                    </IndexLink>
+                </li>
+                <li>
+                    <IndexLink className="waves-effect waves-ripple" to={ routeCodes.INDICACOES }>
+                        Indicações Serviços / Compras
+                    </IndexLink>
+                </li>
+                {/*<li>*/}
+                    {/*<IndexLink className="waves-effect waves-ripple" to={ routeCodes.ABOUT }>*/}
+                        {/*Sobre*/}
+                    {/*</IndexLink>*/}
+                {/*</li>*/}
+            </ul>
+        );
+    }
 }

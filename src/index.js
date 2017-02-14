@@ -11,7 +11,7 @@ import Routes from './app/routes';
 import DevTools from './dev/redux-dev-tools';
 
 // Load SCSS
-import './scss/app.scss';
+import './app/app.scss';
 
 const isProduction = process.env.NODE_ENV === 'production';
 

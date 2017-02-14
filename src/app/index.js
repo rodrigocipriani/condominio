@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import Header from 'components/Global/Header';
-import SideNav from 'rc-react-elements/SideNav';
+import SideNav from 'components/Global/SideNav';
 
 export default class App extends Component {
     static propTypes = {
@@ -14,8 +13,6 @@ export default class App extends Component {
         return (
             <div className='App'>
                 <SideNav>
-                    <Header />
-
                     <div className='Page'>
                         { children }
                     </div>
