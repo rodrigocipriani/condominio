@@ -5,7 +5,7 @@ import App from './index';
 import Documentos from './containers/Documentos/documentosView';
 import Forum from './containers/Forum';
 import Indicacoes from './containers/Indicacoes';
-import NotFound from 'views/NotFound';
+import NotFound from './containers/NotFound';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
@@ -17,7 +17,6 @@ export const routeCodes = {
     DOCUMENTOS: `${ appSubRoute }documentos`,
     FORUM: `${ appSubRoute }forum`,
     INDICACOES: `${ appSubRoute }indicacoes`,
-    ABOUT: `${ appSubRoute }about`,
 };
 
 export default class Routes extends Component {
