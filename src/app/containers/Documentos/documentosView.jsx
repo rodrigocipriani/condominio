@@ -1,8 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-// import 'font-awesome/css/font-awesome.min.css';
-import {testAction, testAsync} from 'actions/app';
-import Button from 'rc-react-elements/Button';
 import Painel from 'rc-react-elements/Painel';
 
 const estatuto = '/static/files/minuta-estatuto-associacao-dos-promitentes-compradores-do-residencial-conteporaneo-05-02-2016.pdf';

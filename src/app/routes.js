@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 
 import App from './index';
-import Home from 'views/Home';
-import Documentos from 'views/Documentos';
-import Forum from 'views/Forum';
-import Indicacoes from 'views/Indicacoes';
-import About from 'views/About';
+import Documentos from './containers/Documentos/documentosView';
+import Forum from './containers/Forum';
+import Indicacoes from './containers/Indicacoes';
 import NotFound from 'views/NotFound';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -33,7 +31,6 @@ export default class Routes extends Component {
                     <Route path={ routeCodes.DOCUMENTOS } component={ Documentos }/>
                     <Route path={ routeCodes.FORUM } component={ Forum }/>
                     <Route path={ routeCodes.INDICACOES } component={ Indicacoes }/>
-                    <Route path={ routeCodes.ABOUT } component={ About }/>
 
                     <Route path='*' component={ NotFound }/>
                 </Route>

@@ -11,6 +11,7 @@
   "author": "Rodrigo Cipriani da Rosa",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-polyfill": "^6.16.0",
     "es6-promise": "^3.1.2",
     "font-awesome": "^4.7.0",
