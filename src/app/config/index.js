@@ -1,7 +1,7 @@
 let api, app, base, staticServer;
 
-switch (process.env.AMBIENTE) {
-    case 'desenvolvimento' :
+switch (process.env.NODE_ENV) {
+    case 'development' :
         api  = 'http://localhost.bb.com.br:3000/api';
         app  = '';
         base = 'http://localhost.bb.com.br:3008';
@@ -13,14 +13,13 @@ switch (process.env.AMBIENTE) {
         base = 'http://usi3.intranet.bb.com.br';
         staticServer = 'http://disec.bb.com.br/static';
         break;
-    case 'producao' :
+    case 'production' :
         api  = 'http://disec.bb.com.br/api';
         app  = '/eficiencia';
         base = 'http://disec.bb.com.br';
         staticServer = 'http://disec.bb.com.br/static';
         break;
 }
-
 
 export const API_URL         = api;
 export const APP_URL         = app;

@@ -2,6 +2,8 @@ import {Map} from 'immutable';
 
 import {actionTypes} from './documentosAction';
 
+console.log('documentos');
+
 const initialState = Map({
     counter: 0,
     asyncLoading: false,
@@ -39,7 +41,19 @@ const actionsMap = {
     },
 };
 
-export default function reducer(state = initialState, action = {}) {
+const documentos = (state = initialState, action) => {
+
+    switch (action.type) {
+        case types.BUSCA_DOCUMENTOS:
+            return {...state, dadosAnaliticoProcessos: action.payload};
+    }
+
+    return state;
+
+};
+
+const documentos2 = (state = initialState, action = {}) => {
     const fn = actionsMap[action.type];
     return fn ? fn(state, action) : state;
-}
+};
+export default documentos;
