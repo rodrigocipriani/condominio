@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
 
-    const Pbms = sequelize.define('Pbms', {
+    const PbmsModel = sequelize.define('PbmsModel', {
 
         tipoPbms: {
             type: DataTypes.BIGINT,
@@ -58,5 +58,5 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    return Pbms;
+    return PbmsModel;
 };

@@ -1,13 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
 
-// var ItemContratoModel = require('contrato/item_contrato');
-// var ContratoProjetoModel = require('contrato/contrato_projeto');
-// var ContratoAtributoModel = require('contrato/contrato_atributo');
-// var MestreDependenciaModel = require('mestre/tmst606');
-// var AgrupadorContratoModel = require('contrato/agrupador_contrato');
-
-
-    const Contrato = sequelize.define('Contrato', {
+    const Documento = sequelize.define('Documento', {
 
         numeroContrato: {
             type: DataTypes.BIGINT,
@@ -109,5 +102,5 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    return Contrato;
+    return Documento;
 };

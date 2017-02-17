@@ -1,22 +1,22 @@
-var config = require('./config'),
-    express = require('express'),
-    cors = require('cors'),
-    redis = require("redis"),
-    path = require("path"),
-    consign = require('consign'),
-    bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    helmet = require('helmet'),
-    session = require('express-session'),
-    compression = require('compression'),
-    modRewrite = require('connect-modrewrite'),
-    redisStore = require('connect-redis')(session),
-    cliente = redis.createClient(config.redis.port, config.redis.host, {
-        auth_pass: config.redis.pass,
-        no_ready_check: true
-    });
+const config = require('./config');
+const express = require('express');
+const cors = require('cors');
+const redis = require("redis");
+const path = require("path");
+const consign = require('consign');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const session = require('express-session');
+const compression = require('compression');
+const modRewrite = require('connect-modrewrite');
+const redisStore = require('connect-redis')(session);
+const cliente = redis.createClient(config.redis.port, config.redis.host, {
+    auth_pass: config.redis.pass,
+    no_ready_check: true
+});
 
-module.exports = function () {
+module.exports = function (arquivos) {
 
     var app = express();
     var port = process.env.PORT || 3005;
@@ -71,6 +71,12 @@ module.exports = function () {
     //     // '!\\.\\w+$ /index.html [L]'
     // ]));
 
+    const services = arquivos.filter(file => {return file.indexOf('Service.js') >= 0});
+    const controllers = arquivos.filter(file => {return file.indexOf('Controller.js') >= 0});
+    const routes = arquivos.filter(file => {return file.indexOf('Route.js') >= 0});
+
+    console.log("@ - CARREGANDO ARQUIVOS", services, controllers, routes);
+
     consign({
         cwd: 'app',
         // cwd: path.join(process.cwd(),'backend','app'),
@@ -101,4 +107,5 @@ module.exports = function () {
     //     }
     // });
     return app;
+
 };
