@@ -13,7 +13,7 @@ module.exports = function(app) {
             .then(function(pbmss) {
             res.send(pbmss);
         }).catch(function(erro) {
-            Erro.novo(Erro.CONSULTAR_DADOS, req, res, erro);
+            // Erro.novo(Erro.CONSULTAR_DADOS, req, res, erro);
         });
     };
 

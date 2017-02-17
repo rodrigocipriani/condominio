@@ -71,11 +71,8 @@ module.exports = function (arquivos) {
     //     // '!\\.\\w+$ /index.html [L]'
     // ]));
 
-    const services = arquivos.filter(file => {return file.indexOf('Service.js') >= 0});
-    const controllers = arquivos.filter(file => {return file.indexOf('Controller.js') >= 0});
-    const routes = arquivos.filter(file => {return file.indexOf('Route.js') >= 0});
-
-    console.log("@ - CARREGANDO ARQUIVOS", services, controllers, routes);
+    // console.log("@ - CARREGANDO ARQUIVOS", services, controllers, routes);
+    // console.log("Fazer carregar estes arquivos para depois mudar para pastas por funcionalidade", services, controllers, routes);
 
     consign({
         cwd: 'app',
@@ -89,6 +86,47 @@ module.exports = function (arquivos) {
         .then('controllers')
         .then('routes')
         .into(app);
+
+
+    // const modelos = arquivos.filter(file => {return file.indexOf('modelo.js') >= 0});
+    // const commons = arquivos.filter(file => {return file.indexOf('common') >= 0});
+    // const services = arquivos.filter(file => {return file.indexOf('Service.js') >= 0});
+    // const controllers = arquivos.filter(file => {return file.indexOf('Controller.js') >= 0});
+    // const routes = arquivos.filter(file => {return file.indexOf('Route.js') >= 0});
+
+    // console.log('>>>>>>>>>>>>>common', commons);
+    // console.log('>>>>>>>>>>>>>modelo', modelos);
+/*
+    app.modelo = {};
+    arquivos.filter(file => {return file.indexOf('modelo.js') >= 0}).forEach(modelo => {
+        let name = path.basename(modelo).split('.')[0];
+        app.modelo[name] = require(modelo)(app);
+    });
+
+    app.common = {};
+    arquivos.filter(file => {return file.indexOf('common') >= 0}).forEach(common => {
+        let name = path.basename(common).split('.')[0];
+        app.common[name] = require(common)(app);
+    });
+
+    app.services = {};
+    arquivos.filter(file => {return file.indexOf('Service.js') >= 0}).forEach(service => {
+        let name = path.basename(service).split('.')[0];
+        app.services[name] = require(service)(app);
+    });
+
+    app.controllers = {};
+    arquivos.filter(file => {return file.indexOf('Controller.js') >= 0}).forEach(controller => {
+        let name = path.basename(controller).split('.')[0];
+        app.controllers[name] = require(controller)(app);
+    });
+
+    app.routes = {};
+    arquivos.filter(file => {return file.indexOf('Route.js') >= 0}).forEach(route => {
+        let name = path.basename(route).split('.')[0];
+        app.routes[name] = require(route)(app);
+    });
+*/
 
     // app.get('*', function(req,res) {
     //     res.status(404).render('404.ejs');

@@ -3,8 +3,8 @@
 module.exports = function (app) {
 
     const service                  = {};
-    // const PbmsModel                = app.models.modelo.PbmsModel;
-    const {PbmsModel} = app.models.modelo;
+    const PbmsModel                = app.models.modelo.PbmsModel;
+    // const {PbmsModel} = app.models.modelo;
 
     service.findAllPbms                           = function () {
 
