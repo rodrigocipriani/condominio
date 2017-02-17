@@ -1,30 +1,32 @@
 import {createAssyncAction} from '../../actionsHelper';
 import api  from 'lib/api';
-// import store from '../../store';
+import {actionTypes} from './documentosActionTypes';
+import store from '../../store';
 
 const apiGeral = api.apiGeral;
 
-export const actionTypes = {
-    BUSCA_DOCUMENTOS: 'BUSCA_DOCUMENTOS',
-    BUSCA_DOCUMENTOS_START: 'BUSCA_DOCUMENTOS_START',
-    BUSCA_DOCUMENTOS_ERROR: 'BUSCA_DOCUMENTOS_ERROR',
-    BUSCA_DOCUMENTOS_SUCCESS: 'BUSCA_DOCUMENTOS_SUCCESS'
-};
+// export const actionTypes = {
+//     BUSCA_DOCUMENTOS: 'BUSCA_DOCUMENTOS',
+//     BUSCA_DOCUMENTOS_START: 'BUSCA_DOCUMENTOS_START',
+//     BUSCA_DOCUMENTOS_ERROR: 'BUSCA_DOCUMENTOS_ERROR',
+//     BUSCA_DOCUMENTOS_SUCCESS: 'BUSCA_DOCUMENTOS_SUCCESS'
+// };
 
 export const ExeploActionLocal = (tarefa, posicao) => {
     return dispatch => dispatch(
-        {type: types.EXPANDE_ETAPAS, tarefa, posicao}
+        {type: actionTypes.EXPANDE_ETAPAS, tarefa, posicao}
     )
 };
 
 export function buscaDocumentos() {
-    // createAssyncAction(actionTypes.BUSCA_DOCUMENTOS,
-    //         apiGeral.get('acesso/autorizacao/transacoes/autorizadas'),
-    //         {}
-    // );
-    return dispatch => dispatch(
-        {type: types.BUSCA_DOCUMENTOS}
-    )
+    console.log('oiioioioiio');
+    createAssyncAction(actionTypes.BUSCA_DOCUMENTOS,
+        apiGeral.get('/documentos'),
+        {}
+    );
+    // return store.dispatch(
+    //     {type: actionTypes.BUSCA_DOCUMENTOS}
+    // )
 };
 
 // export function buscaDocumentos() {

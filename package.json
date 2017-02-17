@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
+    "api": "json-server --watch db.json --port 3004",
     "build": "rmdir /s /q dist\\&& set NODE_ENV=production&& webpack"
   },
   "repository": {},
@@ -17,13 +18,14 @@
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
+    "json-server": "^0.9.5",
     "materialize-css": "^0.98.0",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "redux-logger": "^2.8.1",
     "react-redux": "^4.4.0",
     "react-router": "^3.0.0",
     "redux": "^3.3.1",
+    "redux-logger": "^2.8.1",
     "redux-thunk": "^2.0.1"
   },
   "devDependencies": {

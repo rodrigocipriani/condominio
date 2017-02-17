@@ -25,7 +25,7 @@ export default class Routes extends Component {
             <Router history={ browserHistory }>
                 <Route path={ publicPath } component={ App }>
 
-                    <IndexRoute component={ Documentos } onEnter={Documentos.routeInit} />
+                    <IndexRoute component={ Documentos } onEnter={Documentos.routeWillInit} />
 
                     <Route path={ routeCodes.DOCUMENTOS } component={ Documentos } onEnter={Documentos.routeWillInit} />
                     <Route path={ routeCodes.FORUM } component={ Forum }/>

@@ -2,7 +2,7 @@ let api, app, base, staticServer;
 
 switch (process.env.NODE_ENV) {
     case 'development' :
-        api  = 'http://localhost.bb.com.br:3000/api';
+        api  = 'http://localhost:3004';
         app  = '';
         base = 'http://localhost.bb.com.br:3008';
         staticServer = 'http://disec.bb.com.br/static';
