@@ -14,7 +14,7 @@ switch (process.env.NODE_ENV) {
         staticServer = 'http://disec.bb.com.br/static';
         break;
     case 'production' :
-        api  = 'http://disec.bb.com.br/api';
+        api  = 'http://http://boulevardcaymmi.com.br';
         app  = '/eficiencia';
         base = 'http://disec.bb.com.br';
         staticServer = 'http://disec.bb.com.br/static';
