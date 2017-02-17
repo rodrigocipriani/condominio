@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
-    "api": "json-server --watch ./src/app/db.json --port 3004",
+    "api": "json-server --watch db.json --port 3004",
     "build": "rmdir /s /q dist\\&& set NODE_ENV=production&& webpack"
   },
   "repository": {},
