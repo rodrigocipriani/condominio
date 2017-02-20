@@ -2,6 +2,7 @@ const config = require('./config');
 const express = require('express');
 const cors = require('cors');
 const redis = require("redis");
+const fs = require('fs');
 const path = require("path");
 const consign = require('consign');
 const bodyParser = require('body-parser');
@@ -16,7 +17,7 @@ const cliente = redis.createClient(config.redis.port, config.redis.host, {
     no_ready_check: true
 });
 
-module.exports = function (arquivos) {
+module.exports = function (appDir) {
 
     var app = express();
     var port = process.env.PORT || 3005;
@@ -93,11 +94,11 @@ module.exports = function (arquivos) {
         logger: console,
         verbose: true
     })
-        .include('models/modelo.js')
+        .include('models.js')
         .then('common')
-        .then('services')
-        .then('controllers')
-        .then('routes')
+        // .then('services.js')
+        // .then('controllers')
+        // .then('routes')
         .into(app);
 
 
@@ -109,37 +110,63 @@ module.exports = function (arquivos) {
 
     // console.log('>>>>>>>>>>>>>common', commons);
     // console.log('>>>>>>>>>>>>>modelo', modelos);
-    /*
-     app.modelo = {};
-     arquivos.filter(file => {return file.indexOf('modelo.js') >= 0}).forEach(modelo => {
-     let name = path.basename(modelo).split('.')[0];
-     app.modelo[name] = require(modelo)(app);
-     });
 
-     app.common = {};
-     arquivos.filter(file => {return file.indexOf('common') >= 0}).forEach(common => {
-     let name = path.basename(common).split('.')[0];
-     app.common[name] = require(common)(app);
-     });
+     // app.modelo = {};
+     // arquivos.filter(file => {return file.indexOf('modelo.js') >= 0}).forEach(modelo => {
+     // let name = path.basename(modelo).split('.')[0];
+     // app.modelo[name] = require(modelo)(app);
+     // });
 
-     app.services = {};
-     arquivos.filter(file => {return file.indexOf('Service.js') >= 0}).forEach(service => {
-     let name = path.basename(service).split('.')[0];
-     app.services[name] = require(service)(app);
-     });
+     // app.common = {};
+     // arquivos.filter(file => {return file.indexOf('common') >= 0}).forEach(common => {
+     // let name = path.basename(common).split('.')[0];
+     // app.common[name] = require(common)(app);
+     // });
+    const carregarModulos = (dir, fileList = [], pai, busca) => {
+        console.log('dir:', dir);
+        fs.readdirSync(dir).forEach(file => {
+            console.log('file:', file);
+            const filePath = path.join(dir, file);
+            if(fs.statSync(filePath).isDirectory()) {
+                carregarModulos(filePath, fileList, pai, busca)
+            }else{
+                if (filePath.indexOf(busca) >= 0) {
+                    let modulo = require(filePath);
+                    let name = path.basename(filePath).split('.')[0];
+                    pai[name] = modulo;
+                    console.log('Carregado:', name);
+                }
+            }
+        });
+        return fileList
+    };
 
-     app.controllers = {};
-     arquivos.filter(file => {return file.indexOf('Controller.js') >= 0}).forEach(controller => {
-     let name = path.basename(controller).split('.')[0];
-     app.controllers[name] = require(controller)(app);
-     });
 
-     app.routes = {};
-     arquivos.filter(file => {return file.indexOf('Route.js') >= 0}).forEach(route => {
-     let name = path.basename(route).split('.')[0];
-     app.routes[name] = require(route)(app);
-     });
-     */
+    app.services = {};
+    app.controllers = {};
+    app.routes = {};
+    carregarModulos(path.join(appDir, 'app'), [], app.services, 'Service.js');
+    carregarModulos(path.join(appDir, 'app'), [], app.controllers, 'Controller.js');
+    carregarModulos(path.join(appDir, 'app'), [], app.routes, 'Route.js');
+
+     // app.services = {};
+     // arquivos.filter(file => {return file.indexOf('Service.js') >= 0}).forEach(service => {
+     // let name = path.basename(service).split('.')[0];
+     // app.services[name] = require(service)(app);
+     // });
+
+     // app.controllers = {};
+     // arquivos.filter(file => {return file.indexOf('Controller.js') >= 0}).forEach(controller => {
+     // let name = path.basename(controller).split('.')[0];
+     // app.controllers[name] = require(controller)(app);
+     // });
+
+     // app.routes = {};
+     // arquivos.filter(file => {return file.indexOf('Route.js') >= 0}).forEach(route => {
+     // let name = path.basename(route).split('.')[0];
+     // app.routes[name] = require(route)(app);
+     // });
+
 
     // app.get('*', function(req,res) {
     //     res.status(404).render('404.ejs');
