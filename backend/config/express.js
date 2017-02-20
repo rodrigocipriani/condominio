@@ -37,7 +37,20 @@ module.exports = function (arquivos) {
 
     // app.use(cookieParser(config.secretCookie));
 
+
     //permite chamadas ajax de outros hosts
+    app.use(cors({
+        origin: function (origin, callback) {
+            let domains = ['localhost', 'disec', 'usi', 'usi3', 'usi4', 'infra.servicos'];
+            let isAuthorized = !!domains.filter(function (domain) {
+                let bbDomain = '.bb.com.br';
+                let bbIntranetDomain = domain + '.intranet' + bbDomain;
+                return new RegExp(domain + bbIntranetDomain).test(origin) || new RegExp(domain + bbDomain).test(origin);
+            });
+            callback(isAuthorized ? null : 'Bad request', isAuthorized);
+        },
+        credentials: true
+    }));
     // app.use(cors({
     //     origin: [
     //         'http://localhost.bb.com.br',
@@ -96,37 +109,37 @@ module.exports = function (arquivos) {
 
     // console.log('>>>>>>>>>>>>>common', commons);
     // console.log('>>>>>>>>>>>>>modelo', modelos);
-/*
-    app.modelo = {};
-    arquivos.filter(file => {return file.indexOf('modelo.js') >= 0}).forEach(modelo => {
-        let name = path.basename(modelo).split('.')[0];
-        app.modelo[name] = require(modelo)(app);
-    });
+    /*
+     app.modelo = {};
+     arquivos.filter(file => {return file.indexOf('modelo.js') >= 0}).forEach(modelo => {
+     let name = path.basename(modelo).split('.')[0];
+     app.modelo[name] = require(modelo)(app);
+     });
 
-    app.common = {};
-    arquivos.filter(file => {return file.indexOf('common') >= 0}).forEach(common => {
-        let name = path.basename(common).split('.')[0];
-        app.common[name] = require(common)(app);
-    });
+     app.common = {};
+     arquivos.filter(file => {return file.indexOf('common') >= 0}).forEach(common => {
+     let name = path.basename(common).split('.')[0];
+     app.common[name] = require(common)(app);
+     });
 
-    app.services = {};
-    arquivos.filter(file => {return file.indexOf('Service.js') >= 0}).forEach(service => {
-        let name = path.basename(service).split('.')[0];
-        app.services[name] = require(service)(app);
-    });
+     app.services = {};
+     arquivos.filter(file => {return file.indexOf('Service.js') >= 0}).forEach(service => {
+     let name = path.basename(service).split('.')[0];
+     app.services[name] = require(service)(app);
+     });
 
-    app.controllers = {};
-    arquivos.filter(file => {return file.indexOf('Controller.js') >= 0}).forEach(controller => {
-        let name = path.basename(controller).split('.')[0];
-        app.controllers[name] = require(controller)(app);
-    });
+     app.controllers = {};
+     arquivos.filter(file => {return file.indexOf('Controller.js') >= 0}).forEach(controller => {
+     let name = path.basename(controller).split('.')[0];
+     app.controllers[name] = require(controller)(app);
+     });
 
-    app.routes = {};
-    arquivos.filter(file => {return file.indexOf('Route.js') >= 0}).forEach(route => {
-        let name = path.basename(route).split('.')[0];
-        app.routes[name] = require(route)(app);
-    });
-*/
+     app.routes = {};
+     arquivos.filter(file => {return file.indexOf('Route.js') >= 0}).forEach(route => {
+     let name = path.basename(route).split('.')[0];
+     app.routes[name] = require(route)(app);
+     });
+     */
 
     // app.get('*', function(req,res) {
     //     res.status(404).render('404.ejs');

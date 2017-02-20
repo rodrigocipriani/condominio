@@ -1,13 +1,11 @@
-
-var
-    config      = require('../../config/config'),
-    path        = require("path"),
-    fs          = require("fs"),
-    Sequelize   = require("sequelize"),
-    sequelize   = null,
-    modelo      = null,
-    cls         = require('continuation-local-storage');
-    namespace   = cls.createNamespace('cls-mysql-usi');
+const config      = require('../../config/config');
+const path        = require('path');
+const fs          = require('fs');
+const cls         = require('continuation-local-storage');
+const namespace   = cls.createNamespace('cls-mysql-usi');
+const Sequelize   = require("sequelize");
+let sequelize   = null;
+let modelo      = null;
 
 
 module.exports = function (app) {
@@ -20,8 +18,8 @@ module.exports = function (app) {
             sequelize                          = new Sequelize(config.mysql.db, config.mysql.usuario, config.mysql.senha, config.mysql.config);
             sequelize.dialect.supports.schemas = true;
         }
-        var db = {};
-        var diretorios = fs.readdirSync(__dirname).filter(function (file) {
+        let db = {};
+        let diretorios = fs.readdirSync(__dirname).filter(function (file) {
             return fs.statSync(path.join(__dirname, file)).isDirectory();
         });
 
@@ -32,7 +30,7 @@ module.exports = function (app) {
                     return (file.indexOf(".") !== 0) && (file !== "modelo.js") && (file !== 'auto');
                 })
                 .forEach(function (file) {
-                    var model = sequelize.import(path.join(__dirname, diretorio, file));
+                    let model = sequelize.import(path.join(__dirname, diretorio, file));
                     console.log("model",  model);
                     db[model.name] = model;
                 });
@@ -64,7 +62,7 @@ module.exports = function (app) {
 //         return (file.indexOf(".") !== 0) && (file !== "modelo.js") && (file !== 'auto');
 //     })
 //     .forEach(function (file) {
-//         var model = sequelize.import(path.join(__dirname, file));
+//         let model = sequelize.import(path.join(__dirname, file));
 //         console.log("modelo", model);
 //         db[model.name] = model;
 //     });
