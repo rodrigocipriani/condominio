@@ -12,6 +12,7 @@ const session = require('express-session');
 const compression = require('compression');
 const modRewrite = require('connect-modrewrite');
 const redisStore = require('connect-redis')(session);
+const passport = require('passport');
 const cliente = redis.createClient(config.redis.port, config.redis.host, {
     auth_pass: config.redis.pass,
     no_ready_check: true
@@ -31,6 +32,7 @@ module.exports = function (serverDir) {
     app.use(compression());
 
     app.use(express.static('./frontend/public'));
+    app.use(express.static('./static/'));
 
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
@@ -68,8 +70,18 @@ module.exports = function (serverDir) {
     //     credentials: true
     // }));
 
+    // load passport strategies
+    const localSignupStrategy = require('../app/modulos/autenticacao/passport/local-signup');
+    const localLoginStrategy = require('../app/modulos/autenticacao/passport/local-login');
+    passport.use('local-signup', localSignupStrategy);
+    passport.use('local-login', localLoginStrategy);
+
+// pass the authenticaion checker middleware
+    const authCheckMiddleware = require('../app/modulos/autenticacao/middleware/auth-check');
+    app.use('/api', authCheckMiddleware);
+
     var configuracaoRedis = config.redis;
-        configuracaoRedis.client = cliente;
+    configuracaoRedis.client = cliente;
     app.use(session(
         {
             secret: config.secretSession,
@@ -79,7 +91,7 @@ module.exports = function (serverDir) {
         }
     ));
 
-    app.use(helmet.hidePoweredBy({ setTo: 'Cobol' }));
+    app.use(helmet.hidePoweredBy({setTo: 'Cobol'}));
 
     // app.use(modRewrite(['!/api|/assets|\\.html|\\.js|\\.css|\\woff|\\ttf|\\swf$ /index.html'
     //     // '!\\.\\w+$ /index.html [L]'
@@ -104,9 +116,9 @@ module.exports = function (serverDir) {
     const carregarModulos = (dir, fileList = [], pai, busca) => {
         fs.readdirSync(dir).forEach(file => {
             const filePath = path.join(dir, file);
-            if(fs.statSync(filePath).isDirectory()) {
+            if (fs.statSync(filePath).isDirectory()) {
                 carregarModulos(filePath, fileList, pai, busca)
-            }else{
+            } else {
                 if (filePath.indexOf(busca) >= 0) {
                     let modulo = require(filePath)(app);
                     let name = path.basename(filePath).split('.')[0];
@@ -128,20 +140,20 @@ module.exports = function (serverDir) {
     carregarModulos(appDir, [], app.controllers, 'Controller.js');
     carregarModulos(appDir, [], app.routes, 'Route.js');
 
-    app.get('*', function(req,res) {
+    app.get('*', function (req, res) {
         res.status(404).render('404.ejs');
     });
 
     // tratamento de erros
-    app.use(function(erro, req, res, next){
+    app.use(function (erro, req, res, next) {
         console.log(erro.stack);
         if (res.headersSent) {
-           return next(erro);
+            return next(erro);
         }
         res.status(500);
-        if(erro.chave){
+        if (erro.chave) {
             res.send({mensagens: [{tipo: 'danger', chave: erro.chave}]});
-        }else{
+        } else {
             res.send({mensagens: [{tipo: 'danger', texto: erro.message}]});
         }
     });
