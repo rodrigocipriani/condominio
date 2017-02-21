@@ -8,8 +8,6 @@ module.exports = function (app) {
 
     controller.findOne = (req, res) => {
 
-        console.log('UserService', UserService);
-
         const email = req.params.email;
 
         UserService.findOne({email}).then(function (user) {
