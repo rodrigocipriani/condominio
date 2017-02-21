@@ -1,4 +1,3 @@
-const config = require('../config/config');
 const path = require('path');
 const fs = require('fs');
 const cls = require('continuation-local-storage');
@@ -6,6 +5,9 @@ const namespace = cls.createNamespace('cls-mysql-usi');
 const Sequelize = require("sequelize");
 let sequelize = null;
 let models = null;
+
+const config = require('../config/config');
+const configExpress = config.CONFIG_EXPRESS;
 
 module.exports = function (app) {
 
@@ -20,7 +22,7 @@ module.exports = function (app) {
     if (!models) {
         if (!sequelize) {
             Sequelize.cls = namespace;
-            sequelize = new Sequelize(config.mysql.db, config.mysql.usuario, config.mysql.senha, config.mysql.config);
+            sequelize = new Sequelize(configExpress.mysql.db, configExpress.mysql.usuario, configExpress.mysql.senha, configExpress.mysql.config);
             sequelize.dialect.supports.schemas = true;
         }
         let db = {};

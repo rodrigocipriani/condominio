@@ -1,4 +1,3 @@
-const config = require('./config');
 const express = require('express');
 const cors = require('cors');
 const redis = require("redis");
@@ -13,8 +12,12 @@ const compression = require('compression');
 const modRewrite = require('connect-modrewrite');
 const redisStore = require('connect-redis')(session);
 const passport = require('passport');
-const cliente = redis.createClient(config.redis.port, config.redis.host, {
-    auth_pass: config.redis.pass,
+
+const config = require('./config');
+const configExpress = config.CONFIG_EXPRESS;
+
+const cliente = redis.createClient(configExpress.redis.port, configExpress.redis.host, {
+    auth_pass: configExpress.redis.pass,
     no_ready_check: true
 });
 
@@ -38,7 +41,7 @@ module.exports = function (serverDir) {
     app.use(bodyParser.json());
     app.use(require('method-override')());
 
-    app.use(cookieParser(config.secretCookie));
+    app.use(cookieParser(configExpress.secretCookie));
 
 
     //permite chamadas ajax de outros hosts
@@ -80,11 +83,11 @@ module.exports = function (serverDir) {
     const authCheckMiddleware = require('../app/modulos/autenticacao/middleware/auth-check');
     app.use('/api', authCheckMiddleware);
 
-    var configuracaoRedis = config.redis;
+    var configuracaoRedis = configExpress.redis;
     configuracaoRedis.client = cliente;
     app.use(session(
         {
-            secret: config.secretSession,
+            secret: configExpress.secretSession,
             store: new redisStore(configuracaoRedis),
             resave: false,
             saveUninitialized: false
