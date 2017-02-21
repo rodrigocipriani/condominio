@@ -17,7 +17,7 @@ const cliente = redis.createClient(config.redis.port, config.redis.host, {
     no_ready_check: true
 });
 
-module.exports = function (appDir) {
+module.exports = function (serverDir) {
 
     var app = express();
     var port = process.env.PORT || 3005;
@@ -118,15 +118,15 @@ module.exports = function (appDir) {
         return fileList
     };
 
-
+    let appDir = path.join(serverDir, 'app');
     app.services = {};
     app.controllers = {};
     app.routes = {};
     app.common = {};
-    carregarModulos(path.join(appDir, 'app'), [], app.common, 'common.js');
-    carregarModulos(path.join(appDir, 'app'), [], app.services, 'Service.js');
-    carregarModulos(path.join(appDir, 'app'), [], app.controllers, 'Controller.js');
-    carregarModulos(path.join(appDir, 'app'), [], app.routes, 'Route.js');
+    carregarModulos(appDir, [], app.common, 'common.js');
+    carregarModulos(appDir, [], app.services, 'Service.js');
+    carregarModulos(appDir, [], app.controllers, 'Controller.js');
+    carregarModulos(appDir, [], app.routes, 'Route.js');
 
     app.get('*', function(req,res) {
         res.status(404).render('404.ejs');
