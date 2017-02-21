@@ -28,15 +28,15 @@ module.exports = function (appDir) {
 
 
     //compressão do response, performance
-    // app.use(compression());
+    app.use(compression());
 
     app.use(express.static('./frontend/public'));
 
-    // app.use(bodyParser.urlencoded({extended: true}));
-    // app.use(bodyParser.json());
-    // app.use(require('method-override')());
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+    app.use(require('method-override')());
 
-    // app.use(cookieParser(config.secretCookie));
+    app.use(cookieParser(config.secretCookie));
 
 
     //permite chamadas ajax de outros hosts
@@ -68,18 +68,18 @@ module.exports = function (appDir) {
     //     credentials: true
     // }));
 
-    // var configuracaoRedis = config.redis;
-    //     configuracaoRedis.client = cliente;
-    // app.use(session(
-    //     {
-    //         secret: config.secretSession,
-    //         store: new redisStore(configuracaoRedis),
-    //         resave: false,
-    //         saveUninitialized: false
-    //     }
-    // ));
+    var configuracaoRedis = config.redis;
+        configuracaoRedis.client = cliente;
+    app.use(session(
+        {
+            secret: config.secretSession,
+            store: new redisStore(configuracaoRedis),
+            resave: false,
+            saveUninitialized: false
+        }
+    ));
 
-    // app.use(helmet.hidePoweredBy({ setTo: 'Cobol' }));
+    app.use(helmet.hidePoweredBy({ setTo: 'Cobol' }));
 
     // app.use(modRewrite(['!/api|/assets|\\.html|\\.js|\\.css|\\woff|\\ttf|\\swf$ /index.html'
     //     // '!\\.\\w+$ /index.html [L]'
@@ -95,33 +95,12 @@ module.exports = function (appDir) {
         verbose: true
     })
         .include('models.js')
-        .then('common')
-        .then('services')
-        .then('controllers')
-        .then('routes')
+        // .then('common')
+        // .then('services')
+        // .then('controllers')
+        // .then('routes')
         .into(app);
 
-
-    // const modelos = arquivos.filter(file => {return file.indexOf('modelo.js') >= 0});
-    // const commons = arquivos.filter(file => {return file.indexOf('common') >= 0});
-    // const services = arquivos.filter(file => {return file.indexOf('Service.js') >= 0});
-    // const controllers = arquivos.filter(file => {return file.indexOf('Controller.js') >= 0});
-    // const routes = arquivos.filter(file => {return file.indexOf('Route.js') >= 0});
-
-    // console.log('>>>>>>>>>>>>>common', commons);
-    // console.log('>>>>>>>>>>>>>modelo', modelos);
-
-     // app.modelo = {};
-     // arquivos.filter(file => {return file.indexOf('modelo.js') >= 0}).forEach(modelo => {
-     // let name = path.basename(modelo).split('.')[0];
-     // app.modelo[name] = require(modelo)(app);
-     // });
-
-     // app.common = {};
-     // arquivos.filter(file => {return file.indexOf('common') >= 0}).forEach(common => {
-     // let name = path.basename(common).split('.')[0];
-     // app.common[name] = require(common)(app);
-     // });
     const carregarModulos = (dir, fileList = [], pai, busca) => {
         fs.readdirSync(dir).forEach(file => {
             const filePath = path.join(dir, file);
@@ -129,7 +108,7 @@ module.exports = function (appDir) {
                 carregarModulos(filePath, fileList, pai, busca)
             }else{
                 if (filePath.indexOf(busca) >= 0) {
-                    let modulo = require(filePath);
+                    let modulo = require(filePath)(app);
                     let name = path.basename(filePath).split('.')[0];
                     pai[name] = modulo;
                     console.log('Carregado:', name);
@@ -139,49 +118,33 @@ module.exports = function (appDir) {
         return fileList
     };
 
-/*
+
     app.services = {};
     app.controllers = {};
     app.routes = {};
+    app.common = {};
+    carregarModulos(path.join(appDir, 'app'), [], app.common, 'common.js');
     carregarModulos(path.join(appDir, 'app'), [], app.services, 'Service.js');
     carregarModulos(path.join(appDir, 'app'), [], app.controllers, 'Controller.js');
     carregarModulos(path.join(appDir, 'app'), [], app.routes, 'Route.js');
-*/
-     // app.services = {};
-     // arquivos.filter(file => {return file.indexOf('Service.js') >= 0}).forEach(service => {
-     // let name = path.basename(service).split('.')[0];
-     // app.services[name] = require(service)(app);
-     // });
 
-     // app.controllers = {};
-     // arquivos.filter(file => {return file.indexOf('Controller.js') >= 0}).forEach(controller => {
-     // let name = path.basename(controller).split('.')[0];
-     // app.controllers[name] = require(controller)(app);
-     // });
+    app.get('*', function(req,res) {
+        res.status(404).render('404.ejs');
+    });
 
-     // app.routes = {};
-     // arquivos.filter(file => {return file.indexOf('Route.js') >= 0}).forEach(route => {
-     // let name = path.basename(route).split('.')[0];
-     // app.routes[name] = require(route)(app);
-     // });
-
-
-    // app.get('*', function(req,res) {
-    //     res.status(404).render('404.ejs');
-    // });
     // tratamento de erros
-    // app.use(function(erro, req, res, next){
-    //     console.log(erro.stack);
-    //     if (res.headersSent) {
-    //        return next(erro);
-    //     }
-    //     res.status(500);
-    //     if(erro.chave){
-    //         res.send({mensagens: [{tipo: 'danger', chave: erro.chave}]});
-    //     }else{
-    //         res.send({mensagens: [{tipo: 'danger', texto: erro.message}]});
-    //     }
-    // });
+    app.use(function(erro, req, res, next){
+        console.log(erro.stack);
+        if (res.headersSent) {
+           return next(erro);
+        }
+        res.status(500);
+        if(erro.chave){
+            res.send({mensagens: [{tipo: 'danger', chave: erro.chave}]});
+        }else{
+            res.send({mensagens: [{tipo: 'danger', texto: erro.message}]});
+        }
+    });
     return app;
 
 };
