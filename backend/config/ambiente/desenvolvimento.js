@@ -8,7 +8,7 @@ module.exports = {
     mysql: {
         usuario: user,
         senha: pwd,
-        db: 'global',
+        db: 'condominio',
         config: {
             host: 'localhost',
             port: 3306,

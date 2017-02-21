@@ -96,9 +96,9 @@ module.exports = function (appDir) {
     })
         .include('models.js')
         .then('common')
-        // .then('services.js')
-        // .then('controllers')
-        // .then('routes')
+        .then('services.js')
+        .then('controllers')
+        .then('routes')
         .into(app);
 
 
@@ -123,9 +123,7 @@ module.exports = function (appDir) {
      // app.common[name] = require(common)(app);
      // });
     const carregarModulos = (dir, fileList = [], pai, busca) => {
-        console.log('dir:', dir);
         fs.readdirSync(dir).forEach(file => {
-            console.log('file:', file);
             const filePath = path.join(dir, file);
             if(fs.statSync(filePath).isDirectory()) {
                 carregarModulos(filePath, fileList, pai, busca)
@@ -141,14 +139,14 @@ module.exports = function (appDir) {
         return fileList
     };
 
-
+/*
     app.services = {};
     app.controllers = {};
     app.routes = {};
     carregarModulos(path.join(appDir, 'app'), [], app.services, 'Service.js');
     carregarModulos(path.join(appDir, 'app'), [], app.controllers, 'Controller.js');
     carregarModulos(path.join(appDir, 'app'), [], app.routes, 'Route.js');
-
+*/
      // app.services = {};
      // arquivos.filter(file => {return file.indexOf('Service.js') >= 0}).forEach(service => {
      // let name = path.basename(service).split('.')[0];

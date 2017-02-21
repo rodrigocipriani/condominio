@@ -1,9 +1,11 @@
 'use strict';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 var desenvolvimento = require('./ambiente/desenvolvimento'),
             homologacao = require('./ambiente/homologacao'),
             producao = require('./ambiente/producao');
 
             // process.env.NODE_ENV='DESENVOLVIMENTO';
 
-module.exports = process.env.NODE_ENV == 'DESENVOLVIMENTO' ? desenvolvimento: producao;
+module.exports = isProduction ? producao : desenvolvimento;
