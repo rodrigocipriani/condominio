@@ -96,7 +96,7 @@ module.exports = function (appDir) {
     })
         .include('models.js')
         .then('common')
-        .then('services.js')
+        .then('services')
         .then('controllers')
         .then('routes')
         .into(app);

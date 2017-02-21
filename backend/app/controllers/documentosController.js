@@ -6,6 +6,8 @@ module.exports = function (app) {
     const controller = {};
     const DocumentosService = app.services.documentosService;
 
+    console.log('DocumentosService', DocumentosService);
+
     controller.findAllPbms = function (req, res) {
 
         console.log(DocumentosService);
