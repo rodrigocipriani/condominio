@@ -74,14 +74,14 @@ module.exports = function (serverDir) {
     // }));
 
     // load passport strategies
-    const localSignupStrategy = require('../app/modulos/autenticacao/passport/local-signup');
-    const localLoginStrategy = require('../app/modulos/autenticacao/passport/local-login');
-    passport.use('local-signup', localSignupStrategy);
-    passport.use('local-login', localLoginStrategy);
+    // const localSignupStrategy = require('../app/modulos/autenticacao/passport/local-signup');
+    // const localLoginStrategy = require('../app/modulos/autenticacao/passport/local-login');
+    // passport.use('local-signup', localSignupStrategy);
+    // passport.use('local-login', localLoginStrategy);
 
 // pass the authenticaion checker middleware
-    const authCheckMiddleware = require('../app/modulos/autenticacao/middleware/auth-check');
-    app.use('/api', authCheckMiddleware);
+//     const authCheckMiddleware = require('../app/modulos/autenticacao/middleware/auth-check');
+//     app.use('/api', authCheckMiddleware);
 
     var configuracaoRedis = configExpress.redis;
     configuracaoRedis.client = cliente;
@@ -102,6 +102,9 @@ module.exports = function (serverDir) {
 
     // console.log("@ - CARREGANDO ARQUIVOS", services, controllers, routes);
     // console.log("Fazer carregar estes arquivos para depois mudar para pastas por funcionalidade", services, controllers, routes);
+
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     consign({
         cwd: 'app',
@@ -136,11 +139,13 @@ module.exports = function (serverDir) {
     let appDir = path.join(serverDir, 'app');
     app.services = {};
     app.controllers = {};
+    app.passport = {};
     app.routes = {};
     app.common = {};
     carregarModulos(appDir, [], app.common, 'common.js');
     carregarModulos(appDir, [], app.services, 'Service.js');
     carregarModulos(appDir, [], app.controllers, 'Controller.js');
+    carregarModulos(appDir, [], app, 'passport.js');
     carregarModulos(appDir, [], app.routes, 'Route.js');
 
     app.get('*', function (req, res) {
