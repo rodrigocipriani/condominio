@@ -36,6 +36,7 @@ class LoginPage extends React.Component {
         const email = this.state.user.email;
         const password = this.state.user.password;
 
+        console.log('(TESTE)');
         autenticacaoActions.signin(email, password);
 
     }

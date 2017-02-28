@@ -2,14 +2,14 @@ import React, {Component, PropTypes} from "react";
 
 class Card extends Component{
     static propTypes = {
-        children: PropTypes.object,
+        // children: PropTypes.object,
         className: PropTypes.string,
         title: PropTypes.string,
         actions: PropTypes.object
     };
 
     static defaultProps = {
-        children: null,
+        // children: null,
         className: '',
         title: '',
         actions: ''

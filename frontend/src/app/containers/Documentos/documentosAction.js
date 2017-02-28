@@ -21,10 +21,10 @@ export const ExeploActionLocal = (tarefa, posicao) => {
 
 export function buscaDocumentos() {
     console.log('oiioioioiio');
-    createAssyncAction(actionTypes.BUSCA_DOCUMENTOS,
-        apiGeral.get('/documentos'),
-        {}
-    );
+    // createAssyncAction(actionTypes.BUSCA_DOCUMENTOS,
+    //     apiGeral.get('/documentos'),
+    //     {}
+    // );
     // return store.dispatch(
     //     {type: actionTypes.BUSCA_DOCUMENTOS}
     // )

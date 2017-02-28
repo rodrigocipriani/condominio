@@ -32,12 +32,28 @@ module.exports =() => {
 
     app.use(cookieParser(config.secretCookie));
 
-    // app.all("/*", function (req, res, next) {
+    // app.all("*", function (req, res, next) {
     //     res.header("Access-Control-Allow-Origin", "*");
     //     res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-    //     res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+    //     res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+    //     res.header("Access-Control-Allow-Credentials", true);
     //     return next();
     // });
+
+    app.use(cors({
+        origin: [
+            'http://localhost',
+            'http://127.0.0.1',
+            'http://localhost:8000',
+            'http://127.0.0.1:8000',
+            'localhost:8000',
+            '127.0.0.1:8000'
+        ],
+        //  allowedHeaders: ['Content-Type', 'Authorization'],
+        //   additionalHeaders: ['cache-control', 'x-requested-with'],
+        credentials: true
+
+    }));
 
 
     let configuracaoRedis = config.redis;
@@ -69,10 +85,10 @@ module.exports =() => {
     });
 
 
-    app.use((req,res, next) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        next();
-    });
+    // app.use((req,res, next) => {
+    //     res.header("Access-Control-Allow-Origin", "*");
+    //     next();
+    // });
 
     // tratamento de erros
     app.use((erro, req,res, next) => {
@@ -89,19 +105,6 @@ module.exports =() => {
             res.send({mensagens: [{tipo: 'danger', texto: erro.message}]});
         }
     });
-
-    app.use(cors({
-        origin: [
-            'http://localhost',
-            'http://127.0.0.1',
-            'http://localhost:8000',
-            'http://127.0.0.1:8000'
-        ],
-      //  allowedHeaders: ['Content-Type', 'Authorization'],
-     //   additionalHeaders: ['cache-control', 'x-requested-with'],
-        credentials: true
-
-    }));
     return app;
 };
 

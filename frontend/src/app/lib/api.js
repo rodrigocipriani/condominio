@@ -1,10 +1,13 @@
 import axios from 'axios';
 
 const api = (baseUrl) => {
-    console.log('create api ', baseUrl);
+    console.log('$$$$ create api ', baseUrl);
     let create = axios.create({
         baseURL: baseUrl,
         withCredentials: true,
+        headers: {
+            'Accept': 'application/json'
+        }
     });
 
     create.interceptors.request.use(request => request, error => {

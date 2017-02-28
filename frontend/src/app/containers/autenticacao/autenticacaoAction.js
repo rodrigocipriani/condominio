@@ -17,7 +17,6 @@ export const signup = (username, email, password) => {
 export const signin = (email, password) => {
     console.log('SIGNIN');
     createAssyncAction(actionTypes.SIGNIN,
-        apiGeral.post('/autenticacao', {email, password}),
-        {}
+        apiGeral.post('/autenticacao', {email, password})
     );
 };

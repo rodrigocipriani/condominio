@@ -2,11 +2,11 @@ import React, {Component, PropTypes} from "react";
 
 export default class Row extends Component{
     static propTypes = {
-        children: PropTypes.object
+        // children: PropTypes.object
     };
 
     static defaultProps = {
-        children: null
+        // children: null
     };
 
     render(){
