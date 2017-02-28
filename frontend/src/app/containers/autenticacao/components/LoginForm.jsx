@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
-import {Row, Col, Card, Button, TextField} from '../../../components/layout';
+import {Card, Button, TextField} from '../../../components/layout';
 
 const LoginForm = ({
     onSubmit,

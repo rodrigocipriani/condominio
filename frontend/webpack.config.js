@@ -9,7 +9,7 @@ const autoprefixer = require('autoprefixer');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 
-const port = 80;
+const port = 8000;
 const publicPath = isProduction ? '/' : '/';
 // const publicPath = isProduction ? '/condominio/' : '/';
 const appSourcePath = path.join(__dirname, './src/app');
