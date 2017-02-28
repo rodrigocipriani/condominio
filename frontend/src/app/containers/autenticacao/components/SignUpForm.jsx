@@ -1,60 +1,56 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-
+import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
+import {Row, Col, Card, Button, TextField} from '../../../components/layout';
 
 const SignUpForm = ({
     onSubmit,
     onChange,
     errors,
-    user,
+    user
 }) => (
-    <Card className="container">
-        <form action="/" onSubmit={onSubmit}>
-            <h2 className="card-heading">Sign Up</h2>
 
-            {errors.summary && <p className="error-message">{errors.summary}</p>}
+            <form action="/" onSubmit={onSubmit}>
+                <Card title="Criar nova conta" actions={
+                    <Button type="submit">Criar nova conta</Button>
+                }>
 
-            <div className="field-line">
-                <TextField
-                    floatingLabelText="Name"
-                    name="name"
-                    errorText={errors.name}
-                    onChange={onChange}
-                    value={user.name}
-                />
-            </div>
+                    <p>Já tem uma conta? <Link to={'/login'}>Entrar</Link></p>
 
-            <div className="field-line">
-                <TextField
-                    floatingLabelText="Email"
-                    name="email"
-                    errorText={errors.email}
-                    onChange={onChange}
-                    value={user.email}
-                />
-            </div>
 
-            <div className="field-line">
-                <TextField
-                    floatingLabelText="Password"
-                    type="password"
-                    name="password"
-                    onChange={onChange}
-                    errorText={errors.password}
-                    value={user.password}
-                />
-            </div>
+                    {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-            <div className="button-line">
-                <RaisedButton type="submit" label="Create New Account" primary />
-            </div>
+                    <br />
 
-            <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
-        </form>
-    </Card>
+                    <TextField
+                        sizes="s12"
+                        label="Nome"
+                        name="name"
+                        errorText={errors.name}
+                        onChange={onChange}
+                        value={user.name}
+                    />
+
+                    <TextField
+                        sizes="s12"
+                        label="E-mail"
+                        name="email"
+                        errorText={errors.email}
+                        onChange={onChange}
+                        value={user.email}
+                    />
+
+                    <TextField
+                        sizes="s12"
+                        label="Senha"
+                        type="password"
+                        name="password"
+                        onChange={onChange}
+                        errorText={errors.password}
+                        value={user.password}
+                    />
+
+                </Card>
+            </form>
 );
 
 SignUpForm.propTypes = {

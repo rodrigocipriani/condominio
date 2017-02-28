@@ -2,8 +2,9 @@ import {createAssyncAction} from '../../actionsHelper';
 import api  from 'lib/api';
 import {actionTypes} from './documentosActionTypes';
 import store from '../../store';
+import config from '../../config';
 
-const apiGeral = api.apiGeral;
+const apiGeral = api(config.url.api);
 
 // export const actionTypes = {
 //     BUSCA_DOCUMENTOS: 'BUSCA_DOCUMENTOS',

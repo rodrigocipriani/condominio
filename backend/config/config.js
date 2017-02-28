@@ -1,24 +1,9 @@
 'use strict';
 
-let apiPort, configExpress;
+let isProduction = process.env.NODE_ENV == 'production';
 
-// const isProduction = process.env.NODE_ENV === 'production';
-switch (process.env.AMBIENTE) {
-    case 'desenvolvimento' :
-        configExpress = require('./ambiente/desenvolvimento');
-        apiPort = 3005;
-        break;
-    case 'homologacao' :
-        configExpress = require('./ambiente/homologacao');
-        apiPort = 3005;
-        break;
-    case 'producao' :
-        configExpress = require('./ambiente/producao');
-        apiPort = 3005;
-        break;
-}
+const desenvolvimento = require('./ambiente/desenvolvimento'),
+      producao = require('./ambiente/producao');
 
-module.exports = {
-    CONFIG_EXPRESS: configExpress,
-    API_PORT: apiPort
-};
+
+module.exports = isProduction ? producao : desenvolvimento;

@@ -76,9 +76,9 @@ const rules = [
         use: 'file-loader?name=fonts/[name].[ext]'
     },{
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader!postcss-loader!sass-loader',
+        use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader!postcss-loader!sass-loader',
         }),
     }
 ];

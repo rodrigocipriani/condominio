@@ -1,9 +1,6 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-
+import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
+import {Row, Col, Card, Button, TextField} from '../../../components/layout';
 
 const LoginForm = ({
     onSubmit,
@@ -11,40 +8,40 @@ const LoginForm = ({
     errors,
     user
 }) => (
-    <Card className="container">
-        <form action="/" onSubmit={onSubmit}>
-            <h2 className="card-heading">Login</h2>
+
+    <form action="/" onSubmit={onSubmit}>
+        <Card title="Entrar" actions={
+            <Button type="submit">Entrar</Button>
+        }>
+
+            <p>Ainda não tem uma conta? <Link to={'/signup'}>Criar conta</Link></p>
+
 
             {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-            <div className="field-line">
-                <TextField
-                    floatingLabelText="Email"
-                    name="email"
-                    errorText={errors.email}
-                    onChange={onChange}
-                    value={user.email}
-                />
-            </div>
+            <br />
 
-            <div className="field-line">
-                <TextField
-                    floatingLabelText="Password"
-                    type="password"
-                    name="password"
-                    onChange={onChange}
-                    errorText={errors.password}
-                    value={user.password}
-                />
-            </div>
+            <TextField
+                sizes="s12"
+                label="E-mail"
+                name="email"
+                errorText={errors.email}
+                onChange={onChange}
+                value={user.email}
+            />
 
-            <div className="button-line">
-                <RaisedButton type="submit" label="Log in" primary />
-            </div>
+            <TextField
+                sizes="s12"
+                label="Senha"
+                type="password"
+                name="password"
+                onChange={onChange}
+                errorText={errors.password}
+                value={user.password}
+            />
 
-            <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
-        </form>
-    </Card>
+        </Card>
+    </form>
 );
 
 LoginForm.propTypes = {

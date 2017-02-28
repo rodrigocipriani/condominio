@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import SignUpForm from './components/SignUpForm.jsx';
+import * as autenticacaoActions from './autenticacaoAction';
 
 
 class SignUpPage extends React.Component {
@@ -48,44 +49,14 @@ class SignUpPage extends React.Component {
         // prevent default action. in this case, action is the form submission event
         event.preventDefault();
 
-        // create a string for an HTTP body message
-        const name = encodeURIComponent(this.state.user.name);
-        const email = encodeURIComponent(this.state.user.email);
-        const password = encodeURIComponent(this.state.user.password);
-        const formData = `name=${name}&email=${email}&password=${password}`;
+        const name = this.state.user.name;
+        const email = this.state.user.email;
+        const password = this.state.user.password;
 
-        // create an AJAX request
-        const xhr = new XMLHttpRequest();
-        xhr.open('post', 'http://localhost:3005/api/auth/signup');
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.responseType = 'json';
-        xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
-                // success
+        autenticacaoActions.signup(name, email, password);
 
-                // change the component-container state
-                this.setState({
-                    errors: {}
-                });
-
-                console.log('The form is valid');
-            } else {
-                // failure
-
-                const errors = xhr.response.errors ? xhr.response.errors : {};
-                errors.summary = xhr.response.message;
-
-                this.setState({
-                    errors
-                });
-            }
-        });
-        xhr.send(formData);
     }
 
-    /**
-     * Render the component.
-     */
     render() {
         return (
             <SignUpForm

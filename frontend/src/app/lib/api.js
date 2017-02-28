@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { API_URL } from '../config';
 
-const apiGenerico = (baseUrl) => {
+const api = (baseUrl) => {
     console.log('create api ', baseUrl);
     let create = axios.create({
         baseURL: baseUrl,
@@ -22,10 +21,6 @@ const apiGenerico = (baseUrl) => {
     });
 
     return create;
-};
-
-const api = {
-    apiGeral: apiGenerico(API_URL)
 };
 
 export default api;

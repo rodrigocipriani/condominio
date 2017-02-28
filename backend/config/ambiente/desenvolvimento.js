@@ -1,36 +1,54 @@
-var user = process.env.DB_USER,
-    pwd = process.env.DB_PWD;
-
 module.exports = {
     lib: {
         bcrypt: 'bcriptjs'
     },
-    mysql: {
-        usuario: user,
-        senha: pwd,
-        db: 'condominio',
-        config: {
-            host: 'localhost',
-            port: 3306,
-            dialect: 'mysql',
-            freezeTableName: true,
-            define: {timestamps: false},
-            pool: {
-                maxConnections: 10,
-                minConnections: 0,
-                maxIdleTime: 60
-            }
-        }
+    mailer: {
+        auth: {
+            user: 'aaa@gmail.com',
+            pass: 'aaa'
+        },
+        defaultFromAddress: 'nao_responda <nao_responda@guerra.com>'
     },
     redis: {
         host: 'localhost',
         port: 6379,
-        pass: ' ',
-        client: '',
-        ttl: 260
+        pass: '',
+        client: ''
+        // ttl :  260
     },
-    timezone: '-03:00',
+    /*
+     postgres: {
+     usuario: 'postgres',
+     senha: 'postgres',
+     db: 'condominio',
+     config: {
+     host: '127.0.0.1',
+     port: 5432,
+     dialect: 'postgres',
+     dialectOptions: {
+     ssl: true
+     },
+     // "logging": false,
+     freezeTableName: true,
+     define: {timestamps: false},
+     pool: {max: 9, min: 0, idle: 10000}
+     }
+     },
+     */
+    postgres: {
+        usuario: 'postgres',
+        senha: 'postgres',
+        db: 'condominio',
+        config: {
+            host: 'localhost',
+            port: 5432,
+            dialect: 'postgres',
+            freezeTableName: true,
+            define: {timestamps: false},
+            pool: {max: 100, min: 0, idle: 10000}
+        }
+    },
     secretSession: 'domingao faustao',
     secretCookie: 'pegadinha do malandro',
-    servidor: 'localhost:3005'
+    servidor: 'localhost:3000'
 };
