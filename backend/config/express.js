@@ -1,6 +1,3 @@
-/**
- * Created by ThiagoFernando on 24/03/2015.
- */
 const config      = require('./config'),
     express      = require('express'),
     cors         = require('cors'),
@@ -13,6 +10,7 @@ const config      = require('./config'),
     cliente      = redis.createClient(config.redis.port, config.redis.host, {auth_pass: config.redis.pass, no_ready_check: true}),
     passport     = require('passport');
 
+let isProduction = process.env.NODE_ENV == 'production';
 
 module.exports =() => {
 
@@ -66,10 +64,14 @@ module.exports =() => {
             saveUninitialized: false
         }
     ));
+
     app.use(passport.initialize());
     app.use(passport.session());
+
     //load('models/modelo.js', {cwd: 'app'})
-      consign ({cwd: 'app'})
+      consign ({
+          cwd: isProduction ? 'backend/app' : 'app'
+      })
      .include('models/modelo.js')
      //   .then('models/modelo.js')
         .then('util')
