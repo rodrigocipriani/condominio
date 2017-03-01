@@ -6,7 +6,6 @@ class Auth {
      * @param {string} token
      */
     static authenticateUser(token) {
-        console.log('salva token', token);
         localStorage.setItem('token', token);
     }
 
@@ -16,7 +15,6 @@ class Auth {
      * @returns {boolean}
      */
     static isUserAuthenticated() {
-        console.log('verifica token', localStorage.getItem('token'));
         return localStorage.getItem('token') !== null;
     }
 

@@ -32,7 +32,13 @@ module.exports = (app) => {
                 return res.status(401).end();
             }
 
-            const email = decoded.payload.email;
+            console.log(decoded)
+            let email = null;
+            if(decoded){
+                email = decoded.email;
+            }else{
+                return res.status(401).end();
+            }
             /*
              // check if a user exists
              return User.findById(userId, (userErr, user) => {

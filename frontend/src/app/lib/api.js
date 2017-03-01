@@ -2,7 +2,6 @@ import axios from 'axios';
 import Auth from '../containers/autenticacao/Auth';
 
 const api = (baseUrl) => {
-    console.log('$$$$ create api ', baseUrl);
     let create = axios.create({
         baseURL: baseUrl,
         withCredentials: true,

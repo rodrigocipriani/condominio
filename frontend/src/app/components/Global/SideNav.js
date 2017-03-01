@@ -8,12 +8,18 @@ import Menu from './Menu';
 var SideNav = React.createClass({
 
     propTypes: {
-        children: React.PropTypes.element
+        children: React.PropTypes.element,
+        userName: React.PropTypes.string,
+        userEmail: React.PropTypes.string,
+        userAvatarUrl: React.PropTypes.string
     },
 
     getDefaultProps: function () {
         return {
-            children: <div></div>
+            children: <div></div>,
+            userName: '',
+            userEmail: '',
+            userAvatarUrl: ''
         };
     },
 
@@ -25,7 +31,7 @@ var SideNav = React.createClass({
 
     render: function () {
 
-        const {children} = this.props;
+        const {children, userName, userEmail, userAvatarUrl} = this.props;
 
         const menuLAteral = (isFixed) => {
             return <ul id={!isFixed && 'slide-out'} className={['side-nav', (isFixed && 'fixed')].join(' ')}>
@@ -35,9 +41,9 @@ var SideNav = React.createClass({
                             <img src={bgCaymmi}/>
                         </div>
 
-                        {/*<a href="#!user"><img className="circle" src="images/yuna.jpg"/></a>*/}
-                        {/*<a href="#!name"><span className="white-text name">Caymmi</span></a>*/}
-                        {/*<a href="#!email"><span className="white-text email">contato@boulevardcaymmi.com.br</span></a>*/}
+                        <a href="#!user"><img className="circle" src={userAvatarUrl}/></a>
+                        <a href="#!name"><span className="white-text name">{userName}</span></a>
+                        <a href="#!email"><span className="white-text email">{userEmail}</span></a>
                     </div>
                 </li>
                 <li><h5 style={{textAlign: 'center'}}>Boulevard Caymmi</h5></li>

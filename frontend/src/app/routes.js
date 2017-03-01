@@ -40,7 +40,7 @@ export default class Routes extends Component {
         return (
             <Router history={ browserHistory }>
 
-                <Route path={ publicPath } component={ Auth.isUserAuthenticated() ? App : LoginPage }>
+                <Route path={ publicPath } component={ Auth.isUserAuthenticated() ? App : LoginPage } onEnter={appWillInit}>
 
                     <IndexRedirect to={Auth.isUserAuthenticated() ? routeCodes.DOCUMENTOS : routeCodes.LOGIN} />
 
