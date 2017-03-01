@@ -18,7 +18,7 @@ module.exports = (app) => {
     if (!modelo) {
         console.log('Inicializa modelos do pg');
         if (!sequelize) {
-            console.log('-> instancia sequelize com cls', config.postgres);
+            console.log('-> instancia sequelize com cls');
             Sequelize.cls = namespace;
             sequelize = new Sequelize(config.postgres.db, config.postgres.usuario, config.postgres.senha, config.postgres.config);
         }
