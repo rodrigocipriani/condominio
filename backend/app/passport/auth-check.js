@@ -19,6 +19,7 @@ module.exports = (app) => {
         if (!req.headers.authorization) {
             return res.status(401).end();
         }
+        console.log('req.headers222', req.headers.authorization);
 
         // get the last part from a authorization header string like "bearer token-value"
         // console.log('req.headers.authorization', req.headers.authorization);
