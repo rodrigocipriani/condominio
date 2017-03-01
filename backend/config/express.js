@@ -23,6 +23,7 @@ module.exports =() => {
     app.set('view engine', 'html'); // ejs
 
     app.use(express.static('./public'));
+    app.use(express.static('../frontend/dist'));
 
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
