@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import * as documentosAction from './documentosAction';
 import Painel from 'rc-react-elements/Painel';
+import {Card} from '../../components/layout';
 
 //Tirar daqui
 const estatuto = '/static/files/minuta-estatuto-associacao-dos-promitentes-compradores-do-residencial-conteporaneo-05-02-2016.pdf';
@@ -34,7 +35,7 @@ class Documentos extends Component {
 
         return (
             <div className='Documentos row'>
-                <h2>Documentos</h2>
+                <h3>Documentos</h3>
                 <hr />
 
                 <Painel titulo="Gerais" isOpen={true}>
@@ -44,7 +45,7 @@ class Documentos extends Component {
                                 <li className="collection-item">
                                     {documento.titulo}
                                     <a href={documento.url} target="_blank" className="secondary-content">
-                                        <i className="fa fa-lg fa-download" aria-hidden="true" />
+                                        <i className="fa fa-lg fa-download" aria-hidden="true"/>
                                     </a>
                                 </li>
                             );

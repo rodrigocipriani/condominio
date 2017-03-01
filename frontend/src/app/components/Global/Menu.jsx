@@ -9,17 +9,17 @@ export default class Menu extends Component {
             <ul>
                 <li>
                     <IndexLink className="waves-effect waves-ripple" to={ routeCodes.DOCUMENTOS }>
-                        Documentos
+                        <i className="fa fa-file-text-o" aria-hidden="true" /> Documentos
                     </IndexLink>
                 </li>
                 <li>
                     <IndexLink className="waves-effect waves-ripple" to={ routeCodes.FORUM }>
-                        Fórum
+                        <i className="fa fa-comments-o" aria-hidden="true" /> Fórum
                     </IndexLink>
                 </li>
                 <li>
                     <IndexLink className="waves-effect waves-ripple" to={ routeCodes.INDICACOES }>
-                        Indicações Serviços / Compras
+                        <i className="fa fa-briefcase" aria-hidden="true" /> Indicações (Serviços)
                     </IndexLink>
                 </li>
                 <li><div className="divider"></div></li>
