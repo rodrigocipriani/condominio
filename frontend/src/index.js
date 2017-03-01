@@ -9,12 +9,14 @@ import logger from './dev/logger';
 import rootReducer from 'reducers';
 import Routes from './app/routes';
 import DevTools from './dev/redux-dev-tools';
+import store from './app/store';
 
 // Load SCSS
 import './app/app.scss';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+/*
 // Creating store
 let store = null;
 
@@ -40,7 +42,7 @@ if (isProduction) {
     enhancer
   );
 }
-
+*/
 
 // Render it to DOM
 ReactDOM.render(

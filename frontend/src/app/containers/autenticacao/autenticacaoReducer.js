@@ -1,43 +1,25 @@
-import {Map} from 'immutable';
 import {actionTypes} from './autenticacaoActionTypes';
+import Auth from './Auth';
 
-const initialState = Map({
-    counter: 0
-});
-
+const initialState = {
+    usuario: null
+};
 const actionsMap = {
-    [actionTypes.BUSCA_DOCUMENTOS]: (state) => {
-        console.log('actionTypes.BUSCA_DOCUMENTOS');
 
-        const counter = state.get('counter') + 1;
+    [actionTypes.REQ_LOGGED_USER_SUCCESS]: (state, action) => {
+        console.log('actionTypes.REQ_LOGGED_USER_SUCCESS', action);
 
-        return state.merge({
-            counter,
-        });
+        return {...state, usuario: action.payload};
     },
 
-    // Async action
-    [actionTypes.BUSCA_DOCUMENTOS_START]: (state) => {
-        console.log('actionTypes.BUSCA_DOCUMENTOS_START');
-        return state.merge({
-            asyncLoading: true,
-            asyncError: null,
-        });
+    [actionTypes.SIGNIN_SUCCESS]: (state, action) => {
+        console.log('actionTypes.SIGNIN_SUCCESS', action);
+        // save the token
+        Auth.authenticateUser(action.payload);
+
+        return {...state};
     },
-    [actionTypes.BUSCA_DOCUMENTOS_ERROR]: (state, action) => {
-        console.log('actionTypes.BUSCA_DOCUMENTOS_ERROR');
-        return state.merge({
-            asyncLoading: false,
-            asyncError: action.data,
-        });
-    },
-    [actionTypes.BUSCA_DOCUMENTOS_SUCCESS]: (state, action) => {
-        console.log('actionTypes.BUSCA_DOCUMENTOS_SUCCESS');
-        return state.merge({
-            asyncLoading: false,
-            asyncData: action.data,
-        });
-    },
+
 };
 
 export default function reducer(state = initialState, action = {}) {
