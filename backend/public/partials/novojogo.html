@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            <legend class="text-muted text-center">{{'texto.novoJogo'|translate}}</legend>
+            <!--<div class="alert alert-success" ng-show="mensagem.texto">-->
+                <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
+                    <!--{{mensagem.texto}}-->
+            <!--</div>-->
+            <form ng-submit="criar()">
+                <div class="form-group">
+                    <label for="nome">{{'texto.nome'|translate}}:</label>
+                    <input autofocus class="form-control" type="text" id="nome" name="nome" required ng-model="jogo.nome">
+                </div>
+                <div class="form-group">
+                    <label for="cenario">{{'texto.cenario'|translate}}:</label>
+                    <select id="cenario" class="form-control" required ng-model="jogo.cenario" ng-options="cenario.id as cenario.nome | translate for cenario in cenarios" ng-change="carregarPersonagens()">
+                        <option value="">-- {{'texto.selecione'|translate}}--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{'texto.personagem'|translate}}:</label>
+                    <select id="personagem" class="form-control" required ng-model="jogo.personagem" ng-options="personagem.id as personagem.nome for personagem in personagens">
+                        <option value="" >-- {{'texto.selecione'|translate}}--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="maxJogadores">{{'texto.quantidadeJogadores'|translate}}:</label>
+                    <select id="maxJogadores" class="form-control" required ng-model="jogo.quantidade_jogadores" ng-options="maxJogador for maxJogador in maxJogadores">
+                        <option value="">-- {{'texto.selecione'|translate}}--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="maxTempo">{{'texto.tempoJogada'|translate}}:</label>
+                    <select id="maxTempo" class="form-control"  ng-model="jogo.tempo_maximo" ng-options="maxTempo.codigo as maxTempo.descricao for maxTempo in maxTempos" required>
+                        <option value="">-- {{'texto.selecione'|translate}}--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{{'texto.trocasUnificadas'|translate}}:</label>
+                    <span class="pull-right guerra-radiogroup">
+                        <input id="trocas-sim" name="trocas" type="radio" value="true" ng-model="jogo.trocas" required><label for="trocas-sim">{{'texto.sim'|translate}}</label>
+                        <input id="trocas-nao" name="trocas" type="radio" value="false" ng-model="jogo.trocas" required><label for="trocas-nao">{{'texto.nao'|translate}}</label>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>{{'texto.objetivos'|translate}}:</label>
+                    <span class="pull-right guerra-radiogroup">
+                        <input id="objetivo-sim" name="objetivos" type="radio" value="false"  ng-model="jogo.objetivo" required><label for="objetivo-sim">{{'texto.sim'|translate}}</label>
+                        <input id="objetivo-nao" name="objetivos" type="radio" value="true" ng-model="jogo.objetivo" required><label for="objetivo-nao">{{'texto.nao'|translate}}</label>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>{{'texto.dadoExtra'|translate}}:</label>
+                    <span class="pull-right guerra-radiogroup">
+                        <input id="dado-extra-sim" name="dadoExtra" type="radio" value="true" ng-model="jogo.dado_extra" required><label for="dado-extra-sim">{{'texto.sim'|translate}}</label>
+                        <input id="dado-extra-nao" name="dadoExtra" type="radio" value="false" ng-model="jogo.dado_extra" required><label for="dado-extra-nao">{{'texto.nao'|translate}}</label>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="nome">{{'texto.senha'|translate}}:</label>
+                    <input type="password" class="form-control" id="senha" name="senha" required ng-model="jogo.senha">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-primary">{{'texto.salvar'|translate}}</button>
+                    <a href="#/jogos" class="btn btn-block btn-default">{{'texto.voltar'|translate}}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

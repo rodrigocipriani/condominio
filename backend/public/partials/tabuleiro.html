@@ -1,0 +1,209 @@
+<div style="position:relative;" ng-cloak ng-controller="TabuleiroController">
+    <!--testes
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+            <span class="navbar-header pull-left navbar-text truncar-texto col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                {{'texto.vezDe'|translate}}: <b>{{jogadorVez.nome}}</b>
+            </span>
+            <span class="navbar-header pull-right">
+                <button type="button" class="btn btn-default navbar-btn btn-circular" ng-click="voltar()" title="{{'texto.voltar'|translate}}">
+                    <i class="fi-home"></i>
+                </button>
+                <button type="button" class="btn btn-default navbar-btn btn-circular" ng-click="consultarJogadasModal()" title="{{'texto.consultarJogadas'|translate}}">
+                    <i class="fi-die-five"></i>
+                </button>
+                <button type="button" class="btn btn-default navbar-btn btn-circular" ng-click="consultarObjetivo()" title="{{'texto.objetivo'|translate}}">
+                    <i class="fi-checkbox"></i>
+                </button>
+                <button type="button" class="btn btn-default navbar-btn btn-circular" ng-click="vmIndex.logout()" title="{{'texto.sair'|translate}}">
+                    <i class="glyphicon glyphicon-log-out" style="font-size:11px;top:0;" ></i>
+                </button>
+             </span>
+        </div>
+    </nav>
+     -->
+    <!-- fim dos testes -->
+
+    <mapa territorios="tabuleiro" on-click-callback="onClickMapa" ng-if="tabuleiro" caminho-mapa="mapas/mundi2.topojson">
+    </mapa>
+    <!-- vez de -->
+    <div class="menu-lateral-esquerda col-xs-10 col-sm-10 col-md-10 col-lg-10" style="font-size: 1.2em;"> <!-- xs (phones), sm (tablets), md (desktops), and lg (larger desktops).-->
+        {{'texto.vezDe'|translate}}: <b>{{jogadorVez.nome}}</b>
+    </div>
+    <!-- botoes -->
+    <div class="menu-lateral-esquerda btn-group-vertical" style="top: 35px;">
+        <button type="button" class="btn btn-default btn-circular navbar-btn" ng-click="vmIndex.logout()" title="{{'texto.sair'|translate}}">
+            <i class="glyphicon glyphicon-log-out" style="font-size:11px;top:0;" ></i>
+        </button>
+        <button type="button" class="btn btn-default btn-circular navbar-btn" ng-click="voltar()" title="{{'texto.voltar'|translate}}">
+            <i class="glyphicon glyphicon-home"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-circular navbar-btn" ng-click="consultarJogadasModal()" title="{{'texto.consultarJogadas'|translate}}">
+            <i class="guerra guerra-dado fonte10" style="top:5px;"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-circular navbar-btn" ng-click="consultarObjetivo()" title="{{'texto.objetivo'|translate}}">
+            <i class="glyphicon glyphicon-check"></i>
+        </button>
+        <!-- botão iniciar distribuição -->
+        <button type="button" class="btn btn-primary btn-circular navbar-btn" ng-click="iniciarVez()" ng-show="mostrarBotaoIniciar" title="{{'texto.iniciar'|translate}}">
+            <i class="glyphicon glyphicon-play"></i>
+        </button>
+        <!-- botão terminar distribuição -->
+        <button type="button" class="btn btn-success btn-circular navbar-btn" ng-click="gravarExercitosDistribuidos()" ng-show="mostrarBotaoTerminarDistribuir" title="{{'texto.terminarDistribuicao'|translate}}">
+            <i class="glyphicon glyphicon-ok"></i>
+        </button>
+        <!-- botoes de ataque -->
+        <button type="button" class="btn btn-success btn-circular navbar-btn" ng-click="atacarInimigo()" ng-show="mostrarBotaoAtacar &&  exercitosTransferirSel > 0" title="{{'texto.atacar'|translate}}"  ng-if="mostrarFaseAtaque">
+            <i class="guerra guerra-soldado fonte10"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-circular navbar-btn" ng-click="pararAtaque()" title="{{'texto.pararAtaque'|translate}}" ng-if="mostrarFaseAtaque">
+            <i class="guerra guerra-bandeira-direita fonte10"></i>
+        </button>
+        <!-- remanejar -->
+        <button type="button" class="btn btn-danger btn-circular navbar-btn" ng-click="finalizarJogada()" ng-if="mostrarFaseRemanejamento" title="{{'texto.terminarJogada'|translate}}">
+            <i class="glyphicon glyphicon-stop"></i>
+        </button>
+    </div>
+
+    <div class="menu-lateral-direita quadro sombra container-fluid col-xs-5 col-sm-4 col-md-2 col-lg-2"
+         data-ng-show="mostrarCartas || mostrarFaseAtaque || mostrarFaseRemanejamento || mostrarExercitosDistribuir">
+        <!-- cartas -->
+        <div ng-show="mostrarCartas">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="nav-item label-default titulo">{{'texto.cartas' | translate}}</li>
+            </ul>
+            <div ng-repeat="carta in cartasJogador">
+                <input type="checkbox" ng-model="cartaSelecionada[$index]"
+                       ng-change="selecionarCartas($index, carta)">
+                <label>
+                    {{carta.nome | translate}}
+                    <span class="badge btn-primary">{{carta.tipo}}</span>
+                    <span class="badge btn-success">{{carta.categoria}}</span>
+                </label>
+            </div>
+            <button type="button" class="btn btn-block btn-primary" ng-click="trocarCartas() "
+                    ng-show="mostrarBotaoTrocar">
+                {{'texto.trocar'|translate}}
+            </button>
+            <button type="button" class="btn btn-block btn-primary" ng-click="distribuirExercitos() "
+                    ng-show="mostrarBotaoDistribuir">
+                {{'texto.distribuirExercitos'|translate}}
+            </button>
+        </div>
+        <!--ataque -->
+        <div ng-show="mostrarFaseAtaque">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="nav-item label-default titulo">{{'texto.atacar' | translate}}</li>
+            </ul>
+            <label for="meuTerritorio">{{'texto.de'|translate}}:</label>
+            <span id="meuTerritorio" name="meuTerritorio">{{territorioOrigem.nome | translate}}</span>
+            <br>
+
+            <label for="territorioInimigo">{{'texto.para'|translate}}:</label>
+            <span id="territorioInimigo" name="territorioInimigo">{{territorioDestino.nome | translate}}</span>
+            <br>
+
+            <div class="label-superior">
+                <label for="exercitosTransferir">{{'texto.exercitosAtaque'|translate}}:</label>
+                <span data-ng-show="maximoExercitosTransferir > 0">
+                    <slider slider-id="exercitosTransferir"
+                            ng-model="exercitosTransferirSel"
+                            min="0"
+                            max="maximoExercitosTransferir"
+                            step="1"
+                            range="false"
+                            precision="1"
+                            style="display: inline-block;width: 80%;">
+                    </slider>
+                    <span style="display: inline-block;width: 5%;">{{exercitosTransferirSel}}</span>
+                </span>
+            </div>
+            <div ng-show="(mostrarResultadoAtaque)">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="nav-item label-default titulo">{{'texto.resultadoAtaque'|translate}}</li>
+                </ul>
+                <div class="text-center">{{jogadorAtaque}} <span class="guerra guerra-armas fonte8"></span> {{jogadorDefesa}}</div>
+                <div class="text-center">
+                    <i class="guerra guerra-dado fonte10" style="top:4px;"></i>
+                    <span ng-repeat="valor in dadosAtaque track by $index">{{valor}}{{$last ? '' : ', '}}</span> X
+                    <span ng-repeat="valor in dadosDefesa track by $index">{{valor}}{{$last ? '' : ', '}}</span>
+                </div>
+            </div>
+
+        </div>
+        <!-- parou aqui -->
+        <div ng-show="mostrarFaseRemanejamento">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="nav-item label-default titulo">{{'texto.remanejar' | translate}}</li>
+            </ul>
+
+            <div class="text-left">
+                <label>{{'texto.de'|translate}}:</label>
+                <span id="territorioOrigem" name="meuTerritorio">{{territorioOrigem.nome | translate}}</span>
+            </div>
+
+            <div class="text-left">
+                <label for="territorioInimigo">{{'texto.para'|translate}}:</label>
+                <span id="territorioDestino" name="territorioInimigo">{{territorioDestino.nome  | translate}}</span>
+            </div>
+
+            <div>
+                <label>{{'texto.quantidade'|translate}}:</label>
+                <span>
+                    <slider slider-id="exercitosRemanejar"
+                            ng-model="exercitosRemanejarSel"
+                            ng-disabled="territorioDestino == null"
+                            min="fotoMin"
+                            max="fotoMax"
+                            step="1"
+                            range="false"
+                            precision="1"
+                            style="display: inline-block;width: 80%;">
+                    </slider>
+                    <span style="display: inline-block;width: 10%;margin-left:10px;">{{exercitosRemanejarSel}}</span>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="mostrarExercitosDistribuir">
+            <div class="text-left">
+                <label>{{'texto.exercitosRodada'|translate}}:</label> {{qtExercitosDistribuir[0]}}
+            </div>
+            <div class="text-left" ng-repeat="continente in continentesDominados">
+                <label>{{continente.nome | translate}}:</label> {{qtExercitosDistribuir[$index+1]}}
+            </div>
+            <div class="text-left" ng-show="mostrarExercitosTroca">
+                <label>{{'texto.trocaCartas'|translate}}:</label> {{qtExercitosDistribuir[qtExercitosDistribuir.length - 1]}}
+            </div>
+
+            <div ng-show="(territorioFoco) ">
+                <div>
+                    <label>{{'texto.territorio'|translate}}:</label><span> {{territorioFoco.nome | translate}}</span>
+                </div>
+                <div>
+                    <label>{{'texto.quantidade'|translate}}:</label>
+                    <span>
+                        <!-- TODO erro no slider quando inclui todos os exercitos de uma vez.
+                         <slider slider-id="exercitosTerritorio"
+                                 ng-model="territorioFoco.exercitos"
+                                 min="fotoMin"
+                                 max="fotoMax"
+                                 step="1"
+                                 range="false"
+                                 precision="1"
+                                 style="display: inline-block;width: 80%;">
+                         </slider>
+                         -->
+                         <input type="number" min="{{fotoMin}}" max="{{fotoMax}}" ng-model="territorioFoco.exercitos">
+                        <span style="display: inline-block;width: 10%;margin-left:10px;">{{territorioFoco.exercitos}}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- fim do teste -->
+    </div>
+    <!-- TODO criar modal de cartas -->
+
+    <div ng-include="'partials/jogadaModal.html'"></div>
+    <div ng-include="'partials/objetivoModal.html'"></div>
+</div>

@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            <legend class="text-muted text-center">{{'texto.jogo'|translate}}:<b> {{jogo.nome}}</b></legend>
+            <!--<legend class="text-muted text-center">json: {{jogo | json}}</legend>-->
+
+            <ul class="list-group">
+                <li class="list-group-item"><b>{{'texto.cenario'|translate}}:</b> {{jogo.cenario.nome | translate}}</li>
+                <li class="list-group-item"><b>{{'texto.quantidadeJogadores'|translate}}:</b> {{jogo.quantidade_jogadores}}</li>
+                <li class="list-group-item"><b>{{'texto.trocaUnificada'|translate}}:</b>
+                    <span ng-if="jogo.troca_unificada">{{'texto.sim'|translate}}</span>
+                    <span ng-if="!jogo.troca_unificada">{{'texto.nao'|translate}}</span>
+                </li>
+                <li class="list-group-item"><b>{{'texto.dadoExtra'|translate}}:</b>
+                    <span ng-if="jogo.dado_extra">{{'texto.sim'|translate}}</span>
+                    <span ng-if="!jogo.dado_extra">{{'texto.nao'|translate}}</span>
+                </li>
+                <li class="list-group-item"><b>{{'texto.tempoJogada'|translate}}:</b> {{tempo}}</li>
+            </ul>
+            <span class="list-group-item disabled">{{'texto.jogadores'|translate}}</span>
+            <span class="list-group-item" ng-repeat="jogador in jogadores">
+                {{jogador.nome}}<span class="badge btn-primary">{{jogador.email}}</span>
+            </span>
+            <form ng-submit="entrar()">
+                <div class="form-group">
+                    <!--
+                    <select id="personagem" class="form-control" required ng-model="entrarJogo.personagem"
+                            ng-options="personagem.id as personagem.nome for personagem in personagens">
+                    </select>
+                    -->
+
+                    <label class="radio control-label">{{'texto.personagem'|translate}}:</label>
+                    <div class="radio" ng-repeat="personagem in personagens">
+                        <label>
+                            <input type="radio" name="radio-personagem" id="radio-personagem" value="{{personagem.id}}" ng-model="entrarJogo.personagem">
+                            <i class="guerra guerra-tanque1 fonte10" style="color: #{{personagem.cor}};text-shadow: 1px 1px #000000;"></i> {{personagem.nome}}
+                        </label>
+                    </div>
+
+                </div>
+                <div ng-hide="salvoSucesso" class="form-group">
+                    <label class="control-label" for="senha">{{'texto.senha'|translate}}:</label>
+                    <input type="password" class="form-control" id="senha" name="senha" required ng-model="entrarJogo.senha">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-primary" ng-hide="salvoSucesso">{{'texto.entrar'|translate}}</button>
+                    <a href="#/jogos" class="btn btn-block btn-default">{{'texto.voltar'|translate}}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

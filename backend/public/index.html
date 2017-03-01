@@ -1,0 +1,108 @@
+<!-- public/index.html -->
+<!doctype html>
+<html ng-app="Invest">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true">
+    <meta charset="UTF-8">
+    <!-- build:css css/index.min.css -->
+    <link rel="stylesheet" href="stylesheets/app.css">
+<!--        <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="vendor/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendor/animate.css/animate.min.css"/>
+    <link rel="stylesheet" href="vendor/angular-bootstrap-toggle-switch/style/bootstrap3/angular-toggle-switch-bootstrap-3.css"/>
+    <!-- endbuild -->
+</head>
+<body ng-controller="IndexController as vmIndex" data-ng-init="vmIndex.carregarUsuario()">
+    <!-- imagem de carregando -->
+    <div id="wrapper">
+        <div id="loading-ng" loading>
+            <div><h4></h4></div>
+        </div>
+        <div ng-include="'partials/componentes/navbar/navbar.html'"></div>
+        <div class="container-fluid {{vmIndex.isPaginaTabuleiro() ? 'col-xs-6 col-sm-7 col-md-9 col-lg-9' : ''}}" ng-cloak style="{{vmIndex.isPaginaTabuleiro() ? 'position:absolute;z-index: 1000;top:80px;left:10px;':''}}">
+            <alert ng-repeat="mensagem in mensagens" type="{{mensagem.tipo}}" close="mensagem.close()">{{mensagem.texto}}
+            </alert>
+        </div>
+        <div ng-view class=""></div>
+    </div>
+    <!-- mensagem de erro quando muda pra vertical -->
+    <div id="warning-message" class="tela-cheia">
+        <div class="centraliza-div text-center" style="width: 90%"><i class="glyphicon glyphicon-warning-sign"></i> Visualização indisponível...</div>
+    </div>
+    <!-- build:js js/index.min.js -->
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
+    <script src="vendor/angular-sanitize/angular-sanitize.min.js"></script>
+
+    <script src="vendor/angular-translate/angular-translate.js"></script>
+    <script src="vendor/angular-cookies/angular-cookies.min.js"></script>
+    <script src="vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+    <script src="vendor/angular-translate-loader-url/angular-translate-loader-url.js"></script>
+
+    <script src="vendor/angular-resource/angular-resource.js"></script>
+    <script src="vendor/angular-br-filters/release/angular-br-filters.min.js"></script>
+    <script src="vendor/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script src="vendor/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <!--confirm dialog -->
+    <script src="vendor/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="vendor/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js"></script>
+    <script src="vendor/remarkable-bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <script src="js/main.js"></script>
+    <!-- controllers -->
+    <script src="js/controllers/IndexController.js"></script>
+    <script src="js/controllers/AutenticacaoController.js"></script>
+    <script src="js/controllers/CenarioController.js"></script>
+    <script src="js/controllers/GuerraIconsController.js"></script>
+    <script src="js/controllers/JobController.js"></script>
+    <script src="js/controllers/JobsController.js"></script>
+    <script src="js/controllers/JogadorController.js"></script>
+    <script src="js/controllers/MeusJogosController.js"></script>
+    <script src="js/controllers/CorretoraController.js"></script>
+    <script src="js/controllers/CorretorasController.js"></script>
+    <script src="js/controllers/NegocioController.js"></script>
+    <script src="js/controllers/NegociosController.js"></script>
+    <script src="js/controllers/PapelController.js"></script>
+    <script src="js/controllers/PapeisController.js"></script>
+    <script src="js/controllers/TabuleiroController.js"></script>
+    <script src="js/controllers/TipoNegocioController.js"></script>
+    <script src="js/controllers/TiposNegocioController.js"></script>
+    <script src="js/controllers/TipoPapelController.js"></script>
+    <script src="js/controllers/TiposPapelController.js"></script>
+    <script src="js/controllers/UsuarioController.js"></script>
+    <!-- services -->
+    <script src="js/services/CorretoraService.js"></script>
+    <script src="js/services/TipoNegocioService.js"></script>
+    <script src="js/services/TipoPapelService.js"></script>
+    <script src="js/services/InterceptorService.js"></script>
+    <script src="js/services/JobsService.js"></script>
+    <script src="js/services/JogadaService.js"></script>
+    <script src="js/services/JogadorService.js"></script>
+    <script src="js/services/JogoService.js"></script>
+    <script src="js/services/MensagemService.js"></script>
+    <script src="js/services/MeusJogosService.js"></script>
+    <script src="js/services/NegocioService.js"></script>
+    <script src="js/services/PapelService.js"></script>
+    <script src="js/services/PersonagemService.js"></script>
+    <script src="js/services/PosseService.js"></script>
+    <script src="js/services/TabuleiroService.js"></script>
+    <script src="js/services/UsuarioService.js"></script>
+    <!-- diretivas -->
+    <script src="js/diretivas/Loading.js"></script>
+    <script src="js/diretivas/LocaleSelector.js"></script>
+    <script src="js/diretivas/Modal.js"></script>
+    <script src="js/diretivas/PasswordCheck.js"></script>
+    <script src="js/diretivas/mapa.js"></script>
+    <!-- endbuild -->
+
+
+</body>
+</html>

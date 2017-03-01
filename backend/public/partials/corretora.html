@@ -1,0 +1,23 @@
+<h1 class="text-center"> {{'texto.corretora'|translate}}</h1>
+<form name="form" ng-submit="salvar()">
+    <div class="container">
+        <div class="form-group">
+            <label for="nome"> {{'texto.nome'|translate}}:</label>
+            <input type="text" class="form-control" id="nome" name="nome" required ng-model="corretora.nome" maxlength="60">
+        </div>
+
+        <div class="form-group">
+            <label for="sigla"> {{'texto.sigla'|translate}}:</label>
+            <input type="text" class="form-control" id="sigla" name="sigla" required ng-model="corretora.sigla" maxlength="7">
+        </div>
+        <div class="form-group">
+            <label for="cnpj"> {{'texto.cnpj'|translate}}:</label>
+            <input type="text" class="form-control" id="cnpj" name="cnpj" required ng-model="corretora.cnpj" ui-br-cnpj-mask  >
+            <div class="texto-erro" ng-show="!corretora.cnpj && form.cnpj.$dirty">Cnpj {{'aviso.invalido'|translate}}</div>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">{{'texto.salvar'|translate}}</button>
+        <a href="#corretoras" class="btn btn-default">{{'texto.voltar'|translate}}</a>
+    </div>
+</form>

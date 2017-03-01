@@ -1,0 +1,36 @@
+<div class="container" data-ng-controller="UsuarioController as vm" data-ng-init="vm.limparMensagens()">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            <legend class="text-muted text-center">{{'texto.inscrever'|translate}}</legend>
+            <form name="formCadastro" ng-submit="! formCadastro.senha2.$error.unique && vm.cadastrar()">
+                <div class="form-group">
+                    <label class="control-label" for="nome">{{'texto.nome'|translate}}:</label>
+                    <input class="form-control" id="nome" name="nome" type="text" ng-model="vm.usuario.nome" required autofocus placeholder="{{'texto.nome'|translate}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="email">{{'texto.email'|translate}}:</label>
+                    <input class="form-control input" id="email" name="email" type="email" ng-model="vm.usuario.email" required autofocus placeholder="{{'texto.email'|translate}}">
+                </div>
+
+                <div class="form-group ">
+                    <label class="control-label" for="senha1">{{'texto.senha'|translate}}:</label>
+                    <input autocomplete="off" class="form-control" id="senha1" name="senha1" type="password" ng-model="vm.usuario.senha1" required placeholder="{{'texto.senha'|translate}}">
+                </div>
+                <div class="form-group" ng-class="{ 'has-error has-feedback': formCadastro.senha2.$error.unique}">
+                    <label class="control-label" for="senha2">{{'texto.confirmar'|translate}}:</label>
+                    <input autocomplete="off" class="form-control" id="senha2" name="senha2" type="password" ng-model="vm.usuario.senha2" required password-match="vm.usuario.senha1" placeholder="{{'texto.confirmar'|translate}}">
+                    <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="formCadastro.senha2.$error.unique"></span>
+                </div>
+
+                <div class="form-group has-error has-feedback" ng-show="formCadastro.senha2.$error.unique">
+                    <label class="control-label">{{'mensagem.senhaInvalida'|translate}}</label>
+                </div>
+
+                <div class="controls">
+                    <button type="submit" class="btn btn-block btn-primary">{{'texto.salvar'|translate}}</button>
+                    <a href="#/autenticacao" class="btn btn-block btn-default">{{'texto.voltar'|translate}}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="jumbotron">
+    <h1 class="text-center">
+        {{'texto.tiposPapel'|translate}}
+    </h1>
+</div>
+
+<div>
+    <p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+    <a ng-href="#tipoPapel" class="btn btn-primary">{{'texto.novo'|translate}}</a>
+    <p>{{'texto.quantidade'|translate}}: {{tiposPapel.length}}</p>
+    <input type="search" placeholder="{{'texto.buscar'|translate}}" ng-model="filtro">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>{{'texto.descricao'|translate}}</th>
+                <th>{{'texto.vigente'|translate}}</th>
+            </tr>
+            <tr ng-repeat="tipoPapel in tiposPapel | filter: filtro">
+                <td><a ng-href="#/tipoPapel/{{tipoPapel.cd_tipo_papel}}">{{tipoPapel.descricao}}</a></td>
+                <td>
+                    <toggle-switch ng-model="tipoPapel.vigente" class="switch-success" on-label="Sim" off-label="Não"  on-change="alterarVigencia(tipoPapel.indice)">
+                    </toggle-switch>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

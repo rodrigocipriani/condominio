@@ -1,0 +1,37 @@
+<div class="jumbotron">
+    <h1 class="text-center">
+        {{'texto.negocios'|translate}}
+    </h1>
+</div>
+
+<div>
+    <p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+    <a ng-href="#negocio" class="btn btn-primary">{{'texto.novo'|translate}}</a>
+    <p>{{'texto.quantidade'|translate}}: {{negocios.length}}</p>
+    <input type="search" placeholder="{{'texto.buscar'|translate}}" ng-model="filtro">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>{{'texto.sigla'|translate}}</th>
+                <th>{{'texto.quantidade'|translate}}</th>
+                <th>{{'texto.tipo'|translate}}</th>
+                <th>{{'texto.valorNegocio'|translate}}</th>
+                <th>{{'texto.preco'|translate}}</th>
+                <th>{{'texto.custo'|translate}}</th>
+                <th>{{'texto.data'|translate}}</th>
+                <th>{{'texto.corretora'|translate}}</th>
+            </tr>
+            <tr ng-repeat="negocio in negocios | filter: filtro">
+                <td><a ng-href="#/negocio/{{negocio.seql_negocio}}">{{negocio.papel.sigla}}</a></td>
+                <td>{{negocio.qt_papel | brCnpj}}</td>
+                <td>{{negocio.tipoNegocio.descricao }}</td>
+                <td>{{negocio.qt_papel * negocio.vl_papel }}</td>
+                <td>{{negocio.vl_papel }}</td>
+                <td>{{negocio.custo }}</td>
+                <td>{{negocio.dt_negocio | date:'dd/MM/yyyy' }}</td>
+                <td>{{negocio.corretora.nome  }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+

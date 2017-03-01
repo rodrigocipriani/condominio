@@ -1,0 +1,49 @@
+<h1 class="text-center"> {{'texto.negocio'|translate}}</h1>
+<form name="form" ng-submit="salvar()">
+    <div class="container">
+        <div class="form-group">
+            <label for="sigla">{{'texto.sigla'|translate}}:</label>
+            <select id="sigla" class="form-control" required ng-model="negocio.cd_papel" ng-options="papel.cd_papel as papel.sigla for papel in papeis">
+                <option value="">-- {{'texto.selecione'|translate}}--</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantidade"> {{'texto.quantidade'|translate}}:</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade" required ng-model="negocio.qt_papel" maxlength="4">
+        </div>
+        <div class="form-group">
+            <label for="tipoNegocio">{{'texto.tipoNegocio'|translate}}:</label>
+            <select id="tipoNegocio" class="form-control" required ng-model="negocio.cd_tipo_negocio" ng-options="tipoNegocio.cd_tipo_negocio as tipoNegocio.descricao for tipoNegocio in tiposNegocio">
+                <option value="">-- {{'texto.selecione'|translate}}--</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="preco"> {{'texto.preco'|translate}}:</label>
+            <input type="text" class="form-control" id="preco" name="preco" required ng-model="negocio.vl_papel" ui-money-mask  >
+        </div>
+        <div class="form-group">
+            <label for="custos"> {{'texto.custos'|translate}}:</label>
+            <input type="text" class="form-control" id="custos" name="custos" required ng-model="negocio.custo" ui-money-mask  >
+        </div>
+        <div class="form-group">
+            <label for="data"> {{'texto.dataNegocio'|translate}}:</label>
+            <!--<input type="text" class="form-control" id="data" name="data" required ng-model="negocio.dt_negocio" >-->
+            <p class="input-group">
+                <input type="text" id="data" class="form-control" uib-datepicker-popup="{{format}}" ng-model="negocio.dt_negocio" is-open="calendario.aberto" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="calendarioAberto()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="corretora">{{'texto.corretora'|translate}}:</label>
+            <select id="corretora" class="form-control" required ng-model="negocio.cd_corretora" ng-options="corretora.cd_corretora as corretora.nome for corretora in corretoras">
+                <option value="">-- {{'texto.selecione'|translate}}--</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">{{'texto.salvar'|translate}}</button>
+        <a href="#negocios" class="btn btn-default">{{'texto.voltar'|translate}}</a>
+    </div>
+</form>

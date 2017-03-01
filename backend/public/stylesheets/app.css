@@ -1,0 +1,874 @@
+body {
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-highlight: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent; /* For some Androids */
+/*    padding-top: 70px !important;*/
+}
+
+html {
+    -ms-touch-action: pan-x;
+}
+
+body {
+    -ms-touch-action: pan-y;
+    -ms-content-zooming: none;
+}
+
+input, textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+body {
+    background: white;
+    color: black;
+}
+
+#back {
+    width: 100% !important;
+    /*  min-height:200px; */
+    height: 100% !important;
+    /* background-image: url("../images/back4.jpg"); */
+    background-size: 100% 100%;
+    -webkit-background-size: 100%;
+    -o-background-size: 100%;
+    -khtml-background-size: 100%;
+    -moz-background-size: 100% 100%;
+}
+
+#back img.bg {
+    display: none;
+}
+
+/* sobrescreve estilo do bootstrap */
+.text-right {
+    text-align: right !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+/* # loading */
+
+#loading-ng, .tela-cheia {
+    left: 0px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, .1);
+}
+
+#loading-ng div, .centraliza-div {
+    margin: 0 auto;
+    padding: 2px 5px 4px;
+    position: relative;
+    top: 40%;
+    width: 100px;
+}
+
+#loading-ng h4 {
+    background: url("../images/carregando.gif") no-repeat scroll 32px 3px transparent;
+    color: #444444;
+    font: bold 12px arial;
+    padding: 38px 22px 0;
+}
+
+/* carregando parcial */
+#carregando-parcial {
+    left: 0px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, .1);
+}
+
+#carregando-parcial span {
+    background: url("../images/carregando.gif") no-repeat center transparent;
+    height: 100%;
+    display: block;
+}
+
+.botao-sem-borda, .icone-sem-borda {
+    -webkit-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    padding: 2px 12px;
+}
+
+.icone-sem-borda {
+
+    padding: 0px;
+}
+
+.icone-sem-margem {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+/* sobrescreve estilo da modal */
+.modal-header {
+    padding: 3px 10px !important;
+    background-image: -webkit-linear-gradient(top, #3c3c3c 0%, #222 100%);
+    background-image: -o-linear-gradient(top, #3c3c3c 0%, #222 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#3c3c3c), to(#222));
+    background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', endColorstr='#ff222222', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+}
+
+.modal-header .close {
+    margin-top: 1px !important;
+    color: white;
+}
+
+.modal-header .close:hover {
+    margin-top: 2px !important;
+    color: #f0f0f0 !important;
+}
+
+button.close {
+    padding: 3px;
+}
+
+.btn-circular{
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.selecionavel {
+    cursor: pointer;
+    cursor: hand;
+    margin: 2px 5px;
+}
+
+.dropdown-menu {
+    min-width: 30px !important;
+}
+
+.icone-maior {
+    font-size: 1.6rem;
+}
+.hidden {
+    display: none;
+}
+
+.quadro, .dica {
+    background: #e0e0e0;
+    padding: 1em;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+    opacity: 0.9;
+}
+
+.dica {
+    padding: 10px 3px;
+    font-weight: bold;
+    text-align: center;
+    bottom: 0.5em;
+
+}
+
+.externa {
+    position: relative;
+}
+
+.interna {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.interna > span {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.menu-lateral-esquerda, .menu-lateral-direita {
+    position: absolute !important;
+}
+.menu-lateral-esquerda {
+    left: 1em;
+    top: 1em;
+    padding: 5px;
+    font-size: 0.8em;
+}
+
+.menu-lateral-direita {
+    right: 1em;
+    top: 1em;
+    padding: 5px;
+    font-size: 0.8em;
+}
+.label-superior label{
+    display: block;
+    margin-bottom: 0px;
+}
+
+.label-superior span{
+    display: block;
+    padding: 0 0 3px 10px;
+}
+.label-superior span{
+
+    padding: 0 0 3px 10px;
+}
+
+.list-group input[type="checkbox"]{
+    vertical-align: top;
+    margin-top: 2px;
+}
+
+.sombra {
+    border: 1px solid #CCC;
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(128, 128, 128, 0.5);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(128, 128, 128, 0.5);
+    box-shadow: 2px 2px 2px 0px rgba(128, 128, 128, 0.5);
+}
+/* mapa */
+
+#map {
+    /*margin-top: -55px;*/
+    border: 2px solid #000;
+    border-radius: 5px;
+    height: 100%;
+    overflow: hidden;
+    background: #F0F8FF;
+}
+
+.text {
+    font-size: 10px;
+    text-transform: capitalize;
+}
+path {
+    stroke-width: 0.3px;
+    stroke: black;
+    fill: #f4cd80;
+    cursor: pointer;
+}
+path:hover, path.highlighted {
+    fill: #8b4513; /* #e68d6d; */
+}
+
+.oceano{
+    background-color: #bbd4fc;
+}
+
+.texto-erro {
+    color: #ff322a
+}
+/*
+.fundo {
+    fill: rgba(200, 212, 220, .5);
+    stroke-width: .8px;
+    stroke: black;
+}
+.arco {
+    stroke: rgba(255, 116, 65, 0.2);
+    stroke-width: .5px;
+}
+
+.pais {
+    cursor: pointer;
+}
+
+.pais .terra {
+    fill: white;
+    stroke: rgba(0, 0, 0, .2);
+    stroke-width: .3px;
+}
+
+.pais .overlay {
+    fill: orange;
+    fill-opacity: 0;
+}
+
+.pais-rotulo {
+    fill: #777;
+    fill-opacity: .5;
+    font-size: 20px;
+    font-weight: 300;
+    text-anchor: middle;
+}
+.country:hover {
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+path {
+    fill: none;
+    stroke: black
+}
+.graticule {
+    fill: none;
+    stroke: #bbb;
+    stroke-width: .5px;
+    stroke-opacity: .5;
+}
+.graticulado {
+    stroke: rgba(0, 0, 0, .2);
+    stroke-width: .5px;
+}
+
+
+.equador {
+    stroke: #ccc;
+    stroke-width: 1px;
+}
+*/
+
+.labels {
+    fill: #000;
+    fill-opacity: .75;
+    font-size: 50%;
+    text-anchor: middle;
+    font-weight: bold;
+    pointer-events: none;
+}
+.icones {
+    /*pointer-events: none;*/
+}
+
+
+/*
+.amarelo {
+    fill: yellow;
+}
+
+.verde {
+    fill: green;
+}
+
+.vermelho {
+    fill: red;
+}
+
+.azul {
+    fill: darkblue;
+}
+
+.branco {
+    fill: white;
+}
+
+.preto {
+    fill: black;
+}
+*/
+
+/* para evitar o "flash uncompiled content" - http://stackoverflow.com/questions/14068711/alternative-to-ng-show-hide-or-how-to-load-only-relevant-section-of-dom/14076004#14076004 */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none;
+}
+
+/* resolve scroll vertical do navbar */
+.navbar-collapse {
+    overflow-x: hidden !important;
+}
+
+/* altera estilo do radio button */
+.guerra-radiogroup input[type="radio"] {
+    display: none;
+}
+
+.guerra-radiogroup input[type="radio"] + label:hover {
+    color: #fff;
+    background-color: #3071a9;
+    border-color: #285e8e;
+}
+
+.guerra-radiogroup input[type="radio"]:checked + label {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+}
+
+.guerra-radiogroup input[type="radio"] + label {
+    display: inline-block;
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    margin-right: -5px;
+    padding: 2px 10px 2px 10px;
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+
+}
+
+.guerra-radiogroup input[type="radio"] + label:first-of-type {
+    border-radius: 5px 0 0px 5px;
+}
+
+.guerra-radiogroup input[type="radio"] + label:last-of-type {
+    border-radius: 0 5px 5px 0;
+}
+/* fontes */
+@font-face {
+    font-family: 'militar';
+    src: url("./fonts/guerra.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
+.guerra {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'militar';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 0;
+    font-size: 0.8em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.fonte10{
+    font-size: 1.0em;
+}
+.fonte12{
+    font-size: 1.2em;
+}
+.fonte14{
+    font-size: 1.4em;
+}
+.fonte16{
+    font-size: 1.6em;
+}
+.fonte18{
+    font-size: 1.8em;
+}
+.fonte20{
+    font-size: 2.0em;
+}
+.guerra-21:before {
+    content: "\21";
+}
+.guerra-22:before {
+    content: "\22";
+}
+.guerra-23:before {
+    content: "\23";
+}
+.guerra-24:before {
+    content: "\24";
+}
+.guerra-25:before {
+    content: "\25";
+}
+.guerra-26:before {
+    content: "\26";
+}
+.guerra-projetil:before {
+    content: "\27";
+}
+.guerra-bomba:before {
+    content: "\28";
+}
+.guerra-granada:before {
+    content: "\29";
+}
+.guerra-2a:before {
+    content: "\2a";
+}
+.guerra-2b:before {
+    content: "\2b";
+}
+.guerra-bandeira-direita:before {
+    content: "\2c";
+}
+.guerra-2d:before {
+    content: "\2d";
+}
+.guerra-2e:before {
+    content: "\2e";
+}
+.guerra-2f:before {
+    content: "\2f";
+}
+.guerra-explosao:before {
+    content: "\30";
+}
+.guerra-tanque1:before {
+    content: "\31";
+}
+.guerra-tanque2:before {
+    content: "\32";
+}
+.guerra-tanque3:before {
+    content: "\33";
+}
+.guerra-soldado:before {
+    content: "\36";
+}
+.guerra-37:before {
+    content: "\37";
+}
+.guerra-38:before {
+    content: "\38";
+}
+.guerra-39:before {
+    content: "\39";
+}
+.guerra-3a:before {
+    content: "\3a";
+}
+.guerra-3b:before {
+    content: "\3b";
+}
+.guerra-bandeira-esquerda:before {
+    content: "\3c";
+}
+.guerra-3d:before {
+    content: "\3d";
+}
+.guerra-3e:before {
+    content: "\3e";
+}
+.guerra-3f:before {
+    content: "\3f";
+}
+
+.guerra-40:before {
+    content: "\40";
+}
+
+.guerra-41:before {
+    content: "\41";
+}
+
+.guerra-42:before {
+    content: "\42";
+}
+
+.guerra-43:before {
+    content: "\43";
+}
+
+.guerra-44:before {
+    content: "\44";
+}
+
+.guerra-45:before {
+    content: "\45";
+}
+
+.guerra-46:before {
+    content: "\46";
+}
+
+.guerra-47:before {
+    content: "\47";
+}
+
+.guerra-48:before {
+    content: "\48";
+}
+
+.guerra-49:before {
+    content: "\49";
+}
+
+.guerra-4a:before {
+    content: "\4a";
+}
+
+.guerra-4b:before {
+    content: "\4b";
+}
+
+.guerra-4c:before {
+    content: "\4c";
+}
+
+.guerra-4d:before {
+    content: "\4d";
+}
+
+.guerra-4e:before {
+    content: "\4e";
+}
+
+.guerra-4f:before {
+    content: "\4f";
+}
+
+.guerra-50:before {
+    content: "\50";
+}
+
+.guerra-51:before {
+    content: "\51";
+}
+
+.guerra-52:before {
+    content: "\52";
+}
+
+.guerra-53:before {
+    content: "\53";
+}
+
+.guerra-54:before {
+    content: "\54";
+}
+
+.guerra-55:before {
+    content: "\55";
+}
+
+.guerra-56:before {
+    content: "\56";
+}
+
+.guerra-57:before {
+    content: "\57";
+}
+
+.guerra-58:before {
+    content: "\58";
+}
+
+.guerra-59:before {
+    content: "\59";
+}
+
+.guerra-5a:before {
+    content: "\5a";
+}
+
+.guerra-5b:before {
+    content: "\5b";
+}
+
+.guerra-5c:before {
+    content: "\5c";
+}
+
+.guerra-5d:before {
+    content: "\5d";
+}
+
+.guerra-5e:before {
+    content: "\5e";
+}
+
+.guerra-5f:before {
+    content: "\5f";
+}
+
+.guerra-60:before {
+    content: "\60";
+}
+
+.guerra-61:before {
+    content: "\61";
+}
+
+.guerra-62:before {
+    content: "\62";
+}
+
+.guerra-63:before {
+    content: "\63";
+}
+
+.guerra-64:before {
+    content: "\64";
+}
+
+.guerra-65:before {
+    content: "\65";
+}
+
+.guerra-66:before {
+    content: "\66";
+}
+
+.guerra-helicoptero:before {
+    content: "\66";
+}
+
+.guerra-67:before {
+    content: "\67";
+}
+
+.guerra-68:before {
+    content: "\68";
+}
+
+.guerra-69:before {
+    content: "\69";
+}
+
+.guerra-6a:before {
+    content: "\6a";
+}
+
+.guerra-6b:before {
+    content: "\6b";
+}
+
+.guerra-6d:before {
+    content: "\6d";
+}
+
+.guerra-6e:before {
+    content: "\6e";
+}
+
+.guerra-6f:before {
+    content: "\6f";
+}
+
+.guerra-70:before {
+    content: "\70";
+}
+
+.guerra-71:before {
+    content: "\71";
+}
+
+.guerra-72:before {
+    content: "\72";
+}
+
+.guerra-73:before {
+    content: "\73";
+}
+
+.guerra-74:before {
+    content: "\74";
+}
+
+.guerra-75:before {
+    content: "\75";
+}
+
+.guerra-76:before {
+    content: "\76";
+}
+
+.guerra-77:before {
+    content: "\77";
+}
+
+.guerra-78:before {
+    content: "\78";
+}
+
+.guerra-79:before {
+    content: "\79";
+}
+
+.guerra-7a:before {
+    content: "\7a";
+}
+
+.guerra-7b:before {
+    content: "\7b";
+}
+
+.guerra-armas:before {
+    content: "\7c";
+}
+
+.guerra-7d:before {
+    content: "\7d";
+}
+
+.guerra-7e:before {
+    content: "\7e";
+}
+
+.guerra-dado:before {
+    content: "\a1";
+}
+.guerra-cartas:before {
+    content: "\a2";
+}
+
+.input-com-filtro{
+    position:relative;
+    margin: 0 0 5px 0;
+}
+
+.input-com-filtro > span{
+    position:absolute;
+    right: 0.4em;
+    top: 30%;
+    cursor: pointer;
+    color: #F0F0F0;
+}
+.input-com-filtro > span:hover{
+    color: black;
+}
+.titulo{
+    text-align:center;
+    color: white;
+    font-weight: bold;
+}
+.truncar-texto {
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+/*
+TODO verificar se vai ser usado
+ navbar fixa na lateral (http://www.samrayner.com/bootstrap-side-navbar/)
+@media (max-width: 768px){.navbar-fixed-side{margin-left:-15px;margin-right:-15px}}@media (min-width: 768px){.navbar-fixed-side{position:fixed;margin:0 -15px;height:100vh;width:inherit;overflow:auto;border-top-width:0;border-bottom-width:0;border-radius:0}.navbar-fixed-side .container,.navbar-fixed-side .container-fluid{width:auto;padding-left:0;padding-right:0}.navbar-fixed-side .navbar-header{float:none}.navbar-fixed-side .navbar-brand{height:auto}.navbar-fixed-side>.container .navbar-brand,.navbar-fixed-side>.container-fluid .navbar-brand{margin-left:0}.navbar-fixed-side .navbar-collapse{width:100%;border-top:1px solid #e7e7e7}.navbar-fixed-side .navbar-nav{float:none;margin:0 -15px}.navbar-fixed-side .navbar-nav>li{float:none}.navbar-fixed-side .navbar-nav>li>a{padding-top:10px;padding-bottom:10px;border-bottom:1px solid #e7e7e7}.navbar-fixed-side .navbar-form{margin:0;margin-left:-15px;margin-right:-15px;padding:10px 15px;border-bottom:1px solid #e7e7e7}.navbar-fixed-side .navbar-text{float:none;margin-left:0;margin-right:0}.navbar-fixed-side .navbar-left,.navbar-fixed-side .navbar-right{float:none !important}.navbar-fixed-side .navbar-nav .dropdown-menu{position:static;float:none;width:auto;margin-top:0;background-color:transparent;border:0;box-shadow:none;border-bottom:1px solid #e7e7e7}.navbar-fixed-side .navbar-nav .dropdown-menu>li>a,.navbar-fixed-side .navbar-nav .dropdown-menu .dropdown-header{padding:5px 15px 5px 25px}.navbar-fixed-side .navbar-nav .dropdown-menu>li>a{line-height:20px;color:#777}.navbar-fixed-side .navbar-nav .dropdown-menu>li>a:hover,.navbar-fixed-side .navbar-nav .dropdown-menu>li>a:focus{background-image:none}.navbar-fixed-side .navbar-nav .dropdown-menu>.active>a{background-color:#e7e7e7;color:#555}.navbar-fixed-side .navbar-nav>li>a:hover,.navbar-fixed-side .navbar-nav>li>a:focus,.navbar-fixed-side .navbar-nav .dropdown-menu>li>a:hover,.navbar-fixed-side .navbar-nav .dropdown-menu>li>a:focus{background-color:#f0f0f0;color:#333}.navbar-fixed-side .dropdown>.dropdown-toggle,.navbar-fixed-side .dropdown-menu>.dropdown-header{background-color:transparent !important;color:#9d9d9d !important;cursor:default;font-size:0.8em;text-transform:uppercase;border-bottom:none;padding-bottom:0}.navbar-fixed-side .dropdown-toggle .caret{display:none}.navbar-fixed-side .dropdown-menu{display:block}.navbar-fixed-side.navbar-inverse .navbar-collapse,.navbar-fixed-side.navbar-inverse .navbar-nav>li>a,.navbar-fixed-side.navbar-inverse .navbar-form,.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu{border-color:#363636}.navbar-fixed-side.navbar-inverse .divider{background-color:#363636}.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu>li>a{color:#9d9d9d}.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu>.active>a{background-color:#090909;color:#fff}.navbar-fixed-side.navbar-inverse .navbar-nav>li:not(.active)>a:hover,.navbar-fixed-side.navbar-inverse .navbar-nav>li:not(.active)>a:focus,.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu>li:not(.active)>a:hover,.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu>li:not(.active)>a:focus{background-color:#2f2f2f;color:#fff}.navbar-fixed-side.navbar-inverse .dropdown>.dropdown-toggle{color:#777777 !important}}
+*/
+
+/* exibe somente na horizontal */
+#warning-message { display: none; }
+@media only screen and (orientation:portrait){
+    #wrapper { display:none; }
+    #warning-message { display:block; }
+}
+@media only screen and (orientation:landscape){
+    #warning-message { display:none; }
+}
+/* lista de icones */
+.lista-icones-guerra > li:hover{
+    background-color: #5e5e5e;
+    color: #ffffff;
+}
+.lista-icones-guerra > li li:hover{
+    text-align: center;
+}
+.lista-icones-guerra > li > *{
+    text-align: center;
+    display:block;
+    width: 110px;
+}
+.lista-icones-guerra > li > span{
+    padding: 20px 0px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    margin-top: 30px;
+
+}
+.lista-icones-guerra > li > label{
+    margin: 10px;
+    font-size: 0.6em;
+}

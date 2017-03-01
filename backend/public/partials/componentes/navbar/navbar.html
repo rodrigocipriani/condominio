@@ -1,0 +1,96 @@
+<nav class="navbar navbar-inverse navbar-static-top" ng-cloak ng-hide="vmIndex.location.path().indexOf('/tabuleiro') == 0"> <!-- ocultar menu na pagina de tabuleiro -->
+    <!-- ng-cloak - para evitar o "flash uncompiled content" - http://stackoverflow.com/questions/14068711/alternative-to-ng-show-hide-or-how-to-load-only-relevant-section-of-dom/14076004#14076004  -->
+    <div class="container-fluid" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/" data-toggle="collapse" data-target="#navbar">
+                <span class="guerra guerra-armas fonte10" style="color: #9d9d9d; margin-right: 5px;"></span>
+                Guerra Mundial
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" ng-if="usuarioLogado.nome">
+                <li>
+                    <a href="#negocios" data-toggle="collapse" data-target="#navbar">
+                        <span class="glyphicon glyphicon-home"></span> {{'texto.meusNegocios'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a href="#proventos" data-toggle="collapse" data-target="#navbar">
+                        <span class="glyphicon glyphicon-time"></span> {{'texto.proventos'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a href="#carteira" data-toggle="collapse" data-target="#navbar">
+                        <span class="glyphicon glyphicon-plus"></span> {{'texto.carteira'|translate}}
+                    </a>
+                </li>
+                <!-- admin -->
+                <li class="dropdown" ng-if="usuarioLogado.tipo == 99">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="glyphicon glyphicon-cog icone-maior"></i>
+                        {{'texto.administracao'|translate}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#corretoras" data-toggle="collapse" data-target="#navbar">
+                                <i class="glyphicon glyphicon-map-marker icone-maior"></i> {{'texto.corretoras'|translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#papeis" data-toggle="collapse" data-target="#navbar">
+                                <i class="glyphicon glyphicon-user icone-maior"></i> {{'texto.papeis'|translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tiposPapel" data-toggle="collapse" data-target="#navbar">
+                                <i class="glyphicon glyphicon-user icone-maior"></i> {{'texto.tiposPapel'|translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tiposNegocio" data-toggle="collapse" data-target="#navbar">
+                                <i class="glyphicon glyphicon-user icone-maior"></i> {{'texto.tiposNegocio'|translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#guerra-icons" data-toggle="collapse" data-target="#navbar">
+                                <i class="glyphicon glyphicon-picture icone-maior"></i> Icones
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#jobs" data-toggle="collapse" data-target="#navbar">
+                                <i class="glyphicon glyphicon-hourglass icone-maior"></i> Jobs
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <div class="locale-selector"></div>
+                <li class="active" ng-if="usuarioLogado.nome">
+                    <a data-toggle="collapse" data-target="#navbar" href="#usuario-alterar" style="cursor: pointer;" title="{{'texto.alterarUsuario'|translate}}">
+                        <span class="glyphicon glyphicon-user"></span> {{usuarioLogado.nome}}
+                    </a>
+                </li>
+                <li ng-if="usuarioLogado.nome">
+                    <a data-toggle="collapse" data-target="#navbar" ng-click="vmIndex.logout()" style="cursor: pointer;">
+                        <span class="glyphicon glyphicon-log-out"></span> {{'texto.sair'|translate}}
+                    </a>
+                </li>
+                <li ng-if="!usuarioLogado">
+                    <a href="#autenticacao" data-toggle="collapse" data-target="#navbar">
+                        <span class="glyphicon glyphicon-log-in"></span> {{'texto.entrar'|translate}}
+                    </a>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
