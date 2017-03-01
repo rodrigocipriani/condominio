@@ -192,7 +192,7 @@ module.exports = {
         compress: isProduction,
         inline: !isProduction,
         hot: !isProduction,
-        host: '0.0.0.0',
+        host: isProduction ? '127.0.0.1': '0.0.0.0',
         stats: {
             assets: true,
             children: false,
