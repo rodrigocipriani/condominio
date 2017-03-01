@@ -18,6 +18,7 @@ const appSubRoute = isProduction ? `${publicPath}` : publicPath;
 // const appSubRoute = isProduction ? `${publicPath}diario/` : publicPath;
 
 export const routeCodes = {
+    HOME: `${ appSubRoute }`,
     LOGIN: `${ appSubRoute }login`,
     LOGOUT: `${ appSubRoute }logout`,
     SIGNUP: `${ appSubRoute }signup`,

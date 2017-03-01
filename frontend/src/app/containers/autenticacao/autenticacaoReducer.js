@@ -15,9 +15,9 @@ const actionsMap = {
     [actionTypes.SIGNIN_SUCCESS]: (state, action) => {
         console.log('actionTypes.SIGNIN_SUCCESS', action);
         // save the token
-        Auth.authenticateUser(action.payload);
+        Auth.authenticateUser(action.payload.token);
 
-        return {...state};
+        return {...state, usuario: action.payload.usuario};
     },
 
 };

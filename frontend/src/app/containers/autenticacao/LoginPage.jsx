@@ -1,8 +1,13 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import LoginForm from './components/LoginForm.jsx';
 import * as autenticacaoActions from './autenticacaoAction';
+import {routeCodes} from '../../routes';
+import Auth from './Auth';
 
-
+@connect(state => ({
+    usuario: state.autenticacao.usuario,
+}))
 class LoginPage extends React.Component {
 
     /**
@@ -60,6 +65,12 @@ class LoginPage extends React.Component {
      * Render the component.
      */
     render() {
+
+        if (Auth.isUserAuthenticated()) {
+            console.log('location.href *************', location.pathname, routeCodes.LOGIN);
+            location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
+        }
+
         return (
             <LoginForm
                 onSubmit={this.processForm}
