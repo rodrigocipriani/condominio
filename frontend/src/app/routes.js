@@ -53,11 +53,15 @@ export default class Routes extends Component {
                 <Route path={ routeCodes.LOGIN } component={ LoginPage } onEnter={appWillInit} />
                 <Route path={ routeCodes.SIGNUP } component={ SignUpPage } onEnter={Documentos.routeWillInit}/>
                 <Route path={ routeCodes.LOGOUT } onEnter={
-                    (nextState, replace) => {
+                    (nextState, replace, callback) => {
                         Auth.deauthenticateUser();
 
+                        // todo : location... mexe com o navegador, trocar para algo nativo do react
+                        location.href = routeCodes.HOME;
+
                         // change the current URL to /
-                        replace('/');
+                        {/*replace('/');*/}
+                        {/*callback();*/}
                     }
                 }/>
 

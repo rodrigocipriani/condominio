@@ -41,7 +41,6 @@ class LoginPage extends React.Component {
         const email = this.state.user.email;
         const password = this.state.user.password;
 
-        console.log('(TESTE)');
         autenticacaoActions.signin(email, password);
 
     }
@@ -66,8 +65,8 @@ class LoginPage extends React.Component {
      */
     render() {
 
+        // todo : location... mexe com o navegador, trocar para algo nativo do react
         if (Auth.isUserAuthenticated()) {
-            console.log('location.href *************', location.pathname, routeCodes.LOGIN);
             location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
         }
 
