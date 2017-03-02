@@ -35,23 +35,11 @@ module.exports = () => {
 
     app.use(cookieParser(config.secretCookie));
 
-    // app.all("*", function (req, res, next) {
-    //     res.header("Access-Control-Allow-Origin", "*");
-    //     res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-    //     res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
-    //     res.header("Access-Control-Allow-Credentials", true);
-    //     return next();
-    // });
-
+    /**
+     * Configuração para cross domain
+     * */
     app.use(cors({
-        origin: [
-            'http://localhost',
-            'http://127.0.0.1',
-            'http://localhost:8000',
-            'http://127.0.0.1:8000',
-            'localhost:8000',
-            '127.0.0.1:8000'
-        ],
+        origin: config.corsOriginsAccept,
         //  allowedHeaders: ['Content-Type', 'Authorization'],
         //   additionalHeaders: ['cache-control', 'x-requested-with'],
         credentials: true
@@ -75,10 +63,15 @@ module.exports = () => {
         }
     ));
 
+    /**
+     * Inicialização do passport
+     * */
     app.use(passport.initialize());
     app.use(passport.session());
 
-    //load('models/modelo.js', {cwd: 'app'})
+    /**
+     * Carga de módulos
+     * */
     consign({
         cwd: isProduction ? 'backend/app' : 'backend/app'
     })
@@ -95,13 +88,9 @@ module.exports = () => {
         res.status(404).render('404.ejs');
     });
 
-
-    // app.use((req,res, next) => {
-    //     res.header("Access-Control-Allow-Origin", "*");
-    //     next();
-    // });
-
-    // tratamento de erros
+    /**
+     * Tratamento de erros
+     * */
     app.use((erro, req, res, next) => {
         console.log(erro.stack);
         // res.header("Access-Control-Allow-Origin", "*");
@@ -116,6 +105,7 @@ module.exports = () => {
             res.send({mensagens: [{tipo: 'danger', texto: erro.message}]});
         }
     });
+
     return app;
 };
 

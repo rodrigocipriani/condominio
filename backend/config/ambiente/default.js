@@ -1,4 +1,5 @@
 module.exports = {
+    corsOriginsAccept: [],
     port: 80,
     lib: {
         bcrypt: 'bcriptjs'
