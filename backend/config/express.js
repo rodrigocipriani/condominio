@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const redis = require("redis");
 const consign = require('consign');
@@ -9,8 +10,6 @@ const redisStore = require('connect-redis')(session);
 
 const config = require('./config');
 const passport = require('passport');
-
-console.log('config >>', config);
 
 let isProduction = process.env.NODE_ENV == 'production';
 
@@ -75,8 +74,7 @@ module.exports = () => {
     consign({
         cwd: isProduction ? 'backend/app' : 'backend/app'
     })
-        .include('models/modelo.js')
-        //   .then('models/modelo.js')
+        .include(path.join('models', 'modelo.js'))
         .then('util')
         .then('services')
         .then('controllers')
