@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
     "api": "json-server --watch db.json --port 3004",
-    "build": "rmdir /s /q dist\\&& set NODE_ENV=production&& webpack"
+    "windows:build": "rmdir /s /q public\\&& set NODE_ENV=production&& webpack",
+    "build": "rm -rf public \\&& set NODE_ENV=production&& webpack"
   },
   "repository": {},
   "author": "Rodrigo Cipriani da Rosa",
@@ -55,6 +56,7 @@
     "html-webpack-plugin": "^2.24.1",
     "node-sass": "^3.13.0",
     "postcss-loader": "^1.1.1",
+    "precss": "^1.4.0",
     "prepush": "^3.1.11",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",

@@ -14,23 +14,23 @@ module.exports = (app) => {
     return (req, res, next) => {
 
         // console.log('req', req, res, next);
-        console.log('req.headers', req.headers);
+        // console.log('req.headers', req.headers);
 
         if (!req.headers.authorization) {
-            return res.status(401).end();
+            return res.status(401).end('Não foi encontrado token de autenticação');
         }
-        console.log('req.headers222', req.headers.authorization);
+        // console.log('req.headers222', req.headers.authorization);
 
         // get the last part from a authorization header string like "bearer token-value"
         // console.log('req.headers.authorization', req.headers.authorization);
         const token = req.headers.authorization.split(' ')[1];
-        console.log('token', token);
+        // console.log('token', token);
 
         // decode the token using a secret key-phrase
         return jwt.verify(token, config.secretSession, (err, decoded) => {
             // the 401 code is for unauthorized status
             if (err) {
-                return res.status(401).end();
+                return res.status(401).end('Falha ao decodificar token');
             }
 
             console.log(decoded)
@@ -38,7 +38,7 @@ module.exports = (app) => {
             if(decoded){
                 email = decoded.email;
             }else{
-                return res.status(401).end();
+                return res.status(401).end('Falha ao buscar dados no token');
             }
             /*
              // check if a user exists
@@ -69,7 +69,7 @@ module.exports = (app) => {
                 if (!usuario ||
                     (usuario && usuario.situacao != 1)) {
 
-                    return res.status(401).end();
+                    return res.status(401).end('Falha ao validar usuário');
                 }
 
                 return next();
@@ -77,7 +77,7 @@ module.exports = (app) => {
             }).catch((erro) => {
                 console.log('erro:', erro);
                 // return done(erro);
-                return res.status(401).end();
+                return res.status(401).end(erro);
             });
 
         });

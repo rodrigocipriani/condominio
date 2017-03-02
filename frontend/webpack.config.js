@@ -10,10 +10,10 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 
 const port = 8000;
-const publicPath = isProduction ? '/' : '/';
-// const publicPath = isProduction ? '/condominio/' : '/';
+const publicPath = isProduction ? '/condominio' : '/';
+// const publicPath = isProduction ? '/eficiencia/' : '/';
 const appSourcePath = path.join(__dirname, './src/app');
-const buildPath = path.join(__dirname, './dist');
+const buildPath = path.join(__dirname, './public');
 const imgPath = path.join(__dirname, './src/assets/img');
 const sourcePath = path.join(__dirname, './src');
 
@@ -74,12 +74,32 @@ const rules = [
     {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: 'file-loader?name=fonts/[name].[ext]'
-    },{
+    },
+    // {
+    //     test: /\.css$/,
+    //     use: ExtractTextPlugin.extract({
+    //         fallback: 'style-loader',
+    //         use: 'css-loader!postcss-loader!sass-loader',
+    //     }),
+    // }
+    {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader!postcss-loader!sass-loader',
-        }),
+        use: [
+            'style-loader',
+            'css-loader?modules&importLoaders=1',
+            // 'postcss-loader'
+            {
+                loader: 'postcss-loader?parser=postcss-js&sourceMap=inline',
+                options: {
+                    plugins: function () {
+                        return [
+                            require('precss'),
+                            require('autoprefixer')
+                        ];
+                    }
+                }
+            }
+        ]
     }
 ];
 

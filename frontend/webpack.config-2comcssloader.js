@@ -10,8 +10,8 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 
 const port = 8000;
-const publicPath = isProduction ? '/eficiencia' : '/';
-// const publicPath = isProduction ? '/eficiencia/' : '/';
+const publicPath = isProduction ? '/condominio' : '/';
+// const publicPath = isProduction ? '/condominio/' : '/';
 const appSourcePath = path.join(__dirname, './src/app');
 const buildPath = path.join(__dirname, './public');
 const imgPath = path.join(__dirname, './src/assets/img');

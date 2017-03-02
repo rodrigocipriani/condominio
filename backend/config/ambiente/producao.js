@@ -12,7 +12,7 @@ module.exports = {
     redis: {
         host: 'localhost',
         port: 6379,
-        pass: '',
+        pass: process.env.REDIS_PASSWD,
         client: ''
         // ttl :  260
     },
