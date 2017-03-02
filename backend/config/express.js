@@ -27,7 +27,7 @@ module.exports = () => {
     /**
      * servir a aplicação no frontend
      * */
-    app.use(express.static('../frontend/public'));
+    app.use(express.static(config.publicFolder));
 
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
