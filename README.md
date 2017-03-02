@@ -1,5 +1,7 @@
 Condomínios
 ======
 
-* Implementando autenticação de: https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
+## TODOs
 
+- Colocar os ícones do material do google no lugar do font awesome
+- 

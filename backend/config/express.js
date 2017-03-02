@@ -1,29 +1,33 @@
-const config      = require('./config'),
-    express      = require('express'),
-    cors         = require('cors'),
-    redis        = require("redis"),
-     consign      = require('consign'),
-     bodyParser   = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    session      = require('express-session'),
-    redisStore   = require('connect-redis')(session),
-    cliente      = redis.createClient(config.redis.port, config.redis.host, {auth_pass: config.redis.pass, no_ready_check: true}),
-    passport     = require('passport');
+const express = require('express');
+const cors = require('cors');
+const redis = require("redis");
+const consign = require('consign');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
+
+const config = require('./config');
+const passport = require('passport');
+
+console.log('config >>', config);
 
 let isProduction = process.env.NODE_ENV == 'production';
 
-module.exports =() => {
+module.exports = () => {
 
     const app = express();
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || config.port;
 
     app.set('port', port);
-    app.set('views','./app/views');
+    app.set('views', './app/views');
     app.engine('html', require('ejs').renderFile);
     app.set('view engine', 'html'); // ejs
 
-    // app.use(express.static('./public'));
-    app.use(express.static('../frontend/dist'));
+    /**
+     * servir a aplicação no frontend
+     * */
+    app.use(express.static('../frontend/public'));
 
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
@@ -54,9 +58,14 @@ module.exports =() => {
 
     }));
 
-
+    /**
+     * Configuração do redis
+     * */
     let configuracaoRedis = config.redis;
-    configuracaoRedis.client = cliente;
+    configuracaoRedis.client = redis.createClient(config.redis.port, config.redis.host, {
+        auth_pass: config.redis.pass,
+        no_ready_check: true
+    });
     app.use(session(
         {
             secret: config.secretSession,
@@ -70,11 +79,11 @@ module.exports =() => {
     app.use(passport.session());
 
     //load('models/modelo.js', {cwd: 'app'})
-      consign ({
-          cwd: isProduction ? 'backend/app' : 'app'
-      })
-     .include('models/modelo.js')
-     //   .then('models/modelo.js')
+    consign({
+        cwd: isProduction ? 'backend/app' : 'backend/app'
+    })
+        .include('models/modelo.js')
+        //   .then('models/modelo.js')
         .then('util')
         .then('services')
         .then('controllers')
@@ -82,7 +91,7 @@ module.exports =() => {
         .then('routes')
         .into(app);
 
-    app.get('*', (req,res) => {
+    app.get('*', (req, res) => {
         res.status(404).render('404.ejs');
     });
 
@@ -93,17 +102,17 @@ module.exports =() => {
     // });
 
     // tratamento de erros
-    app.use((erro, req,res, next) => {
+    app.use((erro, req, res, next) => {
         console.log(erro.stack);
         // res.header("Access-Control-Allow-Origin", "*");
         // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         if (res.headersSent) {
-           return next(erro);
+            return next(erro);
         }
         res.status(500);
-        if(erro.chave){
+        if (erro.chave) {
             res.send({mensagens: [{tipo: 'danger', chave: erro.chave}]});
-        }else{
+        } else {
             res.send({mensagens: [{tipo: 'danger', texto: erro.message}]});
         }
     });
