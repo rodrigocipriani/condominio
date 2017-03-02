@@ -1,5 +1,5 @@
 module.exports = {
-    publicFolder: '../frontend/public',
+    publicFolder: './frontend/public',
     corsOriginsAccept: [],
     port: 80,
     lib: {

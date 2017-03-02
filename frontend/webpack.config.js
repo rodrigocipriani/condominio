@@ -6,18 +6,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
+const config = require('./config/config');
+
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 
-const port = 8000;
-const publicPath = isProduction ? '/condominio' : '/';
-// const publicPath = isProduction ? '/eficiencia/' : '/';
+const port = config.port;
+const publicPath = `/${config.appSubUrl}`;
 const appSourcePath = path.join(__dirname, './src/app');
 const buildPath = path.join(__dirname, './public');
 const imgPath = path.join(__dirname, './src/assets/img');
 const sourcePath = path.join(__dirname, './src');
 
-// Common plugins
+/**
+ * Commons plugins
+ * */
 const plugins = [
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
@@ -57,7 +60,9 @@ const plugins = [
     new ExtractTextPlugin('style-[hash].css')
 ];
 
-// Common rules
+/**
+ * Common rules
+ * */
 const rules = [
     {
         test: /\.(js|jsx)$/,
@@ -75,13 +80,6 @@ const rules = [
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: 'file-loader?name=fonts/[name].[ext]'
     },
-    // {
-    //     test: /\.css$/,
-    //     use: ExtractTextPlugin.extract({
-    //         fallback: 'style-loader',
-    //         use: 'css-loader!postcss-loader!sass-loader',
-    //     }),
-    // }
     {
         test: /\.css$/,
         use: [
@@ -104,7 +102,9 @@ const rules = [
 ];
 
 if (isProduction) {
-    // Production plugins
+    /**
+     * Production plugins
+     * */
     plugins.push(
         new webpack.LoaderOptionsPlugin({
             minimize: true,
@@ -130,7 +130,9 @@ if (isProduction) {
         // new ExtractTextPlugin('style-[hash].css')
     );
 
-    // Production rules
+    /**
+     * Production rules
+     * */
     rules.push(
         {
             test: /\.scss$/,
@@ -141,13 +143,18 @@ if (isProduction) {
         }
     );
 } else {
-    // Development plugins
+
+    /**
+     * Development plugins
+     * */
     plugins.push(
         new webpack.HotModuleReplacementPlugin(),
         new DashboardPlugin()
     );
 
-    // Development rules
+    /**
+     * Development rules
+     * */
     rules.push(
         {
             test: /\.scss$/,
@@ -212,7 +219,7 @@ module.exports = {
         compress: isProduction,
         inline: !isProduction,
         hot: !isProduction,
-        host: isProduction ? '127.0.0.1': '0.0.0.0',
+        host: isProduction ? '127.0.0.1' : '0.0.0.0',
         stats: {
             assets: true,
             children: false,
