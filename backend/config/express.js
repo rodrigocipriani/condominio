@@ -6,6 +6,7 @@ const consign = require('consign');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const modRewrite = require('connect-modrewrite');
 const redisStore = require('connect-redis')(session);
 
 const config = require('./config');
@@ -24,9 +25,19 @@ module.exports = () => {
     app.set('view engine', 'html'); // ejs
 
     /**
+     * Reescrevendo a url para sempre cair no index.html
+     * (correção refresh da tela)
+     * */
+    app.use(modRewrite(
+        ['!\\api/|\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg$ /index.html [L]']
+    ));
+
+    /**
      * servir a aplicação no frontend
      * */
     app.use(express.static(config.publicFolder));
+
+
 
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
