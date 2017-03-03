@@ -1,7 +1,7 @@
 module.exports = {
     url: {
-        api: 'http://localhost:3000/api',
+        api: 'http://rodrigocipriani.com.br/api',
         app: '',
-        base: 'http://localhost.bb.com.br'
+        base: 'http://rodrigocipriani.com.br'
     }
 };
