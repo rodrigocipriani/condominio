@@ -39,8 +39,8 @@ module.exports = {
      },
      */
     postgres: {
-        usuario: 'postgres',
-        senha: 'postgres',
+        usuario: process.env.POSTGRES_USER,
+        senha: process.env.POSTGRES_PASSWD,
         db: 'condominio',
         config: {
             host: 'localhost',
