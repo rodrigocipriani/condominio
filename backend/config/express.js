@@ -31,7 +31,7 @@ module.exports = () => {
      * (correção refresh da tela)
      * */
     app.use(modRewrite(
-        ['!\\api/|\\fonts/|\\assets/|\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg$ /index.html [L]']
+        ['!\\api/|\\fonts/**|\\assets/|\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg$ /index.html [L]']
     ));
 
     /**
