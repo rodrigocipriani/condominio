@@ -20,6 +20,20 @@ const actionsMap = {
         return {...state, usuario: action.payload.usuario};
     },
 
+    [actionTypes.SIGNIN_ERROR]: (state, action) => {
+        console.log('actionTypes.SIGNIN_ERROR', action.error.response.data);
+
+        let mensagens = action.error.response.data.mensagens;
+
+        let errors = mensagens || [];
+
+        // todo : tratar aqui o erro para deixar os campos do formulário indicando erro
+        // todo : capturar estas mensagens de erro em um reducer no App para lançar mensagens na tela
+        console.log('mensagens || []', errors);
+
+        return {...state};
+    },
+
 };
 
 export default function reducer(state = initialState, action = {}) {

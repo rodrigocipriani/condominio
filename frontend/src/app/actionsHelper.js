@@ -12,6 +12,7 @@ export const createAssyncAction = (type, promise, args) => {
             ...args,
         });
     }).catch(err => {
+
         store.dispatch({
             type: type + '_ERROR',
             msg: err.msg,

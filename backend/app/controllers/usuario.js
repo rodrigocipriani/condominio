@@ -2,7 +2,8 @@ module.exports = (app) => {
 
     const jwt = require('jsonwebtoken');
     const passport = require('passport');
-    const config              = require('../../config/config');
+    const config = require('../../config/config');
+    const Erro = require('../util/Erro');
     const UsuariosService = app.services.usuario;
     const controller = {};
 
@@ -112,17 +113,28 @@ module.exports = (app) => {
 
         const {email, password} = req.body;
 
+        if ('' === email) {
+            Erro.add(Erro.getMensagemErro('Preencha o e-mail'));
+        }
+        if ('' === password) {
+            Erro.add(Erro.getMensagemErro('Preencha a senha'));
+        }
+        if (Erro.hasErrors()) {
+            return res.status(401).send(Erro.getFlush());
+        }
+
         passport.authenticate('login', (erro, usuario, info) => {
+
+
             if (erro) {
-                return next(erro)
+                return next("Rodrigo ciprisdfa s")
+                // return res.status(401).send(Erro.getMensagemErro('Rodrigo >>>' + info));
             }
             if (!usuario) {
-                console.log('mensagem de erro : ', info);
-                return res.status(401).send(getMensagemErro(info));
+                console.log('mensagem de erro3333 : ', info);
             }
-                console.log('>>>', usuario);
+
             req.logIn(usuario, (erro) => {
-                console.log("erro", erro);
                 if (erro) {
                     return next(erro);
                 }
@@ -144,26 +156,6 @@ module.exports = (app) => {
         return res.json({msg: 'ok'});
         // res.redirect('/');
     };
-
-    const getMensagem = (tipo, info) => {
-        console.log('getMensagem(%s, %s)', tipo, JSON.stringify(info));
-        let mensagem = [];
-        if (info.chave) {
-            mensagem = {mensagens: [{tipo: tipo, chave: info.chave}]};
-        } else {
-            mensagem = {mensagens: [{tipo: tipo, texto: info.message}]};
-        }
-        return mensagem;
-    };
-
-    const getMensagemErro = (info) => {
-        return getMensagem('danger', info);
-    };
-
-    const getMensagemSucesso = (info) => {
-        return getMensagem('success', info);
-    };
-
 
     return controller;
 };
