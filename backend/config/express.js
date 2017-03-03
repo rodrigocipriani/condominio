@@ -12,6 +12,8 @@ const redisStore = require('connect-redis')(session);
 const config = require('./config');
 const passport = require('passport');
 
+// console.log('config', config);
+
 let isProduction = process.env.NODE_ENV == 'production';
 
 module.exports = () => {

@@ -1,3 +1,5 @@
+const POSTGRES_USER = process.env.POSTGRES_USER;
+
 module.exports = {
     publicFolder: './frontend/public',
     corsOriginsAccept: [],
@@ -39,7 +41,7 @@ module.exports = {
      },
      */
     postgres: {
-        usuario: process.env.POSTGRES_USER,
+        usuario: POSTGRES_USER,
         senha: process.env.POSTGRES_PASSWD,
         db: 'condominio',
         config: {
