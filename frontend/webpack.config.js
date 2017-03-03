@@ -11,6 +11,8 @@ const config = require('./config/config');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 const port = config.port;
 const publicPath = `/${config.appSubUrl}`;
 const appSourcePath = path.join(__dirname, './src/app');

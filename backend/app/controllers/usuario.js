@@ -111,7 +111,6 @@ module.exports = (app) => {
     controller.logar = (req, res, next) => {
 
         const {email, password} = req.body;
-        console.log("req::::: ", email, password);
 
         passport.authenticate('login', (erro, usuario, info) => {
             if (erro) {

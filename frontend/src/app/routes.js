@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 
-import App from './index';
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProduction = nodeEnv === 'production';
+
+import AppView from './containers/App/AppView';
 import LoginPage from './containers/autenticacao/LoginPage';
 import SignUpPage from './containers/autenticacao/SignUpPage';
 import Documentos from './containers/Documentos/documentosView';
@@ -11,8 +14,6 @@ import NotFound from './containers/NotFound';
 import * as autenticacaoActions from './containers/autenticacao/autenticacaoAction';
 import Auth from './containers/autenticacao/Auth';
 
-const nodeEnv = process.env.NODE_ENV || 'development';
-const isProduction = nodeEnv === 'production';
 const publicPath = '/';
 const appSubRoute = isProduction ? `${publicPath}` : publicPath;
 // const appSubRoute = isProduction ? `${publicPath}diario/` : publicPath;
@@ -40,7 +41,7 @@ export default class Routes extends Component {
         return (
             <Router history={ browserHistory }>
 
-                <Route path={ publicPath } component={ Auth.isUserAuthenticated() ? App : LoginPage } onEnter={appWillInit}>
+                <Route path={ publicPath } component={ Auth.isUserAuthenticated() ? AppView : LoginPage } onEnter={appWillInit}>
 
                     <IndexRedirect to={Auth.isUserAuthenticated() ? routeCodes.DOCUMENTOS : routeCodes.LOGIN} />
 

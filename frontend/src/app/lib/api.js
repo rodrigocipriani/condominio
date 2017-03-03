@@ -18,6 +18,9 @@ const api = (baseUrl) => {
     });
 
     create.interceptors.response.use(response => response, error => {
+
+        console.log('ERROR:::', error);
+
         const response = error.response;
         error.msg = response && response.data ? response.data.msg : 'Erro ao tentar receber dados.'
         console.error(error.msg, error, error.response);

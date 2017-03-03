@@ -2,7 +2,7 @@ import React from 'react';
 import 'materialize-css/bin/materialize.css';
 import 'materialize-css/bin/materialize.js';
 
-import bgCaymmi from '../../../assets/img/bg-bcaymmi.jpg';
+import bgCaymmi from '../../../../assets/img/bg-bcaymmi.jpg';
 import Menu from './Menu';
 
 var SideNav = React.createClass({
