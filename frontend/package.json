@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "api": "json-server --watch db.json --port 3004",
     "windows:build": "rmdir /s /q public\\&& set NODE_ENV=production&& webpack",
-    "build": "rm -rf ./public && export NODE_ENV=production && webpack",
+    "build": "rm -rf ./public && webpack",
     "webpack": "webpack"
   },
   "repository": {},
