@@ -4,6 +4,7 @@ import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 
+import IndexView from './containers/Index/IndexView';
 import AppView from './containers/App/AppView';
 import LoginPage from './containers/autenticacao/LoginPage';
 import SignUpPage from './containers/autenticacao/SignUpPage';
@@ -41,32 +42,38 @@ export default class Routes extends Component {
         return (
             <Router history={ browserHistory }>
 
-                <Route path={ publicPath } component={ Auth.isUserAuthenticated() ? AppView : LoginPage } onEnter={appWillInit}>
+                <Route path={ routeCodes.HOME } component={IndexView}>
+                    <Route path={ publicPath } component={ Auth.isUserAuthenticated() ? AppView : LoginPage }
+                           onEnter={appWillInit}>
 
-                    <IndexRedirect to={Auth.isUserAuthenticated() ? routeCodes.DOCUMENTOS : routeCodes.LOGIN} />
+                        <IndexRedirect to={Auth.isUserAuthenticated() ? routeCodes.DOCUMENTOS : routeCodes.LOGIN}/>
 
-                    <Route path={ routeCodes.DOCUMENTOS } component={ Documentos } onEnter={Documentos.routeWillInit}/>
-                    <Route path={ routeCodes.FORUM } component={ Forum }/>
-                    <Route path={ routeCodes.INDICACOES } component={ Indicacoes }/>
+                        <Route path={ routeCodes.DOCUMENTOS } component={ Documentos }
+                               onEnter={Documentos.routeWillInit}/>
+                        <Route path={ routeCodes.FORUM } component={ Forum }/>
+                        <Route path={ routeCodes.INDICACOES } component={ Indicacoes }/>
 
+                    </Route>
+
+                    <Route path={ routeCodes.LOGIN } component={ LoginPage } onEnter={appWillInit}/>
+                    <Route path={ routeCodes.SIGNUP } component={ SignUpPage } onEnter={Documentos.routeWillInit}/>
+                    <Route path={ routeCodes.LOGOUT } onEnter={
+                        (nextState, replace, callback) => {
+                            Auth.deauthenticateUser();
+
+                            // todo : location... mexe com o navegador, trocar para algo nativo do react
+                            location.href = routeCodes.HOME;
+
+                            // change the current URL to /
+                            {/*replace('/');*/
+                            }
+                            {/*callback();*/
+                            }
+                        }
+                    }/>
+
+                    <Route path='*' component={ NotFound }/>
                 </Route>
-
-                <Route path={ routeCodes.LOGIN } component={ LoginPage } onEnter={appWillInit} />
-                <Route path={ routeCodes.SIGNUP } component={ SignUpPage } onEnter={Documentos.routeWillInit}/>
-                <Route path={ routeCodes.LOGOUT } onEnter={
-                    (nextState, replace, callback) => {
-                        Auth.deauthenticateUser();
-
-                        // todo : location... mexe com o navegador, trocar para algo nativo do react
-                        location.href = routeCodes.HOME;
-
-                        // change the current URL to /
-                        {/*replace('/');*/}
-                        {/*callback();*/}
-                    }
-                }/>
-
-                <Route path='*' component={ NotFound }/>
             </Router>
         );
     }

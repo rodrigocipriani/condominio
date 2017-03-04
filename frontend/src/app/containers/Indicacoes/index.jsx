@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 @connect(state => ({
-    // counter: state.app.get('counter'),
+    // counter: state.appReducer.get('counter'),
 }))
 export default class Indicacoes extends Component {
     static propTypes = {

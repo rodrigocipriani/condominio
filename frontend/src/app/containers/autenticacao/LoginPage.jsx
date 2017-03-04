@@ -6,7 +6,7 @@ import {routeCodes} from '../../routes';
 import Auth from './Auth';
 
 @connect(state => ({
-    usuario: state.autenticacao.usuario,
+    usuario: state.autenticacaoReducer.usuario,
 }))
 class LoginPage extends React.Component {
 

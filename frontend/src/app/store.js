@@ -24,7 +24,7 @@ const store = isProduction ?
         compose(
             applyMiddleware(
                 thunkMiddleware,
-                loggerMiddleware
+                // loggerMiddleware
             ),
             window.devToolsExtension ? window.devToolsExtension() : f => f),
     );

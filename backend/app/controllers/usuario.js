@@ -114,10 +114,10 @@ module.exports = (app) => {
         const {email, password} = req.body;
 
         if ('' === email) {
-            Erro.add(Erro.getMensagemErro('Preencha o e-mail'));
+            Erro.add(Erro.getMensagemErro('E-mail informado incorreto'));
         }
         if ('' === password) {
-            Erro.add(Erro.getMensagemErro('Preencha a senha'));
+            Erro.add(Erro.getMensagemErro('Senha informada incorreta'));
         }
         if (Erro.hasErrors()) {
             return res.status(401).send(Erro.getFlush());

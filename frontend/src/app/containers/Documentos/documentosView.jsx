@@ -11,7 +11,7 @@ const vistoria = '/static/files/Vistoria_20160119_v01.pdf';
 const ata = '/static/files/ata_fundacao-ass_prom_guilherme_almeida-2017-02-14.docx';
 
 @connect(state => ({
-    documentos: state.documentos.documentos,
+    documentos: state.documentosReducer.documentos,
 }))
 class Documentos extends Component {
 
