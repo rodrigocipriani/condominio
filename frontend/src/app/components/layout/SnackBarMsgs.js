@@ -9,6 +9,7 @@ const css = {
     }
 };
 
+// todo - implementar que no onmousehover o contador de tempo fica parado e a msg não fecha
 class SnackBarMsgs extends Component {
     static propTypes = {
         // children: PropTypes.object,
@@ -23,27 +24,42 @@ class SnackBarMsgs extends Component {
     };
 
     state = {
-        counter: 0
+        counter: 0,
+        msgs: []
     };
 
-    snackMsgs = (msgs) => {
+    componentWillReceiveProps(nextProps) {
+        const newMsgs = nextProps.msgs.map((msg, key) => {
+            msg.type = msg.tipo || 'info';
+            msg.uuid = new Date().getTime() + key;
+            return msg;
+        });
+        this.setState({msgs: this.state.msgs.concat(newMsgs)});
+    }
 
-        const retorno = msgs.map((msg, key) => {
-            const type = msg.tipo || 'info';
-            return <Snack key={new Date().getTime()+key} type={type} text={msg.texto} closeTime={(this.props.closeTimer+key)} />;
+    snackMsgs = () => {
+        const retorno = this.state.msgs.map((msg, key) => {
+            return <Snack key={msg.uuid} uuid={msg.uuid} type={msg.type} text={msg.texto}
+                          handleClose={this.handleSnackClose}
+                          closeTime={(this.props.closeTimer)}/>;
         });
 
         return retorno;
     };
 
-    render() {
+    handleSnackClose = (uuid) => {
+        return this.state.msgs.filter(msg => {
+            return msg.uuid != uuid;
+        });
+    };
 
-        const {msgs} = this.props;
+
+    render() {
 
         return (
             <div className="row" style={css.fixBotton}>
                 <div className="col s12 center-align">
-                    {this.snackMsgs(msgs)}
+                    {this.snackMsgs()}
                 </div>
             </div>
         );
@@ -55,16 +71,20 @@ class Snack extends Component {
     static propTypes = {
         type: PropTypes.string,
         text: PropTypes.string.isRequired,
-        closeTime: PropTypes.number
+        closeTime: PropTypes.number,
+        uuid: PropTypes.number,
+        handleClose: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         type: 'info',
         text: '',
-        closeTime: 5
+        closeTime: 5,
+        uuid: null,
+        handleClose: {}
     };
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.initCounter();
     }
@@ -75,16 +95,16 @@ class Snack extends Component {
 
     timer = null;
     initCounter = () => {
-         this.timer = setInterval(() => {
-            this.setState({counter: this.state.counter+1});
-         }, 1000);
+        this.timer = setInterval(() => {
+            this.setState({counter: this.state.counter + 1});
+        }, 1000);
     };
 
     componentWillUnmount() {
         this.stopTimer();
     }
 
-    stopTimer(){
+    stopTimer() {
         clearInterval(this.timer);
     }
 
@@ -96,10 +116,11 @@ class Snack extends Component {
     render() {
 
         const {counter} = this.state;
-        const {type, text, closeTime} = this.props;
+        const {type, text, closeTime, uuid, handleClose} = this.props;
 
-        if(counter >= closeTime){
+        if (counter >= closeTime) {
             this.stopTimer();
+            handleClose(uuid);
             return null;
         }
 
@@ -124,11 +145,19 @@ class Snack extends Component {
         // todo : trocar o ok por button
         return (
             <div className={['card-panel center-align', style[type].cardClass].join(' ')}
-                 style={{padding: 10, width: '80%', margin: '0 auto', marginTop: 5, maxWidth: 400, position: 'relative'}}>
+                 style={{
+                     padding: 10,
+                     width: '80%',
+                     margin: '0 auto',
+                     marginTop: 5,
+                     maxWidth: 400,
+                     position: 'relative'
+                 }}>
                     <span className={style[type].textClass}>
                        {text}
                     </span>
-                    <a onClick={() => this.close()} href="javascript:" style={{position: 'absolute', right: 15}} className={[style[type].textClass].join(' ')}>OK</a>
+                <a onClick={() => this.close()} href="javascript:" style={{position: 'absolute', right: 15}}
+                   className={[style[type].textClass].join(' ')}>OK</a>
             </div>
         );
     }

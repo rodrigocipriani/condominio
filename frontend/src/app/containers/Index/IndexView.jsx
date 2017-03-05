@@ -19,49 +19,18 @@ export default class Index extends Component {
         msgs: PropTypes.array,
     };
 
-    componentWillReceiveProps(nextProps) {
-        // this.snackMsgs = nextProps.msgs
-        /*
-         let msgs = nextProps.msgs;
-         console.log('msgs >>>', msgs);
-         if (msgs && msgs.length > 0) {
-         msgs.map(msg => {
-         // alert(`MSG: ${msg.tipo} - ${msg.texto}`);
-         Materialize.toast('I am a toast!', 4000)
-         })
-         }
-         */
+    constructor(props){
+        super(props);
     }
-
-    snackMsgs = (msgs) => {
-        const retorno = msgs.map((msg, key) => {
-            console.log('msg :::', msg);
-            {/*return <SnackBarMsgs key={key} text={msg.texto} type={msg.tipo}/>*/
-            }
-            return <Snackbar
-                open={true}
-                message={<SnackBarMsgs key={key} text={msg.texto} type={msg.tipo}/>}
-                action="Ok"
-                autoHideDuration={3000}
-            />;
-            // onActionTouchTap={() => {}}
-            // onRequestClose={this.handleRequestClose}
-        });
-        //todo : chamar action para apagar msgs mostradas
-
-        return retorno;
-    };
 
     render() {
         const {children, msgs} = this.props;
-        console.log('msgs ===', msgs);
 
         return (
             <MuiThemeProvider muiTheme={getMuiTheme()}>
                 <div className='Index'>
                     {children}
 
-                    {/*todo : colocar um callback que quando é mostrado chama uma aciton para apagar msgs do reducer*/}
                     <SnackBarMsgs msgs={msgs} />
 
                 </div>
