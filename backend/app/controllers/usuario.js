@@ -8,9 +8,9 @@ module.exports = (app) => {
     const controller = {};
 
     controller.obterUsuarioLogado = (req, res) => {
-        console.log('obterUsuarioLogado ');
-        if (req.user == undefined) {
-            res.status(401).send(getMensagemErro({chave: 'mensagem.realizarLogin'}));
+        console.log('obterUsuarioLogado ', req.user);
+        if (!req.user) {
+            res.status(401).send(Erro.getMensagemErro({chave: 'mensagem.realizarLogin'}));
         }
         res.json(req.user);
     };
@@ -26,14 +26,14 @@ module.exports = (app) => {
             }
             if (!user) {
                 console.log('mensagem de erro : ', info);
-                return res.status(400).send(getMensagemErro(info));
+                return res.status(400).send(Erro.getMensagemErro(info));
             }
             req.logIn(user, (erro) => {
                 if (erro) {
                     return next(erro);
                 }
                 console.log('cadastro efetuado com sucesso! - user:', user);
-                return res.send(getMensagemSucesso({chave: 'mensagem.usuarioCriadoSucesso'}));
+                return res.send(Erro.getMensagemSucesso({chave: 'mensagem.usuarioCriadoSucesso'}));
             });
         })(req, res, next);
 
@@ -45,10 +45,10 @@ module.exports = (app) => {
             .alterar(req.body.id, req.body.nome, req.body.senhaAntiga, req.body.senha)
             .then((r) => {
                 console.log('usuarioController.alterar - resposta: ', r);
-                return res.json(getMensagemSucesso({chave: 'mensagem.usuarioAlteradoSucesso'}));
+                return res.json(Erro.getMensagemSucesso({chave: 'mensagem.usuarioAlteradoSucesso'}));
             }).catch((erro) => {
             console.log('usuarioController.alterar - erro: ', erro);
-            return res.status(400).send(getMensagemErro(erro));
+            return res.status(400).send(Erro.getMensagemErro(erro));
         });
     };
 
@@ -61,7 +61,7 @@ module.exports = (app) => {
             })
             .catch((erro) => {
                 console.log('--> erro: ', erro);
-                return res.status(400).send(getMensagemErro(erro));
+                return res.status(400).send(Erro.getMensagemErro(erro));
             });
     };
 
@@ -82,7 +82,7 @@ module.exports = (app) => {
             })
             .catch((erro) => {
                 // console.log('--> erro: ', erro);
-                return res.status(400).send(erro); //getMensagemErro(erro));
+                return res.status(400).send(Erro.getMensagemErro(erro)); //getMensagemErro(erro));
             });
     };
 
@@ -94,7 +94,7 @@ module.exports = (app) => {
             .validarTokenNovoUsuario(token)
             .then((r) => {
                 console.log('deu certo: ', JSON.stringify(r));
-                return res.json(getMensagemSucesso({chave: 'mensagem.usuarioConfirmadoSucesso'}));
+                return res.json(Erro.getMensagemSucesso({chave: 'mensagem.usuarioConfirmadoSucesso'}));
 
             })
             .catch((erro) => {
@@ -103,7 +103,7 @@ module.exports = (app) => {
                     //    return res.json({mensagens: [{tipo: 'danger', chave: erro.chave}]});
                     //}
                     //return res.json({mensagens: [{tipo: 'danger', texto: erro}]});
-                    return res.status(401).send(getMensagemErro(erro));
+                    return res.status(401).send(Erro.getMensagemErro(erro));
                 }
             );
     };
@@ -127,11 +127,10 @@ module.exports = (app) => {
 
 
             if (erro) {
-                return next("Rodrigo ciprisdfa s")
-                // return res.status(401).send(Erro.getMensagemErro('Rodrigo >>>' + info));
+                return res.status(401).send(Erro.getMensagemErro(info));
             }
             if (!usuario) {
-                console.log('mensagem de erro3333 : ', info);
+                return res.status(401).send(Erro.getMensagemErro('Usuário não encontrado'));
             }
 
             req.logIn(usuario, (erro) => {
@@ -141,8 +140,8 @@ module.exports = (app) => {
                 const payload = {
                     email: usuario.email
                 };
-                const token = jwt.sign(payload, config.secretSession);
-                return res.json({token, usuario});
+                // const token = jwt.sign(payload, config.secretSession);
+                return res.json(usuario);
                 // return res.status(200).send();
             });
         })(req, res, next);

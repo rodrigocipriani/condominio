@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import SideNav from './components/SideNav';
 
 @connect(state => ({
-    usuario: state.autenticacao.usuario,
+    usuario: state.autenticacaoReducer.usuario,
 }))
 export default class AppView extends Component {
 

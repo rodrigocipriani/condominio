@@ -9,12 +9,14 @@ const actionsMap = {
     [actionTypes.REQ_LOGGED_USER_SUCCESS]: (state, action) => {
         console.log('actionTypes.REQ_LOGGED_USER_SUCCESS', action);
 
+        Auth.authenticateUser(action.payload.token);
+
         return {...state, usuario: action.payload};
     },
 
     [actionTypes.SIGNIN_SUCCESS]: (state, action) => {
         console.log('actionTypes.SIGNIN_SUCCESS', action);
-        // save the token
+
         Auth.authenticateUser(action.payload.token);
 
         return {...state, usuario: action.payload.usuario};
@@ -32,6 +34,14 @@ const actionsMap = {
         console.log('mensagens || []', errors);
 
         return {...state};
+    },
+
+    [actionTypes.SIGNOUT_SUCCESS]: (state, action) => {
+        console.log('actionTypes.SIGNOUT_SUCCESS', action);
+
+        Auth.deauthenticateUser();
+
+        return {...state, usuario: action.payload.usuario};
     },
 
 };

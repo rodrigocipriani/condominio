@@ -14,6 +14,7 @@ import Indicacoes from './containers/Indicacoes';
 import NotFound from './containers/NotFound';
 import * as autenticacaoActions from './containers/autenticacao/autenticacaoAction';
 import Auth from './containers/autenticacao/Auth';
+import * as autenticacaoAction from './containers/autenticacao/autenticacaoAction';
 
 const publicPath = '/';
 const appSubRoute = isProduction ? `${publicPath}` : publicPath;
@@ -31,38 +32,46 @@ export const routeCodes = {
 
 
 const appWillInit = (nextState, replace, callback) => {
+
     // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
     autenticacaoActions.resquestLoggedUser();
+
+    if (!Auth.isUserAuthenticated()) {
+        replace(routeCodes.LOGIN);
+    }
     callback();
 };
 
 export default class Routes extends Component {
     render() {
 
+        console.log('Auth.isUserAuthenticated()', Auth.isUserAuthenticated());
+
         return (
-            <Router history={ browserHistory }>
+            <IndexView>
+                <Router history={ browserHistory }>
 
-                <Route path={ routeCodes.HOME } component={IndexView}>
-                    <Route path={ publicPath } component={ Auth.isUserAuthenticated() ? AppView : LoginPage }
-                           onEnter={appWillInit}>
+                    {/*<IndexRedirect to={Auth.isUserAuthenticated() ? routeCodes.HOME : routeCodes.LOGIN}/>*/}
 
-                        <IndexRedirect to={Auth.isUserAuthenticated() ? routeCodes.DOCUMENTOS : routeCodes.LOGIN}/>
+                    <Route path={routeCodes.HOME} component={AppView} onEnter={appWillInit}>
+
+                        <IndexRedirect to={routeCodes.DOCUMENTOS}/>
 
                         <Route path={ routeCodes.DOCUMENTOS } component={ Documentos }
                                onEnter={Documentos.routeWillInit}/>
                         <Route path={ routeCodes.FORUM } component={ Forum }/>
                         <Route path={ routeCodes.INDICACOES } component={ Indicacoes }/>
-
                     </Route>
 
-                    <Route path={ routeCodes.LOGIN } component={ LoginPage } onEnter={appWillInit}/>
+                    <Route path={ routeCodes.LOGIN } component={ LoginPage }/>
                     <Route path={ routeCodes.SIGNUP } component={ SignUpPage } onEnter={Documentos.routeWillInit}/>
                     <Route path={ routeCodes.LOGOUT } onEnter={
                         (nextState, replace, callback) => {
-                            Auth.deauthenticateUser();
+                            console.log('logouttttttttttttttttt');
+                            autenticacaoAction.signout();
 
                             // todo : location... mexe com o navegador, trocar para algo nativo do react
-                            location.href = routeCodes.HOME;
+                            location.href = routeCodes.LOGIN;
 
                             // change the current URL to /
                             {/*replace('/');*/
@@ -73,8 +82,8 @@ export default class Routes extends Component {
                     }/>
 
                     <Route path='*' component={ NotFound }/>
-                </Route>
-            </Router>
+                </Router>
+            </IndexView>
         );
     }
 }

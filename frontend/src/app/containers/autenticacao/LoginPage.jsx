@@ -66,6 +66,7 @@ class LoginPage extends React.Component {
     render() {
 
         // todo : location... mexe com o navegador, trocar para algo nativo do react
+        console.log('login Auth.isUserAuthenticated()', Auth.isUserAuthenticated());
         if (Auth.isUserAuthenticated()) {
             location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
         }

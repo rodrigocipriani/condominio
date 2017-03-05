@@ -18,6 +18,12 @@ export const signin = (email, password) => {
     );
 };
 
+export const signout = (email, password) => {
+    createAssyncAction(actionTypes.SIGNOUT,
+        apiGeral.get('/autenticacao')
+    );
+};
+
 export const resquestLoggedUser = () => {
     createAssyncAction(actionTypes.REQ_LOGGED_USER,
         apiGeral.get('/usuario')
