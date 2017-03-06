@@ -14,7 +14,6 @@ import Indicacoes from './containers/Indicacoes';
 import NotFound from './containers/NotFound';
 import * as autenticacaoActions from './containers/autenticacao/autenticacaoAction';
 import Auth from './containers/autenticacao/Auth';
-import * as autenticacaoAction from './containers/autenticacao/autenticacaoAction';
 
 const publicPath = '/';
 const appSubRoute = isProduction ? `${publicPath}` : publicPath;
@@ -31,29 +30,37 @@ export const routeCodes = {
 };
 
 
-const appWillInit = (nextState, replace, callback) => {
-
-    // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
-    autenticacaoActions.resquestLoggedUser();
-
-    if (!Auth.isUserAuthenticated()) {
-        replace(routeCodes.LOGIN);
-    }
-    callback();
-};
+// const appWillInit = (nextState, replace, callback) => {
+//
+//     // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
+//     autenticacaoActions.resquestLoggedUser();
+//
+//     if (!Auth.isUserAuthenticated()) {
+//         replace(routeCodes.LOGIN);
+//     }
+//     callback();
+// };
 
 export default class Routes extends Component {
-    render() {
 
-        console.log('Auth.isUserAuthenticated()', Auth.isUserAuthenticated());
+    render() {
 
         return (
             <IndexView>
                 <Router history={ browserHistory }>
 
-                    {/*<IndexRedirect to={Auth.isUserAuthenticated() ? routeCodes.HOME : routeCodes.LOGIN}/>*/}
+                    <Route path={routeCodes.HOME} component={AppView} onEnter={
+                        (nextState, replace, callback) => {
 
-                    <Route path={routeCodes.HOME} component={AppView} onEnter={appWillInit}>
+                        if (!Auth.isUserAuthenticated()) {
+                            //redireciona para o login
+                            {/*replace(routeCodes.LOGIN);*/}
+                            // ja tenta pegar o usuário caso esteja ja autenticado no servidor
+                            // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
+                            autenticacaoActions.resquestLoggedUser();
+                        }
+                        callback();
+                    }}>
 
                         <IndexRedirect to={routeCodes.DOCUMENTOS}/>
 
@@ -68,7 +75,7 @@ export default class Routes extends Component {
                     <Route path={ routeCodes.LOGOUT } onEnter={
                         (nextState, replace, callback) => {
                             console.log('logouttttttttttttttttt');
-                            autenticacaoAction.signout();
+                            autenticacaoActions.signout();
 
                             // todo : location... mexe com o navegador, trocar para algo nativo do react
                             location.href = routeCodes.LOGIN;

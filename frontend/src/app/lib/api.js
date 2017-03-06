@@ -6,8 +6,8 @@ const api = (baseUrl) => {
         baseURL: baseUrl,
         withCredentials: true,
         headers: {
-            'Accept': 'application/json',
-            'Authorization': `bearer ${Auth.getToken()}`
+            'Accept': 'application/json'
+            // 'Authorization': `bearer ${Auth.getToken()}`
         }
     });
 

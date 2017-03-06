@@ -1,20 +1,17 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import SideNav from './components/SideNav';
+import Auth from '../autenticacao/Auth';
 
-@connect(state => ({
-    usuario: state.autenticacaoReducer.usuario,
-}))
 export default class AppView extends Component {
 
     static propTypes = {
-        children: PropTypes.object,
-        usuario: PropTypes.object,
+        children: PropTypes.object
     };
 
     render() {
-        const {children, usuario} = this.props;
+        const {children} = this.props;
+
+        const usuario = Auth.getUser();
 
         if (!usuario) {
             return <div>loading...</div>

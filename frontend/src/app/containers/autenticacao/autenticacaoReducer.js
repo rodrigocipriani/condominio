@@ -2,24 +2,24 @@ import {actionTypes} from './autenticacaoActionTypes';
 import Auth from './Auth';
 
 const initialState = {
-    usuario: null
+    isLogged: false
 };
 const actionsMap = {
 
     [actionTypes.REQ_LOGGED_USER_SUCCESS]: (state, action) => {
         console.log('actionTypes.REQ_LOGGED_USER_SUCCESS', action);
 
-        Auth.authenticateUser(action.payload.token);
+        Auth.authenticateUser(action.payload);
 
-        return {...state, usuario: action.payload};
+        return {...state, isLogged: action.payload != null};
     },
 
     [actionTypes.SIGNIN_SUCCESS]: (state, action) => {
         console.log('actionTypes.SIGNIN_SUCCESS', action);
 
-        Auth.authenticateUser(action.payload.token);
+        Auth.authenticateUser(action.payload);
 
-        return {...state, usuario: action.payload.usuario};
+        return {...state, isLogged: action.payload != null};
     },
 
     [actionTypes.SIGNIN_ERROR]: (state, action) => {
@@ -41,13 +41,25 @@ const actionsMap = {
 
         Auth.deauthenticateUser();
 
-        return {...state, usuario: action.payload.usuario};
+        return {...state, isLogged: false};
+    },
+
+    [actionTypes.REQUEST_ERROR]: (state, action) => {
+        console.log('actionTypes.REQUEST_ERROR', action);
+
+        let isLogged = true;
+        if(action.error.response.status == 401) {
+            Auth.deauthenticateUser();
+            isLogged = false;
+        }
+
+        return {...state, isLogged: isLogged};
     },
 
 };
 
 export default function reducer(state = initialState, action = {}) {
-    const fn = actionsMap[action.type];
+    const fn = action.type.endsWith('_ERROR') ? actionsMap[actionTypes.REQUEST_ERROR] : actionsMap[action.type];
     return fn ? fn(state, action) : state;
 }
 

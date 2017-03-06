@@ -1,39 +1,44 @@
 class Auth {
 
     /**
-     * Authenticate a user. Save a token string in Local Storage
+     * Authenticate a user. Save a user object in Local Storage
      *
-     * @param {string} token
+     * @param {object} user
      */
-    static authenticateUser(token) {
-        localStorage.setItem('token', token);
+    static authenticateUser(user) {
+        console.log('authenticateUser', user);
+        localStorage.setItem('user', user);
     }
 
     /**
-     * Check if a user is authenticated - check if a token is saved in Local Storage
+     * Check if a user is authenticated - check if a user is saved in Local Storage
      *
      * @returns {boolean}
      */
     static isUserAuthenticated() {
-        return localStorage.getItem('token') !== null;
+        let user = localStorage.getItem('user');
+        console.log('isUserAuthenticated', user ? true : false);
+        return user ? true : false;
     }
 
     /**
-     * Deauthenticate a user. Remove a token from Local Storage.
+     * Deauthenticate a user. Remove a user from Local Storage.
      *
      */
     static deauthenticateUser() {
-        localStorage.removeItem('token');
+        console.log('deauthenticateUser', localStorage.getItem('user'));
+        localStorage.removeItem('user');
     }
 
     /**
-     * Get a token value.
+     * Get a user value.
      *
-     * @returns {string}
+     * @returns {object}
      */
 
-    static getToken() {
-        return localStorage.getItem('token');
+    static getUser() {
+        console.log('getUser', localStorage.getItem('user'));
+        return localStorage.getItem('user');
     }
 
 }

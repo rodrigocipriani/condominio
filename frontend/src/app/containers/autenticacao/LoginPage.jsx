@@ -6,7 +6,7 @@ import {routeCodes} from '../../routes';
 import Auth from './Auth';
 
 @connect(state => ({
-    usuario: state.autenticacaoReducer.usuario,
+    isLogged: state.autenticacaoReducer.isLogged,
 }))
 class LoginPage extends React.Component {
 
@@ -27,6 +27,14 @@ class LoginPage extends React.Component {
 
         this.processForm = this.processForm.bind(this);
         this.changeUser = this.changeUser.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // todo : location... mexe com o navegador, trocar para algo nativo do react
+        const isLogged = nextProps.isLogged;
+        if(isLogged){
+            location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
+        }
     }
 
     /**
@@ -64,12 +72,6 @@ class LoginPage extends React.Component {
      * Render the component.
      */
     render() {
-
-        // todo : location... mexe com o navegador, trocar para algo nativo do react
-        console.log('login Auth.isUserAuthenticated()', Auth.isUserAuthenticated());
-        if (Auth.isUserAuthenticated()) {
-            location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
-        }
 
         return (
             <LoginForm

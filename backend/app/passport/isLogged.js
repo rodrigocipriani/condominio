@@ -7,7 +7,8 @@ module.exports = (app) => {
         console.log('req.user', req.user);
 
         if (!req.user) {
-            return res.status(401).send(Erro.getMensagemErro('Usuário não está autenticado'));
+            return res.redirect(401, '/logout');
+            // return res.status(401).send(Erro.getMensagemErro('Usuário não está autenticado'));
         }
 
         return next();
