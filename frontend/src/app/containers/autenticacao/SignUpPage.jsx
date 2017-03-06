@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import SignUpForm from './components/SignUpForm.jsx';
 import * as autenticacaoActions from './autenticacaoAction';
+import {Row, Col} from '../../components/layout';
 
 
 class SignUpPage extends React.Component {
@@ -59,12 +60,16 @@ class SignUpPage extends React.Component {
 
     render() {
         return (
-            <SignUpForm
-                onSubmit={this.processForm}
-                onChange={this.changeUser}
-                errors={this.state.errors}
-                user={this.state.user}
-            />
+            <Row>
+                <Col sizes="s12">
+                    <SignUpForm
+                        onSubmit={this.processForm}
+                        onChange={this.changeUser}
+                        errors={this.state.errors}
+                        user={this.state.user}
+                    />
+                </Col>
+            </Row>
         );
     }
 

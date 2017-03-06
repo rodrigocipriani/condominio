@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import LoginForm from './components/LoginForm.jsx';
 import * as autenticacaoActions from './autenticacaoAction';
 import {routeCodes} from '../../routes';
+import {Row, Col} from '../../components/layout';
 import Auth from './Auth';
 
 @connect(state => ({
@@ -32,7 +33,7 @@ class LoginPage extends React.Component {
     componentWillReceiveProps(nextProps) {
         // todo : location... mexe com o navegador, trocar para algo nativo do react
         const isLogged = nextProps.isLogged;
-        if(isLogged){
+        if (isLogged) {
             location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
         }
     }
@@ -74,12 +75,16 @@ class LoginPage extends React.Component {
     render() {
 
         return (
-            <LoginForm
-                onSubmit={this.processForm}
-                onChange={this.changeUser}
-                errors={this.state.errors}
-                user={this.state.user}
-            />
+            <Row>
+                <Col sizes="s12">
+                    <LoginForm
+                        onSubmit={this.processForm}
+                        onChange={this.changeUser}
+                        errors={this.state.errors}
+                        user={this.state.user}
+                    />
+                </Col>
+            </Row>
         );
     }
 
