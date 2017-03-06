@@ -8,8 +8,6 @@ const actionsMap = {
 
     [actionTypes.BUSCA_DOCUMENTOS_SUCCESS]: (state, action) => {
 
-        console.log('actionTypes.BUSCA_DOCUMENTOS_SUCCESS');
-
         return {...state, documentos: action.payload};
     },
 };

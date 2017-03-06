@@ -1,9 +1,9 @@
-import {createAssyncAction} from '../../actionsHelper';
+import {createAssyncAction} from '../../lib/actionsHelper';
 import api  from 'lib/api';
 import {actionTypes} from './autenticacaoActionTypes';
 import config from '../../config';
 
-const apiGeral = api(config.url.api);
+const apiGeral = api(config.urls.api);
 
 export const signup = (username, email, password) => {
     createAssyncAction(actionTypes.SIGNUP,

@@ -1,6 +1,6 @@
 let isProduction = process.env.NODE_ENV == 'production';
 
-const desenvolvimento = require('./ambiente/desenvolvimento');
-const producao = require('./ambiente/producao');
+const development = require('./ambiente/development.json');
+const production = require('./ambiente/production.json');
 
-module.exports = isProduction ? producao : desenvolvimento;
+module.exports = isProduction ? production : development;

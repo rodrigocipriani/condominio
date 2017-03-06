@@ -25,7 +25,6 @@ class Documentos extends Component {
 
     render() {
         const {documentos} = this.props;
-        console.log('documentos', documentos);
 
         return (
             <div className='Documentos row'>
@@ -34,9 +33,9 @@ class Documentos extends Component {
 
                 <Painel titulo="Gerais" isOpen={true}>
                     <ul className="collection">
-                        {documentos.map(documento => {
+                        {documentos.map((documento, key) => {
                             return (
-                                <li className="collection-item">
+                                <li key={key} className="collection-item">
                                     {documento.titulo}
                                     <a href={documento.url} target="_blank" className="secondary-content">
                                         <i className="fa fa-lg fa-download" aria-hidden="true"/>
