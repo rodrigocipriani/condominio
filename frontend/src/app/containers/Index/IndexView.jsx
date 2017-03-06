@@ -29,7 +29,7 @@ class IndexView extends Component {
         // todo : location... mexe com o navegador, trocar para algo nativo do react
         const isLogged = nextProps.isLogged;
         if(!isLogged){
-            location.href = routeCodes.LOGIN;
+            location.pathname != routeCodes.LOGIN ? location.href = routeCodes.LOGIN : null;
         }
     }
 

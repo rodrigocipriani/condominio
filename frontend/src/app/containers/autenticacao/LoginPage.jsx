@@ -17,7 +17,6 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
-        // set the initial component state
         this.state = {
             errors: {},
             user: {
@@ -34,6 +33,7 @@ class LoginPage extends React.Component {
         // todo : location... mexe com o navegador, trocar para algo nativo do react
         const isLogged = nextProps.isLogged;
         if (isLogged) {
+            console.log('AQUI');
             location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
         }
     }
