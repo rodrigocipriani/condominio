@@ -1,6 +1,5 @@
 module.exports = (app) => {
 
-    const jwt = require('jsonwebtoken');
     const passport = require('passport');
     const config = require('../../config/config');
     const Erro = require('../util/Erro');
@@ -8,7 +7,6 @@ module.exports = (app) => {
     const controller = {};
 
     controller.obterUsuarioLogado = (req, res) => {
-        console.log('obterUsuarioLogado ', req.user);
         if (!req.user) {
             res.status(401).send(Erro.getMensagemErro({chave: 'mensagem.realizarLogin'}));
         }
@@ -140,9 +138,7 @@ module.exports = (app) => {
                 const payload = {
                     email: usuario.email
                 };
-                // const token = jwt.sign(payload, config.secretSession);
                 return res.json(usuario);
-                // return res.status(200).send();
             });
         })(req, res, next);
     };

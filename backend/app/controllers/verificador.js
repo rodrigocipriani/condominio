@@ -2,7 +2,6 @@ module.exports = (app) => {
 
     const verificadorController     = {};
 
-
     verificadorController.isAutenticado =  (req, res, next) => {
 
         console.log('verificador.isAutenticado ');

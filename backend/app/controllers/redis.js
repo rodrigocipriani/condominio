@@ -1,17 +1,14 @@
-/**
- * Created by thiago on 07/12/2015.
- */
+// todo : onde está usando este modulo?
+module.exports = function (app) {
 
-'use strict';
+    const config = require('../../config/config');
+    const redis = require("redis");
+    const cliente = redis.createClient(config.redis.port, config.redis.host, {
+        auth_pass: config.redis.pass,
+        no_ready_check: true
+    });
 
-module.exports = function(app) {
-
-    const config              = require('../../config/config');
-    const redis               = require("redis");
-    const cliente             = redis.createClient(config.redis.port,config.redis.host, {auth_pass: config.redis.pass, no_ready_check: true});
-    const controller   = {};
-
-
+    const controller = {};
     controller.recuperarDados = function (req, res, next) {
 
         cliente.get(req.user._id + req.params.id, function (erro, dados) {
@@ -21,17 +18,15 @@ module.exports = function(app) {
             }
 
             req.memoria = JSON.parse(dados);
-      //      console.log("dados redis",req.memoria );
+
             return next();
         });
     };
 
-    controller.gravarDados    = function(req, res) {
+    controller.gravarDados = function (req, res) {
 
-        console.log("stringificando 2 ", JSON.stringify(req.memoria));
-
-        cliente.set(req.user._id + req.params.id,  JSON.stringify(req.memoria), function(erro, dados) {
-            if(erro){
+        cliente.set(req.user._id + req.params.id, JSON.stringify(req.memoria), function (erro, dados) {
+            if (erro) {
                 console.log("erro redis", erro);
                 return res.status(500).send("Erro ao gravar dados", erro);
             }
@@ -40,10 +35,6 @@ module.exports = function(app) {
         });
     };
 
-
     return controller;
 
 };
-
-
-
