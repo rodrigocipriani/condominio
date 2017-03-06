@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import LoginForm from './components/LoginForm.jsx';
 import * as autenticacaoActions from './autenticacaoAction';
 import {routeCodes} from '../../routes';
-import {Row, Col} from '../../components/layout';
+import {Row, Col} from 'rc-react-elements/layout';
 import Auth from './Auth';
 
 @connect(state => ({

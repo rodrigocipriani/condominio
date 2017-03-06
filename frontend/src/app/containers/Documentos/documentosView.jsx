@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import * as documentosAction from './documentosAction';
-import {Painel} from '../../components/layout';
+import {Painel} from 'rc-react-elements/layout';
 
 @connect(state => ({
     documentos: state.documentosReducer.documentos,

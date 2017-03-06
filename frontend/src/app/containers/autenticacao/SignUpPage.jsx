@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import SignUpForm from './components/SignUpForm.jsx';
 import * as autenticacaoActions from './autenticacaoAction';
-import {Row, Col} from '../../components/layout';
+import {Row, Col} from 'rc-react-elements/layout';
 
 
 class SignUpPage extends React.Component {

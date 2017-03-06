@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // todo : está aqui para o material-ui. Retirar caso não for usado
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import SnackBarMsgs from '../../components/layout/SnackBarMsgs';
+import SnackBarMsgs from 'rc-react-elements/layout/SnackBarMsgs';
 import {routeCodes} from '../../routes';
 
 // todo : remove tap delay, essential for MaterialUI to work properly
