@@ -2,13 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import * as documentosAction from './documentosAction';
-import Painel from 'rc-react-elements/Painel';
-import {Card} from '../../components/layout';
-
-//Tirar daqui
-const estatuto = '/static/files/minuta-estatuto-associacao-dos-promitentes-compradores-do-residencial-conteporaneo-05-02-2016.pdf';
-const vistoria = '/static/files/Vistoria_20160119_v01.pdf';
-const ata = '/static/files/ata_fundacao-ass_prom_guilherme_almeida-2017-02-14.docx';
+import {Painel} from '../../components/layout';
 
 @connect(state => ({
     documentos: state.documentosReducer.documentos,

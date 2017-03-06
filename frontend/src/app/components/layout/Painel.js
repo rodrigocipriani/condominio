@@ -1,31 +1,28 @@
-import React from 'react';
+import React, {Component, PropTypes} from "react";
 import 'materialize-css/bin/materialize.css';
 import 'materialize-css/bin/materialize.js';
 
+export default class Painel extends Component {
 
-var Painel = React.createClass({
-
-    propTypes: {
+    static propTypes = {
         titulo: React.PropTypes.string,
         children: React.PropTypes.element,
         isOpen: React.PropTypes.bool,
-    },
+    };
 
-    getDefaultProps: function () {
-        return {
-            titulo: '',
-            children: <div></div>,
-            isOpen: false
-        };
-    },
+    static defaultProps = {
+        titulo: '',
+        children: <div></div>,
+        isOpen: false
+    };
 
-    componentDidMount: function () {
+    componentDidMount() {
         $(document).ready(function () {
             $('.collapsible').collapsible();
         });
-    },
+    }
 
-    render: function () {
+    render() {
 
         const {titulo, children, isOpen} = this.props;
 
@@ -41,6 +38,4 @@ var Painel = React.createClass({
             </ul>
         );
     }
-});
-
-export default Painel;
+}
