@@ -1,3 +1,6 @@
+/**
+ * Evite alterar este arquivo
+ * */
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -12,8 +15,6 @@ const redisStore = require('connect-redis')(session);
 const config = require('./config');
 const passport = require('passport');
 
-// console.log('config', config);
-
 let isProduction = process.env.NODE_ENV == 'production';
 
 module.exports = () => {
@@ -21,6 +22,9 @@ module.exports = () => {
     const app = express();
     const port = process.env.PORT || config.port;
 
+    /**
+     * Configurações gerais
+     * */
     app.set('port', port);
     app.set('views', './app/views');
     app.engine('html', require('ejs').renderFile);
@@ -38,8 +42,6 @@ module.exports = () => {
      * servir a aplicação no frontend
      * */
     app.use(express.static(config.publicFolder));
-
-
 
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());

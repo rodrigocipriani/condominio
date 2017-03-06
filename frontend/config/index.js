@@ -1,3 +1,6 @@
+/**
+ * Evite alterar este arquivo
+ * */
 let isProduction = process.env.NODE_ENV == 'production';
 
 const defaultConfig = require('./ambiente/default.json');
