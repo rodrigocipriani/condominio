@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --progress --profile --colors",
+    "start2": "webpack-dev-server",
     "api": "json-server --watch db.json --port 3004",
     "windows:build": "rmdir /s /q public\\&& set NODE_ENV=production&& webpack",
     "build": "rm -rf ./public && webpack",
