@@ -71,7 +71,7 @@ export default class Routes extends Component {
                     </Route>
 
                     <Route path={ routeCodes.LOGIN } component={ LoginPage }/>
-                    <Route path={ routeCodes.SIGNUP } component={ SignUpPage } onEnter={Documentos.routeWillInit}/>
+                    <Route path={ routeCodes.SIGNUP } component={ SignUpPage }/>
                     <Route path={ routeCodes.LOGOUT } onEnter={
                         (nextState, replace, callback) => {
                             console.log('logouttttttttttttttttt');
