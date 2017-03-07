@@ -100,6 +100,61 @@ module.exports = () => {
         res.status(404).render('404.ejs');
     });
 
+
+    /*
+
+    Carga dos modulos
+
+     consign({
+     //cwd: 'app',
+     cwd: path.join(process.cwd(),'backend','app'),
+     logger: console,
+     verbose: true
+     })
+     .include('models.js')
+     // .then('common')
+     // .then('services')
+     // .then('controllers')
+     // .then('routes')
+     .into(app);
+
+     const carregarModulos = (dir, fileList = [], pai, busca) => {
+     fs.readdirSync(dir).forEach(file => {
+     const filePath = path.join(dir, file);
+     if (fs.statSync(filePath).isDirectory()) {
+     carregarModulos(filePath, fileList, pai, busca)
+     } else {
+     if (filePath.indexOf(busca) >= 0) {
+     console.log("file", file);
+     let modulo = require(filePath)(app);
+     let name = path.basename(filePath).split('.')[0];
+     pai[name] = modulo;
+     console.log('Carregado:', name);
+     }
+     }
+     });
+     return fileList
+     };
+
+     let appDir = path.join(serverDir, 'app');
+     app.services = {};
+     app.controllers = {};
+     app.routes = {};
+     app.common = {};
+     app.util = {};
+     carregarModulos(appDir, [], app.common, 'common.js');
+     carregarModulos(appDir, [], app.services, 'Service.js');
+     carregarModulos(appDir, [], app.controllers, 'Controller.js');
+     carregarModulos(__dirname+'/../node_modules/bb-common/modulos', [], app.util, 'Util.js');
+     carregarModulos(__dirname+'/../node_modules/bb-common/modulos', [], app.services, 'Service.js');
+     carregarModulos(__dirname+'/../node_modules/bb-common/modulos', [], app.controllers,  'Controller.js');
+     app.use(app.controllers.autenticadorController.FiltroAutenticacao);
+     carregarModulos(appDir, [], app.routes, 'Route.js');
+     */
+
+
+
+
     /**
      * Tratamento de erros
      * */
