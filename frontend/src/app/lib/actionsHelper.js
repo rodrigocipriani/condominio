@@ -1,3 +1,6 @@
+/**
+ * Evite alterar este arquivo
+ * */
 import store from './store';
 
 export const createAssyncAction = (type, promise, args) => {

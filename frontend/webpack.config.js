@@ -1,23 +1,27 @@
+/**
+ * NÃO ALTERAR ESTE ARQUIVO
+ * */
+// todo : colocar carga das libs externas e plugins em arquivo de configuração
+const config = require('./config');
+
 const webpack = require('webpack');
 const path = require('path');
-
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
-const config = require('./config/config');
-
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-
+/**
+ * Configurações gerais
+ * */
 const port = config.port;
 const publicPath = `/${config.appSubUrl}`;
 const appSourcePath = path.join(__dirname, './src/app');
 const buildPath = path.join(__dirname, './public');
-const imgPath = path.join(__dirname, './src/assets/img');
+const imgPath = path.join(__dirname, './src/app/assets/img');
 const sourcePath = path.join(__dirname, './src');
 
 /**
@@ -39,6 +43,9 @@ const plugins = [
         template: path.join(sourcePath, 'index.html'),
         path: buildPath,
         filename: 'index.html',
+        metadata: {
+            title: config.appTitle
+        }
     }),
     new webpack.LoaderOptionsPlugin({
         options: {

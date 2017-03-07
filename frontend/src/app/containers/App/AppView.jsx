@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import SideNav from './components/SideNav';
-import Auth from '../autenticacao/Auth';
+import Auth from '../Autenticacao/Auth';
 
 export default class AppView extends Component {
 

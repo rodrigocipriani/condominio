@@ -32,8 +32,8 @@ angular
                 templateUrl: 'partials/comuns/erro.html'
             })
             // outras
-            .when('/autenticacao', {
-                templateUrl: 'partials/autenticacao.html'
+            .when('/Autenticacao', {
+                templateUrl: 'partials/Autenticacao.html'
             })
             .when('/cadastro', {
                 templateUrl: 'partials/cadastro.html'

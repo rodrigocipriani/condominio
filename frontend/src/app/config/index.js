@@ -1,6 +1,9 @@
+/**
+ * Evite alterar este arquivo
+ * */
 let isProduction = process.env.NODE_ENV == 'production';
 
-const desenvolvimento = require('./ambiente/desenvolvimento');
-const producao = require('./ambiente/producao');
+const development = require('./ambiente/development');
+const production = require('./ambiente/production');
 
-module.exports = isProduction ? producao : desenvolvimento;
+module.exports = isProduction ? production : development;

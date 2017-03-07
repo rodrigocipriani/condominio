@@ -1,5 +1,7 @@
+/**
+ * Evite alterar este arquivo
+ * */
 import axios from 'axios';
-import Auth from '../containers/autenticacao/Auth';
 
 const api = (baseUrl) => {
     let create = axios.create({
@@ -7,7 +9,6 @@ const api = (baseUrl) => {
         withCredentials: true,
         headers: {
             'Accept': 'application/json'
-            // 'Authorization': `bearer ${Auth.getToken()}`
         }
     });
 

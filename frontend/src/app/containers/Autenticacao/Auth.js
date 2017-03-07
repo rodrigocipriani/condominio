@@ -6,7 +6,6 @@ class Auth {
      * @param {object} user
      */
     static authenticateUser(user) {
-        console.log('authenticateUser', user);
         localStorage.setItem('user', user);
     }
 
@@ -17,7 +16,6 @@ class Auth {
      */
     static isUserAuthenticated() {
         let user = localStorage.getItem('user');
-        console.log('isUserAuthenticated', user ? true : false);
         return user ? true : false;
     }
 
@@ -26,7 +24,6 @@ class Auth {
      *
      */
     static deauthenticateUser() {
-        console.log('deauthenticateUser', localStorage.getItem('user'));
         localStorage.removeItem('user');
     }
 
@@ -37,7 +34,6 @@ class Auth {
      */
 
     static getUser() {
-        console.log('getUser', localStorage.getItem('user'));
         return localStorage.getItem('user');
     }
 

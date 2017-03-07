@@ -1,45 +1,35 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 
-const nodeEnv = process.env.NODE_ENV || 'development';
-const isProduction = nodeEnv === 'production';
+import config from './config';
+const publicPath = `/${config.urls.subApp}`;
 
+/**
+ * Inportar containers aqui
+ * */
 import IndexView from './containers/Index/IndexView';
 import AppView from './containers/App/AppView';
-import LoginPage from './containers/autenticacao/LoginPage';
-import SignUpPage from './containers/autenticacao/SignUpPage';
-import Documentos from './containers/Documentos/documentosView';
-import Forum from './containers/Forum';
-import Indicacoes from './containers/Indicacoes';
-import NotFound from './containers/NotFound';
-import * as autenticacaoActions from './containers/autenticacao/autenticacaoAction';
-import Auth from './containers/autenticacao/Auth';
+import LoginPage from './containers/Autenticacao/LoginPage';
+import SignUpPage from './containers/Autenticacao/SignUpPage';
+import Documentos from './containers/Documentos/DocumentosView';
+import Forum from './containers/Forum/Index';
+import Indicacoes from './containers/Indicacoes/Index';
+import NotFound from './containers/NotFound/Index';
+import * as autenticacaoActions from './containers/Autenticacao/autenticacaoAction';
+import Auth from './containers/Autenticacao/Auth';
 
-const publicPath = '/';
-const appSubRoute = isProduction ? `${publicPath}` : publicPath;
-// const appSubRoute = isProduction ? `${publicPath}diario/` : publicPath;
-
+/**
+ * Comfigurar rotas
+ * */
 export const routeCodes = {
-    HOME: `${ appSubRoute }`,
-    LOGIN: `${ appSubRoute }login`,
-    LOGOUT: `${ appSubRoute }logout`,
-    SIGNUP: `${ appSubRoute }signup`,
-    DOCUMENTOS: `${ appSubRoute }documentos`,
-    FORUM: `${ appSubRoute }forum`,
-    INDICACOES: `${ appSubRoute }indicacoes`,
+    HOME: `${ publicPath }`,
+    LOGIN: `${ publicPath }login`,
+    LOGOUT: `${ publicPath }logout`,
+    SIGNUP: `${ publicPath }signup`,
+    DOCUMENTOS: `${ publicPath }documentos`,
+    FORUM: `${ publicPath }forum`,
+    INDICACOES: `${ publicPath }indicacoes`,
 };
-
-
-// const appWillInit = (nextState, replace, callback) => {
-//
-//     // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
-//     autenticacaoActions.resquestLoggedUser();
-//
-//     if (!Auth.isUserAuthenticated()) {
-//         replace(routeCodes.LOGIN);
-//     }
-//     callback();
-// };
 
 export default class Routes extends Component {
 
@@ -52,15 +42,16 @@ export default class Routes extends Component {
                     <Route path={routeCodes.HOME} component={AppView} onEnter={
                         (nextState, replace, callback) => {
 
-                        if (!Auth.isUserAuthenticated()) {
-                            //redireciona para o login
-                            {/*replace(routeCodes.LOGIN);*/}
-                            // ja tenta pegar o usuário caso esteja ja autenticado no servidor
-                            // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
-                            autenticacaoActions.resquestLoggedUser();
-                        }
-                        callback();
-                    }}>
+                            if (!Auth.isUserAuthenticated()) {
+                                //redireciona para o login
+                                {/*replace(routeCodes.LOGIN);*/
+                                }
+                                // ja tenta pegar o usuário caso esteja ja autenticado no servidor
+                                // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
+                                autenticacaoActions.resquestLoggedUser();
+                            }
+                            callback();
+                        }}>
 
                         <IndexRedirect to={routeCodes.DOCUMENTOS}/>
 

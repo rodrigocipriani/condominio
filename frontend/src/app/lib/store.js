@@ -1,3 +1,6 @@
+/**
+ * Evite alterar este arquivo
+ * */
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
@@ -7,7 +10,9 @@ import {
     compose,
 } from 'redux'
 
-import reducers from './reducers';
+import reducers from '../reducers';
+
+const reducerFile = '../reducers.js';
 
 const loggerMiddleware = createLogger();
 
@@ -33,8 +38,8 @@ const store = isProduction ?
 // Hot reloading reducers is now explicit (#80)
 if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./reducers.js', () => {
-        const nextRootReducer = require('./reducers.js');
+    module.hot.accept('../reducers.js', () => {
+        const nextRootReducer = require('../reducers.js');
         store.replaceReducer(nextRootReducer);
     });
 }

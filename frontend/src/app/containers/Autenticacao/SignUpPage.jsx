@@ -1,15 +1,10 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import LoginForm from './components/LoginForm.jsx';
+import SignUpForm from './components/SignUpForm.jsx';
 import * as autenticacaoActions from './autenticacaoAction';
-import {routeCodes} from '../../routes';
-import {Row, Col} from '../../components/layout';
-import Auth from './Auth';
+import {Row, Col} from 'rc-react-elements/layout';
 
-@connect(state => ({
-    isLogged: state.autenticacaoReducer.isLogged,
-}))
-class LoginPage extends React.Component {
+
+class SignUpPage extends React.Component {
 
     /**
      * Class constructor.
@@ -22,36 +17,13 @@ class LoginPage extends React.Component {
             errors: {},
             user: {
                 email: '',
+                name: '',
                 password: ''
             }
         };
 
         this.processForm = this.processForm.bind(this);
         this.changeUser = this.changeUser.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // todo : location... mexe com o navegador, trocar para algo nativo do react
-        const isLogged = nextProps.isLogged;
-        if (isLogged) {
-            location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
-        }
-    }
-
-    /**
-     * Process the form.
-     *
-     * @param {object} event - the JavaScript event object
-     */
-    processForm(event) {
-        // prevent default action. in this case, action is the form submission event
-        event.preventDefault();
-
-        const email = this.state.user.email;
-        const password = this.state.user.password;
-
-        autenticacaoActions.signin(email, password);
-
     }
 
     /**
@@ -70,14 +42,27 @@ class LoginPage extends React.Component {
     }
 
     /**
-     * Render the component.
+     * Process the form.
+     *
+     * @param {object} event - the JavaScript event object
      */
-    render() {
+    processForm(event) {
+        // prevent default action. in this case, action is the form submission event
+        event.preventDefault();
 
+        const name = this.state.user.name;
+        const email = this.state.user.email;
+        const password = this.state.user.password;
+
+        autenticacaoActions.signup(name, email, password);
+
+    }
+
+    render() {
         return (
             <Row>
                 <Col sizes="s12">
-                    <LoginForm
+                    <SignUpForm
                         onSubmit={this.processForm}
                         onChange={this.changeUser}
                         errors={this.state.errors}
@@ -90,4 +75,4 @@ class LoginPage extends React.Component {
 
 }
 
-export default LoginPage;
+export default SignUpPage;
