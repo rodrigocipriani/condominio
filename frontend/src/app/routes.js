@@ -18,6 +18,9 @@ import NotFound from './containers/NotFound/Index';
 import * as autenticacaoActions from './containers/Autenticacao/autenticacaoAction';
 import Auth from './containers/Autenticacao/Auth';
 
+/**
+ * Comfigurar rotas
+ * */
 export const routeCodes = {
     HOME: `${ publicPath }`,
     LOGIN: `${ publicPath }login`,
@@ -27,18 +30,6 @@ export const routeCodes = {
     FORUM: `${ publicPath }forum`,
     INDICACOES: `${ publicPath }indicacoes`,
 };
-
-
-// const appWillInit = (nextState, replace, callback) => {
-//
-//     // todo : assim esta assincrono, a pra deixar sincrono e só prosseguir quando tiver a resposta
-//     autenticacaoActions.resquestLoggedUser();
-//
-//     if (!Auth.isUserAuthenticated()) {
-//         replace(routeCodes.LOGIN);
-//     }
-//     callback();
-// };
 
 export default class Routes extends Component {
 
