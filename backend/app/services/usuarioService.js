@@ -2,8 +2,8 @@
 module.exports = (app) => {
 
     let service             = {};
-    const UsuariosModel     = app.models.modelo.usuarios;
-    const CadastroModel     = app.models.modelo.cadastros;
+    const UsuariosModel     = app.models.modelo.usuariosModel;
+    const CadastroModel     = app.models.modelo.cadastrosModel;
     const sequelize         = app.models.modelo.sequelize;
     const utilitarios       = app.util.utilitarios;
     const bcrypt            = require(process.env.NODE_ENV == 'DESENVOLVIMENTO' ? 'bcryptjs' : 'bcrypt');

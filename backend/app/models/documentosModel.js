@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
 
-    var documento = sequelize.define('documento', {
+    var documentoModel = sequelize.define('documentoModel', {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -21,5 +21,5 @@ module.exports = function (sequelize, DataTypes) {
         freezeTableName: true
     });
 
-    return documento;
+    return documentoModel;
 };
