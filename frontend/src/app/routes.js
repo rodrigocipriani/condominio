@@ -6,14 +6,14 @@ const isProduction = nodeEnv === 'production';
 
 import IndexView from './containers/Index/IndexView';
 import AppView from './containers/App/AppView';
-import LoginPage from './containers/autenticacao/LoginPage';
-import SignUpPage from './containers/autenticacao/SignUpPage';
-import Documentos from './containers/Documentos/documentosView';
-import Forum from './containers/Forum';
-import Indicacoes from './containers/Indicacoes';
-import NotFound from './containers/NotFound';
-import * as autenticacaoActions from './containers/autenticacao/autenticacaoAction';
-import Auth from './containers/autenticacao/Auth';
+import LoginPage from './containers/Autenticacao/LoginPage';
+import SignUpPage from './containers/Autenticacao/SignUpPage';
+import Documentos from './containers/Documentos/DocumentosView';
+import Forum from './containers/Forum/Index';
+import Indicacoes from './containers/Indicacoes/Index';
+import NotFound from './containers/NotFound/Index';
+import * as autenticacaoActions from './containers/Autenticacao/autenticacaoAction';
+import Auth from './containers/Autenticacao/Auth';
 
 const publicPath = '/';
 const appSubRoute = isProduction ? `${publicPath}` : publicPath;

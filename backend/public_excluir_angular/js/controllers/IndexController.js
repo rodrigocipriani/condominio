@@ -45,12 +45,12 @@ angular.module('Invest').controller('IndexController', function ($window, $cooki
     /*
      $rootScope.$watch('usuarioLogado', function(usuarioLogado) {
      console.log('$watch - usuarioLogado %s, %s', angular.toJson(usuarioLogado), $location.path());
-     console.log('em / e autenticacao ', ['/', '/autenticacao'].indexOf($location.path()));
+     console.log('em / e Autenticacao ', ['/', '/Autenticacao'].indexOf($location.path()));
      //console.log('em /', '/'.indexOf($location.path()));
-     //console.log('em autenticacao ', '/autenticacao'.indexOf($location.path()));
-     if (!usuarioLogado && (['/', '/autenticacao'].indexOf($location.path()) == -1 )) {
+     //console.log('em Autenticacao ', '/Autenticacao'.indexOf($location.path()));
+     if (!usuarioLogado && (['/', '/Autenticacao'].indexOf($location.path()) == -1 )) {
      console.log('redireciona para a página de login');
-     $location.path('/autenticacao');
+     $location.path('/Autenticacao');
      }
      });
      */

@@ -3,7 +3,7 @@
  */
 angular.module('Invest')
     .factory('Autenticacao', function ($resource) {
-        return $resource('/autenticacao');
+        return $resource('/Autenticacao');
     })
     .factory('Usuario', function ($resource) {
         return $resource('/usuario',

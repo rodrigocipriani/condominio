@@ -14,13 +14,13 @@ export const signup = (username, email, password) => {
 
 export const signin = (email, password) => {
     createAssyncAction(actionTypes.SIGNIN,
-        apiGeral.post('/autenticacao', {email, password})
+        apiGeral.post('/Autenticacao', {email, password})
     );
 };
 
 export const signout = (email, password) => {
     createAssyncAction(actionTypes.SIGNOUT,
-        apiGeral.get('/autenticacao')
+        apiGeral.get('/Autenticacao')
     );
 };
 

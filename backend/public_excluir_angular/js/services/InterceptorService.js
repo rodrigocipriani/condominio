@@ -47,14 +47,14 @@ angular.module('Invest').factory('meuInterceptor', function ($cookies, $filter, 
         },
         responseError: function (resposta) {
             //$log.debug('responseError - resposta ', angular.toJson(resposta));
-            if ((resposta.status == 401 || resposta.status == 403) && $location.path().indexOf('/autenticacao') == -1) {
+            if ((resposta.status == 401 || resposta.status == 403) && $location.path().indexOf('/Autenticacao') == -1) {
                 var deferred = $q.defer();
                 //remove o usuario logado e o cookie de sessao
                 $rootScope.usuarioLogado = undefined;
                 $cookies.remove('usuarioLogado');
 
                 addUltimaMsg(resposta.data.mensagens);
-                $location.path('/autenticacao');
+                $location.path('/Autenticacao');
                 return deferred.promise;
             }else{
                 if (resposta.data && resposta.data.mensagens) {
