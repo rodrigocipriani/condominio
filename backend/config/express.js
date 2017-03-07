@@ -1,6 +1,9 @@
 /**
  * Evite alterar este arquivo
  * */
+
+const config = require('./config');
+
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -11,11 +14,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const modRewrite = require('connect-modrewrite');
 const redisStore = require('connect-redis')(session);
-
-const config = require('./config');
 const passport = require('passport');
-
-let isProduction = process.env.NODE_ENV == 'production';
 
 module.exports = () => {
 
@@ -87,7 +86,7 @@ module.exports = () => {
      * Carga de módulos
      * */
     consign({
-        cwd: isProduction ? 'backend/app' : 'backend/app'
+        cwd: 'backend/app'
     })
         .include(path.join('models', 'modelo.js'))
         .then('util')
