@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 
 import config from './config';
-const publicPath = `/${config.urls.subApp}`;
-
+const publicPath = config.urls.subApp ? `${config.urls.subApp}/` : `/`;
 /**
  * Inportar containers aqui
  * */
