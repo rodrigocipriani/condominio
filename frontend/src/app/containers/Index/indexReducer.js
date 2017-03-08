@@ -8,7 +8,7 @@ const actionsMap = {
 
     [indexActionTypes.APP_NEW_MESSAGE]: (state, action) => {
 
-        let mensagens = action.error.response.data.mensagens;
+        let mensagens = action.error.response ? action.error.response.data.mensagens : null;
         let errors = mensagens || [];
 
         return {...state, msgs: errors};
