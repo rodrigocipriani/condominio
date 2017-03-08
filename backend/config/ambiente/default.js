@@ -7,7 +7,7 @@ module.exports = {
     },
     mailer: {
         auth: {
-            user: 'aaa@gmail.com',
+            user: 'chopsss@gmail.com',
             pass: 'aaa'
         },
         defaultFromAddress: 'nao_responda <nao_responda@guerra.com>'

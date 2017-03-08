@@ -1,22 +1,21 @@
-
 module.exports = (app) => {
 
-    let service             = {};
-    const UsuariosModel     = app.models.modelo.usuariosModel;
-    const CadastroModel     = app.models.modelo.cadastrosModel;
-    const sequelize         = app.models.modelo.sequelize;
-    const utilitarios       = app.util.utilitarios;
-    const bcrypt            = require(process.env.NODE_ENV == 'DESENVOLVIMENTO' ? 'bcryptjs' : 'bcrypt');
-    const INCLUIR_CADASTRO  = 1;
-    const ALTERAR_CADASTRO  = 2;
+    let service = {};
+    const UsuariosModel = app.models.modelo.usuariosModel;
+    const CadastroModel = app.models.modelo.cadastrosModel;
+    const sequelize = app.models.modelo.sequelize;
+    const utilitarios = app.util.utilitarios;
+    const bcrypt = require(process.env.NODE_ENV == 'DESENVOLVIMENTO' ? 'bcryptjs' : 'bcrypt');
+    const INCLUIR_CADASTRO = 1;
+    const ALTERAR_CADASTRO = 2;
     const SITUACAO_PENDENTE = 0;
-    const  PRAZO_EXPIRA     = 1000 * 60 * 60 * 2;
+    const PRAZO_EXPIRA = 1000 * 60 * 60 * 2;
 
 
-    service.alterarSenhaComToken    = (token, senha) => {
+    service.alterarSenhaComToken = (token, senha) => {
 
         console.log('usuarioService.alterarSenhaComToken - token=%s, senha=%s', token, senha);
-        return sequelize.transaction({autocommit: false},  (t) => {
+        return sequelize.transaction({autocommit: false}, (t) => {
             return CadastroModel
                 .findOne(
                     {
@@ -28,10 +27,9 @@ module.exports = (app) => {
                         console.log('cadastro.token %s , token=', cadastro.token, token);
                         // caso possua token, é necessário verificar se é do tipo 2 - alteração senha e se é igual ao da base
                         if (cadastro.tipo == ALTERAR_CADASTRO && token == cadastro.token) {
-                            if(new Date() - cadastro.criacao > PRAZO_EXPIRA){
+                            if (new Date() - cadastro.criacao > PRAZO_EXPIRA) {
                                 // apagar token e depois rejeitar a promise
-                                return CadastroModel.destroy({where: {token: token}}).
-                                then(function(r){
+                                return CadastroModel.destroy({where: {token: token}}).then(function (r) {
                                     // se der certo, faz o commit do delete e rejeita a promise
                                     t.commit();
                                     return sequelize.Promise.reject({chave: 'mensagem.tokenExpirado'});
@@ -72,7 +70,7 @@ module.exports = (app) => {
      * @param cb (calback)
      * @returns usuarios {lista de usuarios}
      */
-    const listarNomes          = (ids, cb) => {
+    const listarNomes = (ids, cb) => {
 
         UsuariosModel.findAll({
             attributes: ['nome'],
@@ -83,7 +81,7 @@ module.exports = (app) => {
             }
         }).then((usuarios) => {
             cb(null, usuarios);
-        }).catch( (erro) => {
+        }).catch((erro) => {
             cb(erro);
         });
 
@@ -94,7 +92,7 @@ module.exports = (app) => {
      * @param idUsuario
      * @returns {Query|Promise|*}
      */
-    const obterUsuarioPorId    = (idUsuario) => {
+    const obterUsuarioPorId = (idUsuario) => {
         return UsuariosModel
             .findOne({attributes: ['id', 'nome', 'email', 'situacao', 'tipo'], where: {id: idUsuario}});
     };
@@ -118,48 +116,54 @@ module.exports = (app) => {
      * @param senha {hashSenha}
      * @returns {*}
      */
-    const buscarOuCriar        = (email, nome, senha) => {
+    const buscarOuCriar = (email, nome, senha) => {
+        console.log('email', email);
         // valida campos:
-        if(email == undefined || email.trim().length  == 0){
-            return sequelize.Promise.reject({chave: 'mensagem.emailInvalido'});
+        if (email == undefined || email.trim().length == 0) {
+            return sequelize.Promise.reject({chave: 'E-mail inválido'});
         }
 
-        if(nome == undefined || nome.trim().length  == 0){
-            return sequelize.Promise.reject({chave: 'mensagem.nomeUsuarioInvalido'});
+        if (nome == undefined || nome.trim().length == 0) {
+            return sequelize.Promise.reject({chave: 'Nome de usuário inválido'});
         }
 
-        if(senha == undefined || senha.trim().length  < 6){
-            return sequelize.Promise.reject({chave: 'mensagem.senhaTamanhoInvalida'});
+        if (senha == undefined || senha.trim().length < 6) {
+            return sequelize.Promise.reject({chave: 'Senha de tamanho inválido'});
         }
 
         let campoEmail = email.toLowerCase();
-        let hashSenha  = bcrypt.hashSync(senha, bcrypt.genSaltSync(10));
+        let hashSenha = bcrypt.hashSync(senha, bcrypt.genSaltSync(10));
 
         let usuarioPromise;
         return sequelize.transaction({autocommit: false}, (t) => {
             return UsuariosModel
                 .findOrCreate(
                     {
-                        where   : {email: campoEmail},
+                        where: {email: campoEmail},
                         defaults: {nome: nome, senha: hashSenha}
                     }
                 ).spread(function (usuario, criado) {
                     usuarioPromise = usuario;
+
                     // Se o usuario foi criado, deve inserir registro na tabela Cadastro e retornar sua promise, caso contrário, undefined:
                     if (criado) {
                         return CadastroModel.create({"usuario_id": usuario.id, "tipo": INCLUIR_CADASTRO});
                     } else {
-                        return sequelize.Promise.reject({chave: 'mensagem.usuarioExistente'});
+                        return sequelize.Promise.reject({chave: 'Usuário já existe'});
                     }
+
                 }).then(function (cadastro) {
+
                     // envia o email com o token recém criado
                     //TODO verificar se esse if é necessário
                     if (cadastro) {
                         utilitarios.enviarEmailCadastro(campoEmail, cadastro.token);
-                        // Caso não tenha sido  feito novo cadastro, significa que o usuário já existe, então deve retornar undefined. Senão, retornar usuarioPromise;
+                        // Caso não tenha sido feito novo cadastro, significa que o usuário já existe,
+                        // então deve retornar undefined. Senão, retornar usuarioPromise;
+                        // todo Verificar se deve aparar a senha aqui
                         return usuarioPromise;
                     }
-                    //Caso contrário não retorna nada.
+                    // caso contrário não retorna nada
                     return;
                 })
         });//--> se der erro, faz rollback
@@ -187,10 +191,11 @@ module.exports = (app) => {
                         return sequelize.Promise.reject({chave: 'mensagem.usuarioConfirmado'});
                     }
 
-                    if(new Date() - cadastro.criacao > PRAZO_EXPIRA){
+                    if (new Date() - cadastro.criacao > PRAZO_EXPIRA) {
                         // apagar token e depois rejeitar a promise
-                        return CadastroModel.destroy({where: {token: token}
-                        }).then((r)  => {
+                        return CadastroModel.destroy({
+                            where: {token: token}
+                        }).then((r) => {
                             // se der certo, faz o commit do delete e rejeita a promise
                             t.commit();
                             return sequelize.Promise.reject({chave: 'mensagem.tokenExpirado'});
@@ -199,7 +204,7 @@ module.exports = (app) => {
                         cadastro.usuario.situacao = 1;
                         return cadastro.usuario.save();
                     }
-                }).then((r)  => {
+                }).then((r) => {
                     return CadastroModel.destroy({where: {token: token}});
                 });
         });
@@ -244,7 +249,7 @@ module.exports = (app) => {
         console.log('usuarioService.solicitarNovoToken - ', email);
         let usuarioRecuperado;
         let tipoCadastro;
-        return sequelize.transaction({autocommit: false}, (t)  => {
+        return sequelize.transaction({autocommit: false}, (t) => {
             return obterUsuarioPorEmail(email)
                 .then(function (usuario) {
                     if (!usuario) {
@@ -261,17 +266,17 @@ module.exports = (app) => {
                             }
                         );
                 })
-                .spread((cadastro, criado)  => {
+                .spread((cadastro, criado) => {
                     console.log('--> criado: %s, cadastro: %s', criado, cadastro);
                     if (!criado) {
                         //TODO apagar token e criar novo quando expirado
                         return sequelize.Promise.reject({chave: "mensagem.tokenPendente"});
                     }
                     // envia email de acordo com o tipo de cadastro:
-                    if(tipoCadastro == INCLUIR_CADASTRO){
+                    if (tipoCadastro == INCLUIR_CADASTRO) {
                         utilitarios.enviarEmailCadastro(usuarioRecuperado.email, cadastro.token);
 
-                    }else{
+                    } else {
                         utilitarios.enviarEmailAlterarSenha(usuarioRecuperado.email, usuarioRecuperado.nome, cadastro.token);
                     }
                     return sequelize.Promise.resolve({email: usuarioRecuperado.email});
@@ -281,12 +286,12 @@ module.exports = (app) => {
     };
 
     // funções acesso externo
-    service.alterar                 = alterar;
-    service.listarNomes             = listarNomes;
-    service.buscarOuCriar           = buscarOuCriar;
-    service.obterUsuarioPorEmail    = obterUsuarioPorEmail;
-    service.obterUsuarioPorId       = obterUsuarioPorId;
-    service.solicitarNovoToken      = solicitarNovoToken;
+    service.alterar = alterar;
+    service.listarNomes = listarNomes;
+    service.buscarOuCriar = buscarOuCriar;
+    service.obterUsuarioPorEmail = obterUsuarioPorEmail;
+    service.obterUsuarioPorId = obterUsuarioPorId;
+    service.solicitarNovoToken = solicitarNovoToken;
     service.validarTokenNovoUsuario = validarTokenNovoUsuario;
 
 

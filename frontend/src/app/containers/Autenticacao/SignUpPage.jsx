@@ -1,9 +1,12 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import SignUpForm from './components/SignUpForm.jsx';
 import * as autenticacaoActions from './autenticacaoAction';
 import {Row, Col} from 'rc-react-elements/layout';
 
-
+@connect(state => ({
+    isLogged: state.autenticacaoReducer.isLogged,
+}))
 class SignUpPage extends React.Component {
 
     /**
@@ -24,6 +27,15 @@ class SignUpPage extends React.Component {
 
         this.processForm = this.processForm.bind(this);
         this.changeUser = this.changeUser.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // todo : location... mexe com o navegador, trocar para algo nativo do react
+        const isLogged = nextProps.isLogged;
+        if (isLogged) {
+            console.log('AQUI');
+            location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
+        }
     }
 
     /**
