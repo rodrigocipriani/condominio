@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import SignUpForm from './components/SignUpForm.jsx';
+import {routeCodes} from '../../routes';
 import * as autenticacaoActions from './autenticacaoAction';
 import {Row, Col} from 'rc-react-elements/layout';
 
