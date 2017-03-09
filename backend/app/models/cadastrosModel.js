@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = (sequelize, DataTypes) => {
-    const cadastros = sequelize.define('cadastros', {
+    const cadastrosModel = sequelize.define('cadastrosModel', {
         usuario_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -28,9 +28,9 @@ module.exports = (sequelize, DataTypes) => {
         freezeTableName: true,
         classMethods: {
             associate: (models)  => {
-                cadastros.belongsTo(models.usuarios, {foreignKey: 'usuario_id'});
+                cadastrosModel.belongsTo(models.usuariosModel, {foreignKey: 'usuario_id'});
             }
         }
     });
-    return cadastros;
+    return cadastrosModel;
 };

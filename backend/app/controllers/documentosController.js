@@ -2,7 +2,7 @@ module.exports = (app) => {
 
     const controller = {};
     const Erro = app.util.Erro;
-    const DocumentosService = app.services.documentos;
+    const DocumentosService = app.services.documentosService;
 
     controller.findAll = function (req, res) {
 

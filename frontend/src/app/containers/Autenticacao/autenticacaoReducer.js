@@ -22,6 +22,14 @@ const actionsMap = {
         return {...state, isLogged: action.payload != null};
     },
 
+    [actionTypes.SIGNUP_SUCCESS]: (state, action) => {
+        console.log('actionTypes.SIGNIN_SUCCESS', action);
+
+        Auth.authenticateUser(action.payload);
+
+        return {...state, isLogged: action.payload != null};
+    },
+
     [actionTypes.SIGNIN_ERROR]: (state, action) => {
         console.log('actionTypes.SIGNIN_ERROR', action.error.response.data);
 

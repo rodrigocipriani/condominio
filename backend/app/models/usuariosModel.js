@@ -1,7 +1,7 @@
 
 module.exports = function (sequelize, DataTypes) {
 
-    var usuarios = sequelize.define('usuarios', {
+    var usuariosModel = sequelize.define('usuariosModel', {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -55,11 +55,11 @@ module.exports = function (sequelize, DataTypes) {
         freezeTableName: true
         // classMethods: {
         //      associate: function (models) {
-        //          usuarios.hasMany(models.andamentos, {foreignKey: 'jogador_id', targetKey: 'id'});
-        //          usuarios.hasMany(models.tabuleiros, {foreignKey: 'jogador_id', targetKey: 'id'});
+        //          usuariosModel.hasMany(models.andamentos, {foreignKey: 'jogador_id', targetKey: 'id'});
+        //          usuariosModel.hasMany(models.tabuleiros, {foreignKey: 'jogador_id', targetKey: 'id'});
         //      }
         // }
     });
 
-    return usuarios;
+    return usuariosModel;
 };

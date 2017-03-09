@@ -3,9 +3,13 @@ module.exports = (app) => {
     const passport = require('passport');
     const config = require('../../config/config');
     const Erro = require('../util/Erro');
-    const UsuariosService = app.services.usuario;
+    const UsuariosService = app.services.usuarioService;
     const controller = {};
 
+
+    /**
+     * Busca dados do usuário logado
+     */
     controller.obterUsuarioLogado = (req, res) => {
         if (!req.user) {
             res.status(401).send(Erro.getMensagemErro({chave: 'mensagem.realizarLogin'}));
@@ -13,25 +17,43 @@ module.exports = (app) => {
         res.json(req.user);
     };
 
-    // migrados do autenticação controller
+    /**
+     * Cadastrar novo usuário
+     */
     controller.cadastrar = (req, res, next) => {
 
-        console.log('req', req);
+        const {username, email, password} = req.body;
+
+        if ('' === username) {
+            Erro.add(Erro.getMensagemErro('Nome informado incorreto'));
+        }
+        if ('' === email) {
+            Erro.add(Erro.getMensagemErro('E-mail informado incorreto'));
+        }
+        if ('' === password) {
+            Erro.add(Erro.getMensagemErro('Senha informada incorreta'));
+        }
+        if (Erro.hasErrors()) {
+            return res.status(400).send(Erro.getFlush());
+        }
 
         passport.authenticate('cadastrar', (err, user, info) => {
             if (err) {
-                return next(err)
+                return res.status(400).send(Erro.getMensagemErro(err));
             }
             if (!user) {
-                console.log('mensagem de erro : ', info);
                 return res.status(400).send(Erro.getMensagemErro(info));
             }
             req.logIn(user, (erro) => {
+                console.log('erro >>>||', erro);
                 if (erro) {
                     return next(erro);
                 }
-                console.log('cadastro efetuado com sucesso! - user:', user);
-                return res.send(Erro.getMensagemSucesso({chave: 'mensagem.usuarioCriadoSucesso'}));
+                console.log('user >>>||', user);
+                user.senha = '';
+                return res.json(user);
+                // return res.status(200).send(Erro.getMensagemSucesso({chave: 'mensagem.usuarioCriadoSucesso'}));
+                // return res.send(Erro.getMensagemSucesso({chave: 'mensagem.usuarioCriadoSucesso'}));
             });
         })(req, res, next);
 

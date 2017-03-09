@@ -1,20 +1,19 @@
-/**
- * Created by ThiagoFernando on 15/03/2015.
- */
 module.exports = (app) => {
 
     const passport = require('passport');
     const LocalStrategy = require('passport-local').Strategy;
     const uuid = require('node-uuid');
-    const UsuarioService = app.services.usuario;
+    const UsuarioService = app.services.usuarioService;
     const bcrypt = require(process.env.NODE_ENV == 'DESENVOLVIMENTO' ? 'bcryptjs' : 'bcrypt');
 
-    // estratégia local - login
+    /**
+     * estratégia local - login
+     * */
     passport.use('login', new LocalStrategy({
-        passReqToCallback: true,
-        usernameField: 'email',
-        passwordField: 'password'
-    },
+            passReqToCallback: true,
+            usernameField: 'email',
+            passwordField: 'password'
+        },
         (req, username, password, done) => {
             console.log('logar como ', username);
             UsuarioService.obterUsuarioPorEmail(username)
@@ -43,17 +42,21 @@ module.exports = (app) => {
                 return done(erro);
             });
         }))
-    // estratégia local - cadastrar
+
+    /**
+     * estratégia local - cadastrar
+     * */
         .use('cadastrar', new LocalStrategy({passReqToCallback: true}, // permite retornar a requisição no callback
             (req, username, password, done) => {
-                findOrCreateUser = () => {
+
+                const {email} = req.body;
+
+                const findOrCreateUser = () => {
                     // procura usuario no postgre
-                    UsuarioService
-                        .buscarOuCriar(req.param('email'), username, password)
-                        .then((usuario) => {
-                            // retorna usuario criado
-                            return done(null, usuario);
-                        }).catch((erro) => {
+                    UsuarioService.buscarOuCriar(email, username, password).then((usuario) => {
+                        // retorna usuario criado
+                        return done(null, usuario);
+                    }).catch((erro) => {
                         console.log('passport - cadastro - erro: ', erro);
                         return done(null, false, erro);
                     });
