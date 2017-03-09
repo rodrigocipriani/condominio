@@ -5,6 +5,8 @@ Condomínios
 
 ## TODOs
 
+
+- Usar 'react-helmet'
 - Finalizar ciclo de cadastro de usuário e autenticação
 - Verificar se está fazendo uglify e compress no build
 
