@@ -1,17 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import SideNav from './components/SideNav';
-import Auth from '../Autenticacao/Auth';
+// import Auth from '../Autenticacao/Auth';
 
-export default class AppView extends Component {
-
-    static propTypes = {
-        children: PropTypes.object
-    };
+class AppPage extends Component {
 
     render() {
-        const {children} = this.props;
+        const {children, usuario} = this.props;
 
-        const usuario = Auth.getUser();
+        // const usuario = Auth.getUser();
 
         if (!usuario) {
             return <div>loading...</div>
@@ -29,3 +25,16 @@ export default class AppView extends Component {
         );
     }
 }
+
+AppPage.propTypes = {
+    children: PropTypes.children,
+    usuario: PropTypes.object.isRequired
+};
+
+AppPage.defaultProps = {
+    children: null,
+    usuario: null
+};
+
+export default AppPage;
+

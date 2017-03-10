@@ -1,36 +1,29 @@
-import {actionTypes} from './autenticacaoActionTypes';
+import {autenticacaoActionTypes} from './autenticacaoActionTypes';
 import Auth from './Auth';
 
 const initialState = {
-    isLogged: false
+    isLogged: false,
+    usuario: null
 };
 const actionsMap = {
 
-    [actionTypes.REQ_LOGGED_USER_SUCCESS]: (state, action) => {
+    [autenticacaoActionTypes.REQ_LOGGED_USER_SUCCESS]: (state, action) => {
         console.log('actionTypes.REQ_LOGGED_USER_SUCCESS', action);
 
         Auth.authenticateUser(action.payload);
 
-        return {...state, isLogged: action.payload != null};
+        return {...state, isLogged: action.payload != null, usuario: Auth.getUser()};
     },
 
-    [actionTypes.SIGNIN_SUCCESS]: (state, action) => {
+    [autenticacaoActionTypes.SIGNIN_SUCCESS]: (state, action) => {
         console.log('actionTypes.SIGNIN_SUCCESS', action);
 
         Auth.authenticateUser(action.payload);
 
-        return {...state, isLogged: action.payload != null};
+        return {...state, isLogged: action.payload != null, usuario: Auth.getUser()};
     },
 
-    [actionTypes.SIGNUP_SUCCESS]: (state, action) => {
-        console.log('actionTypes.SIGNIN_SUCCESS', action);
-
-        Auth.authenticateUser(action.payload);
-
-        return {...state, isLogged: action.payload != null};
-    },
-
-    [actionTypes.SIGNIN_ERROR]: (state, action) => {
+    [autenticacaoActionTypes.SIGNIN_ERROR]: (state, action) => {
         console.log('actionTypes.SIGNIN_ERROR', action.error.response.data);
 
         let mensagens = action.error.response.data.mensagens;
@@ -44,30 +37,32 @@ const actionsMap = {
         return {...state};
     },
 
-    [actionTypes.SIGNOUT_SUCCESS]: (state, action) => {
+    [autenticacaoActionTypes.SIGNOUT_SUCCESS]: (state, action) => {
         console.log('actionTypes.SIGNOUT_SUCCESS', action);
 
         Auth.deauthenticateUser();
 
-        return {...state, isLogged: false};
+        return {...state, isLogged: false, usuario: null};
     },
 
-    [actionTypes.REQUEST_ERROR]: (state, action) => {
+    [autenticacaoActionTypes.REQUEST_ERROR]: (state, action) => {
         console.log('actionTypes.REQUEST_ERROR', action);
 
         let isLogged = true;
+        let usuario = state.usuario;
         if(action.error.response.status == 401) {
             Auth.deauthenticateUser();
             isLogged = false;
+            usuario = null;
         }
 
-        return {...state, isLogged: isLogged};
+        return {...state, isLogged: isLogged, usuario: usuario};
     },
 
 };
 
 export default function reducer(state = initialState, action = {}) {
-    const fn = action.type.endsWith('_ERROR') ? actionsMap[actionTypes.REQUEST_ERROR] : actionsMap[action.type];
+    const fn = action.type.endsWith('_ERROR') ? actionsMap[autenticacaoActionTypes.REQUEST_ERROR] : actionsMap[action.type];
     return fn ? fn(state, action) : state;
 }
 

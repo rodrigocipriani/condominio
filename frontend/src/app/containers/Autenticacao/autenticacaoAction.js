@@ -1,31 +1,40 @@
 import {createAssyncAction} from '../../lib/actionsHelper';
 import api  from 'lib/api';
-import {actionTypes} from './autenticacaoActionTypes';
+import {autenticacaoActionTypes} from './autenticacaoActionTypes';
+import Auth from './Auth';
 import config from '../../config';
+import store from '../../lib/store';
+
 
 const apiGeral = api(config.urls.api);
 
 export const signUp = (username, email, password) => {
-    createAssyncAction(actionTypes.SIGNUP,
+    createAssyncAction(autenticacaoActionTypes.SIGNUP,
         apiGeral.post('/usuario', {username, email, password}),
         {}
     );
 };
 
 export const signIn = (email, password) => {
-    createAssyncAction(actionTypes.SIGNIN,
+    createAssyncAction(autenticacaoActionTypes.SIGNIN,
         apiGeral.post('/Autenticacao', {email, password})
     );
 };
 
 export const signOut = (email, password) => {
-    createAssyncAction(actionTypes.SIGNOUT,
+    createAssyncAction(autenticacaoActionTypes.SIGNOUT,
         apiGeral.get('/Autenticacao')
     );
 };
 
 export const resquestLoggedUser = () => {
-    createAssyncAction(actionTypes.REQ_LOGGED_USER,
+    if(Auth.isUserAuthenticated()){
+        let user = Auth.getUser();
+        return store.dispatch(
+            {type: autenticacaoActionTypes.REQ_LOGGED_USER_SUCCESS, user}
+        )
+    }
+    createAssyncAction(autenticacaoActionTypes.REQ_LOGGED_USER,
         apiGeral.get('/usuario')
     );
 };

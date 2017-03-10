@@ -7,13 +7,12 @@ const publicPath = config.urls.subApp ? `${config.urls.subApp}/` : `/`;
  * Inportar containers aqui
  * */
 import Index from './containers/Index';
-import AppView from './containers/App/AppView';
+import App from './containers/App';
 import Autenticacao from './containers/Autenticacao';
 import Documentos from './containers/Documentos';
 import Forum from './containers/Forum/Index';
 import Indicacoes from './containers/Indicacoes/Index';
 import NotFound from './containers/NotFound/Index';
-import * as autenticacaoActions from './containers/Autenticacao/autenticacaoAction';
 import Auth from './containers/Autenticacao/Auth';
 
 /**
@@ -37,7 +36,7 @@ export default class Routes extends Component {
             <Index>
                 <Router history={ browserHistory }>
 
-                    <Route path={routeCodes.HOME} component={AppView} onEnter={
+                    <Route path={routeCodes.HOME} component={App} onEnter={
                         (nextState, replace, callback) => {
 
                             if (!Auth.isUserAuthenticated()) {

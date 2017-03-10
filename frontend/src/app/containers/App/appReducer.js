@@ -1,4 +1,4 @@
-import {appActionTypes} from './appActionTypes';
+import {appActionTypes} from './appAction';
 
 const initialState = {
     msgs: []

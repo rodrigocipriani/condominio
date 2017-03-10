@@ -1,4 +1,4 @@
-export const actionTypes = {
+export const autenticacaoActionTypes = {
     SIGNUP: 'SIGNUP',
     SIGNUP_START: 'SIGNUP_START',
     SIGNUP_ERROR: 'SIGNUP_ERROR',
@@ -13,7 +13,7 @@ export const actionTypes = {
     SIGNOUT_START: 'SIGNOUT_START',
     SIGNOUT_ERROR: 'SIGNOUT_ERROR',
     SIGNOUT_SUCCESS: 'SIGNOUT_SUCCESS',
-    
+
     REQ_LOGGED_USER: 'REQ_LOGGED_USER',
     REQ_LOGGED_USER_START: 'REQ_LOGGED_USER_START',
     REQ_LOGGED_USER_ERROR: 'REQ_LOGGED_USER_ERROR',

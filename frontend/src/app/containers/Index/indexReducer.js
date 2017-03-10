@@ -1,4 +1,4 @@
-import {indexActionTypes} from './indexActionTypes';
+import {indexActionTypes} from './indexAction';
 
 const initialState = {
     msgs: []
