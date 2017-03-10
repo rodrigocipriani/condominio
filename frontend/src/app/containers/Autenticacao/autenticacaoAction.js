@@ -1,5 +1,5 @@
 import {createAssyncAction} from '../../lib/actionsHelper';
-import autenticacaoActionTypes from './autenticacaoActionTypes';
+import {autenticacaoActionTypes} from './autenticacaoActionTypes';
 import api  from 'lib/api';
 import Auth from './Auth';
 import config from '../../config';

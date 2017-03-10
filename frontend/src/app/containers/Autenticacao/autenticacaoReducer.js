@@ -1,8 +1,6 @@
 import {autenticacaoActionTypes} from './autenticacaoActionTypes';
 import Auth from './Auth';
 
-console.log('autenticacaoActionTypes', autenticacaoActionTypes);
-
 const initialState = {
     isLogged: false,
     usuario: null
@@ -10,7 +8,6 @@ const initialState = {
 const actionsMap = {
 
     [autenticacaoActionTypes.REQ_LOGGED_USER_SUCCESS]: (state, action) => {
-        console.log('actionTypes.REQ_LOGGED_USER_SUCCESS', action);
 
         Auth.authenticateUser(action.payload);
 
@@ -18,7 +15,6 @@ const actionsMap = {
     },
 
     [autenticacaoActionTypes.SIGNIN_SUCCESS]: (state, action) => {
-        console.log('actionTypes.SIGNIN_SUCCESS', action);
 
         Auth.authenticateUser(action.payload);
 
@@ -26,7 +22,6 @@ const actionsMap = {
     },
 
     [autenticacaoActionTypes.SIGNIN_ERROR]: (state, action) => {
-        console.log('actionTypes.SIGNIN_ERROR', action.error.response.data);
 
         let mensagens = action.error.response.data.mensagens;
 
@@ -40,7 +35,6 @@ const actionsMap = {
     },
 
     [autenticacaoActionTypes.SIGNOUT_SUCCESS]: (state, action) => {
-        console.log('actionTypes.SIGNOUT_SUCCESS', action);
 
         Auth.deauthenticateUser();
 
@@ -48,7 +42,6 @@ const actionsMap = {
     },
 
     [autenticacaoActionTypes.REQUEST_ERROR]: (state, action) => {
-        console.log('actionTypes.REQUEST_ERROR', action);
 
         let isLogged = true;
         let usuario = state.usuario;
