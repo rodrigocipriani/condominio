@@ -7,11 +7,10 @@ module.exports = {
     },
     mailer: {
         auth: {
-            user: 'xxx@gmail.com', // todo Colocar como variavel de ambiente
-            pass: 'xxx'// todo Colocar como variavel de ambiente
+            user: 'usr.war@gmail.com',
+            pass: 'aerolitos51'
         },
-        defaultFromAddress: 'contato <contato@boulevardcaymmi.com.br>'
-        // defaultFromAddress: 'nao_responda <nao_responda@guerra.com>'
+        defaultFromAddress: 'nao_responda <nao_responda@guerra.com>'
     },
     redis: {
         host: 'localhost',
