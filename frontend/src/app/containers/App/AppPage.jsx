@@ -1,13 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import SideNav from './components/SideNav';
-// import Auth from '../Autenticacao/Auth';
 
 class AppPage extends Component {
 
     render() {
         const {children, usuario} = this.props;
-
-        // const usuario = Auth.getUser();
 
         if (!usuario) {
             return <div>loading...</div>

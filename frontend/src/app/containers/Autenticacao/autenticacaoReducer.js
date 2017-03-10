@@ -1,6 +1,8 @@
 import {autenticacaoActionTypes} from './autenticacaoActionTypes';
 import Auth from './Auth';
 
+console.log('autenticacaoActionTypes', autenticacaoActionTypes);
+
 const initialState = {
     isLogged: false,
     usuario: null

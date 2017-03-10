@@ -1,10 +1,9 @@
 import {createAssyncAction} from '../../lib/actionsHelper';
+import autenticacaoActionTypes from './autenticacaoActionTypes';
 import api  from 'lib/api';
-import {autenticacaoActionTypes} from './autenticacaoActionTypes';
 import Auth from './Auth';
 import config from '../../config';
 import store from '../../lib/store';
-
 
 const apiGeral = api(config.urls.api);
 
@@ -28,13 +27,14 @@ export const signOut = (email, password) => {
 };
 
 export const resquestLoggedUser = () => {
-    if(Auth.isUserAuthenticated()){
+    if (Auth.isUserAuthenticated()) {
         let user = Auth.getUser();
         return store.dispatch(
             {type: autenticacaoActionTypes.REQ_LOGGED_USER_SUCCESS, user}
         )
+    } else {
+        createAssyncAction(autenticacaoActionTypes.REQ_LOGGED_USER,
+            apiGeral.get('/usuario')
+        );
     }
-    createAssyncAction(autenticacaoActionTypes.REQ_LOGGED_USER,
-        apiGeral.get('/usuario')
-    );
 };
