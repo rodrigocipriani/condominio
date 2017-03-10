@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import SnackBarMsgs from 'br-react-utils/layout/SnackBarMsgs';
 import {DefaultTheme} from 'br-react-utils/layout/theme';
-import {routeCodes} from '../../routes';
+import {Loading} from 'br-react-utils/layout/Loading';
 
 
 class IndexPage extends Component {
@@ -11,15 +11,19 @@ class IndexPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // todo : location... mexe com o navegador, trocar para algo nativo do react
+
         const isLogged = nextProps.isLogged;
         if(!isLogged){
-            location.pathname != routeCodes.LOGIN ? location.href = routeCodes.LOGIN : null;
+            nextProps.callbackNotLogged();
         }
     }
 
     render() {
-        const {children, msgs} = this.props;
+        const {children, msgs, isLogged} = this.props;
+
+        // if(!isLogged){
+        //     return <Loading />;
+        // }
 
         return (
             <DefaultTheme>
@@ -38,13 +42,15 @@ class IndexPage extends Component {
 IndexPage.propTypes = {
     children: PropTypes.element, // todo : Implementar apra ser element ou string
     msgs: PropTypes.array,
-    isLogged: PropTypes.bool.isRequired
+    isLogged: PropTypes.bool.isRequired,
+    callbackNotLogged: PropTypes.func
 };
 
 IndexPage.defaultProps = {
     children: null,
     msgs: [],
-    isLogged: false
+    isLogged: false,
+    callbackNotLogged: () => {}
 };
 
 export default IndexPage;

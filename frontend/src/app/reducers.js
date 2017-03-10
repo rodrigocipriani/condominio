@@ -10,7 +10,6 @@ import autenticacaoReducer from './containers/Autenticacao/autenticacaoReducer';
 
 
 export default combineReducers({
-    // incluir reducers
     indexReducer,
     appReducer,
     documentosReducer,
