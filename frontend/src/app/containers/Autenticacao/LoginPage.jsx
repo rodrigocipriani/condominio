@@ -1,15 +1,8 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, {Component, PropTypes} from 'react';
 import LoginForm from './components/LoginForm.jsx';
-import * as autenticacaoActions from './autenticacaoAction';
-import {routeCodes} from '../../routes';
-import {Row, Col} from 'rc-react-elements/layout';
-import Auth from './Auth';
+import {Row, Col} from 'br-react-utils/layout';
 
-@connect(state => ({
-    isLogged: state.autenticacaoReducer.isLogged,
-}))
-class LoginPage extends React.Component {
+class LoginPage extends Component {
 
     /**
      * Class constructor.
@@ -27,14 +20,14 @@ class LoginPage extends React.Component {
 
         this.processForm = this.processForm.bind(this);
         this.changeUser = this.changeUser.bind(this);
+        this.handleSignIn = props.handleSignIn.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         // todo : location... mexe com o navegador, trocar para algo nativo do react
         const isLogged = nextProps.isLogged;
         if (isLogged) {
-            console.log('AQUI');
-            location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
+            location.href = location.pathname != nextProps.routeCodes.LOGIN ? location.pathname : nextProps.routeCodes.HOME
         }
     }
 
@@ -50,7 +43,7 @@ class LoginPage extends React.Component {
         const email = this.state.user.email;
         const password = this.state.user.password;
 
-        autenticacaoActions.signin(email, password);
+        this.handleSignIn(email, password);
 
     }
 
@@ -89,5 +82,17 @@ class LoginPage extends React.Component {
     }
 
 }
+
+LoginPage.propTypes = {
+    isLogged: PropTypes.bool.isRequired,
+    handleSignIn: PropTypes.func.isRequired,
+    routeCodes: PropTypes.object.isRequired
+};
+
+LoginPage.defaultProps = {
+    isLogged: false,
+    handleSignIn: null,
+    routeCodes: {}
+};
 
 export default LoginPage;

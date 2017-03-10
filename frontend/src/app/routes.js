@@ -6,11 +6,10 @@ const publicPath = config.urls.subApp ? `${config.urls.subApp}/` : `/`;
 /**
  * Inportar containers aqui
  * */
-import IndexView from './containers/Index/IndexView';
+import Index from './containers/Index';
 import AppView from './containers/App/AppView';
-import LoginPage from './containers/Autenticacao/LoginPage';
-import SignUpPage from './containers/Autenticacao/SignUpPage';
-import Documentos from './containers/Documentos/DocumentosView';
+import Autenticacao from './containers/Autenticacao';
+import Documentos from './containers/Documentos';
 import Forum from './containers/Forum/Index';
 import Indicacoes from './containers/Indicacoes/Index';
 import NotFound from './containers/NotFound/Index';
@@ -35,7 +34,7 @@ export default class Routes extends Component {
     render() {
 
         return (
-            <IndexView>
+            <Index>
                 <Router history={ browserHistory }>
 
                     <Route path={routeCodes.HOME} component={AppView} onEnter={
@@ -60,27 +59,13 @@ export default class Routes extends Component {
                         <Route path={ routeCodes.INDICACOES } component={ Indicacoes }/>
                     </Route>
 
-                    <Route path={ routeCodes.LOGIN } component={ LoginPage }/>
-                    <Route path={ routeCodes.SIGNUP } component={ SignUpPage }/>
-                    <Route path={ routeCodes.LOGOUT } onEnter={
-                        (nextState, replace, callback) => {
-                            console.log('logouttttttttttttttttt');
-                            autenticacaoActions.signout();
-
-                            // todo : location... mexe com o navegador, trocar para algo nativo do react
-                            location.href = routeCodes.LOGIN;
-
-                            // change the current URL to /
-                            {/*replace('/');*/
-                            }
-                            {/*callback();*/
-                            }
-                        }
-                    }/>
+                    <Route path={ routeCodes.LOGIN } component={() => <Autenticacao page="login"/>}/>
+                    <Route path={ routeCodes.SIGNUP } component={() => <Autenticacao page="signup"/>}/>
+                    <Route path={ routeCodes.LOGOUT } component={() => <Autenticacao page="logout"/>}/>
 
                     <Route path='*' component={ NotFound }/>
                 </Router>
-            </IndexView>
+            </Index>
         );
     }
 }

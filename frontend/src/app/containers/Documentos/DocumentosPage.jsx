@@ -1,26 +1,11 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, {PureComponent, PropTypes} from 'react';
+import {Painel} from 'br-react-utils/layout';
 
-import * as documentosAction from './documentosAction';
-import {Painel} from 'rc-react-elements/layout';
+class DocumentosPage extends PureComponent {
 
-@connect(state => ({
-    documentos: state.documentosReducer.documentos,
-}))
-class Documentos extends Component {
-
-    static propTypes = {
-        // from react-redux connect
-        dispatch: PropTypes.func,
-    };
-
-    static routeWillInit = (nextState, replace, callback) => {
-        documentosAction.buscaDocumentos();
-        callback();
-    };
-
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        props.buscaDocumentos();
     }
 
     render() {
@@ -50,10 +35,14 @@ class Documentos extends Component {
     }
 }
 
-// Documentos.routeInit = (nextState, replace, callback) => {
-//     console.debug('init app!', this.props);
-//     // store.dispatch(setDadosContextoFrente(paramsProcessos));
-//     callback();
-// };
+DocumentosPage.propTypes = {
+    documentos: PropTypes.array,
+    buscaDocumentos: PropTypes.func.isRequired
+};
 
-export default Documentos;
+DocumentosPage.defaultProps = {
+    documentos: [],
+    buscaDocumentos: null
+};
+
+export default DocumentosPage;

@@ -1,14 +1,8 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, {Component, PropTypes} from 'react';
 import SignUpForm from './components/SignUpForm.jsx';
-import {routeCodes} from '../../routes';
-import * as autenticacaoActions from './autenticacaoAction';
-import {Row, Col} from 'rc-react-elements/layout';
+import {Row, Col} from 'br-react-utils/layout';
 
-@connect(state => ({
-    isLogged: state.autenticacaoReducer.isLogged,
-}))
-class SignUpPage extends React.Component {
+class SignUpPage extends Component {
 
     /**
      * Class constructor.
@@ -28,6 +22,7 @@ class SignUpPage extends React.Component {
 
         this.processForm = this.processForm.bind(this);
         this.changeUser = this.changeUser.bind(this);
+        this.handleSignUp = props.handleSignUp.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,7 +30,7 @@ class SignUpPage extends React.Component {
         const isLogged = nextProps.isLogged;
         if (isLogged) {
             console.log('AQUI');
-            location.href = location.pathname != routeCodes.LOGIN ? location.pathname : routeCodes.HOME
+            location.href = location.pathname != nextProps.routeCodes.LOGIN ? location.pathname : nextProps.routeCodes.HOME
         }
     }
 
@@ -67,7 +62,7 @@ class SignUpPage extends React.Component {
         const email = this.state.user.email;
         const password = this.state.user.password;
 
-        autenticacaoActions.signup(name, email, password);
+        this.handleSignUp(name, email, password);
 
     }
 
@@ -87,5 +82,18 @@ class SignUpPage extends React.Component {
     }
 
 }
+
+SignUpPage.propTypes = {
+    isLogged: PropTypes.bool.isRequired,
+    handleSignUp: PropTypes.func.isRequired,
+    routeCodes: PropTypes.object.isRequired
+};
+
+SignUpPage.defaultProps = {
+    isLogged: false,
+    handleSignUp: null,
+    routeCodes: {}
+};
+
 
 export default SignUpPage;

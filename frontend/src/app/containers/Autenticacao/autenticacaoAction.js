@@ -5,20 +5,20 @@ import config from '../../config';
 
 const apiGeral = api(config.urls.api);
 
-export const signup = (username, email, password) => {
+export const signUp = (username, email, password) => {
     createAssyncAction(actionTypes.SIGNUP,
         apiGeral.post('/usuario', {username, email, password}),
         {}
     );
 };
 
-export const signin = (email, password) => {
+export const signIn = (email, password) => {
     createAssyncAction(actionTypes.SIGNIN,
         apiGeral.post('/Autenticacao', {email, password})
     );
 };
 
-export const signout = (email, password) => {
+export const signOut = (email, password) => {
     createAssyncAction(actionTypes.SIGNOUT,
         apiGeral.get('/Autenticacao')
     );

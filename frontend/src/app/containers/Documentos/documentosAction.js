@@ -1,13 +1,19 @@
 import {createAssyncAction} from '../../lib/actionsHelper';
 import api  from 'lib/api';
-import {actionTypes} from './documentosActionTypes';
 import config from '../../config';
 
-const apiGeral = api(config.urls.api);
+const appApi = api(config.urls.api);
+
+export const documentosActionTypes = {
+    BUSCA_DOCUMENTOS: 'BUSCA_DOCUMENTOS',
+    BUSCA_DOCUMENTOS_START: 'BUSCA_DOCUMENTOS_START',
+    BUSCA_DOCUMENTOS_ERROR: 'BUSCA_DOCUMENTOS_ERROR',
+    BUSCA_DOCUMENTOS_SUCCESS: 'BUSCA_DOCUMENTOS_SUCCESS'
+};
 
 export function buscaDocumentos() {
-    createAssyncAction(actionTypes.BUSCA_DOCUMENTOS,
-        apiGeral.get('/documentos'),
+    createAssyncAction(documentosActionTypes.BUSCA_DOCUMENTOS,
+        appApi.get('/documentos'),
         {}
     );
 }

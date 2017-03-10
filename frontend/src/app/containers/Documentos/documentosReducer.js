@@ -1,4 +1,4 @@
-import {actionTypes} from './documentosActionTypes';
+import {documentosActionTypes} from './documentosAction';
 
 const initialState = {
     documentos: []
@@ -6,7 +6,7 @@ const initialState = {
 
 const actionsMap = {
 
-    [actionTypes.BUSCA_DOCUMENTOS_SUCCESS]: (state, action) => {
+    [documentosActionTypes.BUSCA_DOCUMENTOS_SUCCESS]: (state, action) => {
 
         return {...state, documentos: action.payload};
     },

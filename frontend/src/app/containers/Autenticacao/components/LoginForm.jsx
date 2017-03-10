@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
-import {Card, Button, TextField} from 'rc-react-elements/layout';
+import {Card, Button, TextField} from 'br-react-utils/layout';
 
 const LoginForm = ({
     onSubmit,
