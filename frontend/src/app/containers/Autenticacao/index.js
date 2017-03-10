@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         signIn: (email, password) => autenticacaoAction.signIn(email, password),
-        signUp: (email, password) => autenticacaoAction.signUp(name, email, password),
+        signUp: (name, email, password) => autenticacaoAction.signUp(name, email, password),
         signOut: (email, password) => autenticacaoAction.signOut()
     };
 };

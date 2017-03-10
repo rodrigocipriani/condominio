@@ -61,8 +61,8 @@ class SignUpPage extends Component {
         const name = this.state.user.name;
         const email = this.state.user.email;
         const password = this.state.user.password;
-
-        this.handleSignUp(name, email, password);
+console.log('name, email, password',name, email, password);
+        this.props.handleSignUp(name, email, password);
 
     }
 
