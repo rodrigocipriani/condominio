@@ -27,10 +27,15 @@ export const signOut = (email, password) => {
 };
 
 export const resquestLoggedUser = () => {
-    if (Auth.isUserAuthenticated()) {
-        let user = Auth.getUser();
+    let user = Auth.getUser();
+    if(user){
+        console.log('user1', user);
+    }else{
+        console.log('user2', user);
+    }
+    if (Auth.isUserAuthenticated() && user) {
         return store.dispatch(
-            {type: autenticacaoActionTypes.REQ_LOGGED_USER_SUCCESS, user}
+            {type: autenticacaoActionTypes.REQ_LOGGED_USER_SUCCESS, payload: user}
         )
     } else {
         createAssyncAction(autenticacaoActionTypes.REQ_LOGGED_USER,

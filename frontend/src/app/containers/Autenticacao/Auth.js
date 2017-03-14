@@ -6,7 +6,8 @@ class Auth {
      * @param {object} user
      */
     static authenticateUser(user) {
-        localStorage.setItem('user', user);
+        console.log('autenticateeeeeeeeeeeee user', user);
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
     /**
@@ -34,7 +35,7 @@ class Auth {
      */
 
     static getUser() {
-        return localStorage.getItem('user');
+        return JSON.parse(localStorage.getItem('user'));
     }
 
 }

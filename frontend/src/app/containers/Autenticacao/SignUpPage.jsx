@@ -29,7 +29,6 @@ class SignUpPage extends Component {
         // todo : location... mexe com o navegador, trocar para algo nativo do react
         const isLogged = nextProps.isLogged;
         if (isLogged) {
-            console.log('AQUI');
             location.href = location.pathname != nextProps.routeCodes.LOGIN ? location.pathname : nextProps.routeCodes.HOME
         }
     }
@@ -61,7 +60,6 @@ class SignUpPage extends Component {
         const name = this.state.user.name;
         const email = this.state.user.email;
         const password = this.state.user.password;
-console.log('name, email, password',name, email, password);
         this.props.handleSignUp(name, email, password);
 
     }

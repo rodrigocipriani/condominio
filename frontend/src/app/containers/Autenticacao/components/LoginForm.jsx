@@ -25,7 +25,6 @@ const LoginForm = ({
                 sizes="s12"
                 label="E-mail"
                 name="email"
-                errorText={errors.email}
                 onChange={onChange}
                 value={user.email}
             />
@@ -36,7 +35,6 @@ const LoginForm = ({
                 type="password"
                 name="password"
                 onChange={onChange}
-                errorText={errors.password}
                 value={user.password}
             />
 

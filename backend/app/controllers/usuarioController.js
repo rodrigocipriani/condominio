@@ -11,6 +11,9 @@ module.exports = (app) => {
      * Busca dados do usuário logado
      */
     controller.obterUsuarioLogado = (req, res) => {
+
+        console.log('req.user >>>>', req.user);
+
         if (!req.user) {
             res.status(401).send(Erro.getMensagemErro({chave: 'mensagem.realizarLogin'}));
         }

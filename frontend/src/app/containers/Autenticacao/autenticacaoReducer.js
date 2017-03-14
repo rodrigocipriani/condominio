@@ -9,16 +9,23 @@ const actionsMap = {
 
     [autenticacaoActionTypes.REQ_LOGGED_USER_SUCCESS]: (state, action) => {
 
-        Auth.authenticateUser(action.payload);
+        const user = action.payload;
 
-        return {...state, isLogged: action.payload != null, usuario: Auth.getUser()};
+        return gravarUsuario(user, state);
     },
 
     [autenticacaoActionTypes.SIGNIN_SUCCESS]: (state, action) => {
 
-        Auth.authenticateUser(action.payload);
+        const user = action.payload;
 
-        return {...state, isLogged: action.payload != null, usuario: Auth.getUser()};
+        return gravarUsuario(user, state);
+    },
+
+    [autenticacaoActionTypes.SIGNUP_SUCCESS]: (state, action) => {
+
+        const user = action.payload;
+
+        return gravarUsuario(user, state);
     },
 
     [autenticacaoActionTypes.SIGNIN_ERROR]: (state, action) => {
@@ -56,7 +63,18 @@ const actionsMap = {
 
 };
 
+const gravarUsuario = (user, state) => {
+    if(user){
+        Auth.authenticateUser(user);
+    }
+    console.log('user', user);
+    console.log('Auth.getUser()', Auth.getUser());
+
+    return {...state, isLogged: user != null, usuario: user};
+};
+
 export default function reducer(state = initialState, action = {}) {
+    console.log('action >>> ', action);
     const fn = action.type.endsWith('_ERROR') ? actionsMap[autenticacaoActionTypes.REQUEST_ERROR] : actionsMap[action.type];
     return fn ? fn(state, action) : state;
 }

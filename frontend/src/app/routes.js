@@ -32,10 +32,7 @@ export default class Routes extends Component {
     render() {
 
         return (
-            <Index callbackNotLogged={
-                // todo : location... mexe com o navegador, trocar para algo nativo do react
-                {/*() => location.pathname != routeCodes.LOGIN ? location.href = routeCodes.LOGIN : null*/}
-            }>
+            <Index>
                 <Router history={ browserHistory }>
 
                     <Route path={routeCodes.HOME} component={App}>

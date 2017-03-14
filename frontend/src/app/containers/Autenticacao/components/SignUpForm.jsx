@@ -9,48 +9,45 @@ const SignUpForm = ({
     user
 }) => (
 
-            <form action="/" onSubmit={onSubmit}>
-                <Card title="Criar nova conta" actions={
-                    <Button type="submit">Criar nova conta</Button>
-                }>
 
-                    <p>Já tem uma conta? <Link to={'/login'}>Entrar</Link></p>
+    <Card title="Criar nova conta" actions={
+        <Button type="submit">Criar nova conta</Button>
+    }>
+        <form action="/" onSubmit={onSubmit}>
+            <p>Já tem uma conta? <Link to={'/login'}>Entrar</Link></p>
 
 
-                    {errors.summary && <p className="error-message">{errors.summary}</p>}
+            {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-                    <br />
+            <br />
 
-                    <TextField
-                        sizes="s12"
-                        label="Nome"
-                        name="name"
-                        errorText={errors.name}
-                        onChange={onChange}
-                        value={user.name}
-                    />
+            <TextField
+                sizes="s12"
+                label="Nome"
+                name="name"
+                onChange={onChange}
+                value={user.name}
+            />
 
-                    <TextField
-                        sizes="s12"
-                        label="E-mail"
-                        name="email"
-                        errorText={errors.email}
-                        onChange={onChange}
-                        value={user.email}
-                    />
+            <TextField
+                sizes="s12"
+                label="E-mail"
+                name="email"
+                onChange={onChange}
+                value={user.email}
+            />
 
-                    <TextField
-                        sizes="s12"
-                        label="Senha"
-                        type="password"
-                        name="password"
-                        onChange={onChange}
-                        errorText={errors.password}
-                        value={user.password}
-                    />
+            <TextField
+                sizes="s12"
+                label="Senha"
+                type="password"
+                name="password"
+                onChange={onChange}
+                value={user.password}
+            />
 
-                </Card>
-            </form>
+        </form>
+    </Card>
 );
 
 SignUpForm.propTypes = {

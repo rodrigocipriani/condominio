@@ -15,7 +15,12 @@ class App extends Component {
 
     render() {
         const {usuario} = this.props;
-
+        console.log(usuario);
+        if(usuario){
+            console.log('entrou');
+        }else{
+            console.log('não entrou');
+        }
         return usuario ? <AppPage {...this.props} /> : <div>loading...</div>;
 
     }
