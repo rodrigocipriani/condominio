@@ -1,12 +1,12 @@
 // import { UiAlert, UiButton } from 'keen-ui';
 import UiButton from 'keen-ui/lib/UiButton';
-import connect from '../es2x/vue-redux-connect/connect';
-import {appActionTypes} from './appActionTypes';
+import connect from '../../es2x/vue-redux-connect/connect';
+import { appActionTypes } from './appActionTypes';
 
 const App = {
-  data      : () => ({
+  data: () => ({
     isRed: true,
-    size : 'normal',
+    size: 'normal',
   }),
   components: {
     UiButton,
@@ -16,11 +16,11 @@ const App = {
   //     store.dispatch({ type: 'ADD' });
   //   },
   // },
-  props     : {
+  props: {
     total: {
       type: Number,
     },
-    add  : {
+    add: {
       type: Function,
     },
   },

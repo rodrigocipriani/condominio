@@ -1,20 +1,10 @@
 import Vue from 'vue';
-// import 'babel-polyfill';
-import { createStore } from 'redux';
-// import Vuetify from 'vuetify';
 import 'normalize.css';
-// import 'vuetify/dist/vuetify.min.css';
-import App from './App';
+import App from './App/App';
 import './main.css';
 import reduxStorePlugin from '../es2x/vue-redux-connect/reduxStorePlugin';
 import store from './store';
 
-// console.log('reduxStorePlugin', reduxStorePlugin);
-
-// import VueMaterial from 'vue-material';
-// Vue.use(VueMaterial);
-
-// Vue.use(Vuetify);
 Vue.use(reduxStorePlugin);
 
 /* eslint-disable no-new */

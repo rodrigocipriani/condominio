@@ -3,7 +3,7 @@ import config from '../config';
 
 console.log('config', config);
 
-import appReducer from './appReducer';
+import appReducer from './App/appReducer';
 
 const showLoggers  = false;
 const isProduction = config.env.isProduction;

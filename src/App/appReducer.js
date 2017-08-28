@@ -1,4 +1,4 @@
-import reducerCreator from '../es2x/reducerCreator';
+import reducerCreator from '../../es2x/reducerCreator';
 import { appActionTypes } from './appActionTypes';
 
 const initialState = {
