@@ -1,38 +1,29 @@
-// import { UiAlert, UiButton } from 'keen-ui';
-import UiButton from 'keen-ui/lib/UiButton';
-import connect from '../../es2x/vue-redux-connect/connect';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { appActionTypes } from './appActionTypes';
+import Button from 'material-ui/Button';
 
-const App = {
-  data: () => ({
-    isRed: true,
-  }),
-  components: {
-    UiButton,
-  },
-  // methods: {
-  //   add(event) {
-  //     store.dispatch({ type: 'ADD' });
-  //   },
-  // },
-  props: {
-    total: {
-      type: Number,
-    },
-    add: {
-      type: Function,
-    },
-  },
-  render(h) {
+class App extends PureComponent {
+
+  render() {
+    const { total, add } = this.props;
+
+
     return (
-        <div class={{ 'is-red': this.isRed }}>
-          <h2>Vue App</h2>
-          <ui-button onClick={this.add} type="primary">Add from Vue</ui-button>
-          <div>Total: {this.total}</div>
-        </div>
+      <div>
+        <h2>React App</h2>
+        <Button onClick={add} raised color="primary">
+          Add from React
+        </Button>
+        <div>Total: {total}</div>
+      </div>
     );
-  },
-};
+  }
+}
+
+App.propTypes = {};
+
+App.defaultProps = {};
 
 function mapStateToProps(state) {
   return {

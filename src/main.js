@@ -1,22 +1,18 @@
-import Vue from 'vue';
-import App from './App/App';
-import reduxStorePlugin from '../es2x/vue-redux-connect/reduxStorePlugin';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import store from './store';
 import 'normalize.css';
 import './main.css';
+import App from './App/App';
 
+ReactDOM.render(
+  <Provider store={ store }>
+    <App />
+  </Provider>,
+  document.getElementById('app'),
+);
 
-Vue.use(reduxStorePlugin);
-
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  // router,
-  store,
-  render: h => (
-      <App/>
-  ),
-});
 
 store.subscribe(() => {
   // console.log('store.getState()', store.getState());
