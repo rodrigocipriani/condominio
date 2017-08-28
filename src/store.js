@@ -4,13 +4,13 @@ import { persistentReducer } from 'redux-pouchdb';
 
 console.log('config', config);
 
-import appReducer from './App/appReducer';
-import usuarioReducer from './App/usuarioReducer';
+import { app } from './App/appReducer';
+import { usuario } from './App/usuarioReducer';
 
 const showLoggers = false;
 const isProduction = config.env.isProduction;
 
 export default storeCreator({
-  appReducer: persistentReducer(appReducer),
-  usuarioReducer: persistentReducer(usuarioReducer),
+  appStore: persistentReducer(app),
+  usuarioStore: persistentReducer(usuario),
 }, { isProduction, showLoggers });

@@ -36,7 +36,7 @@ const App = {
 
 function mapStateToProps(state) {
   return {
-    total: state.appReducer.total,
+    total: state.appStore.total,
   };
 }
 

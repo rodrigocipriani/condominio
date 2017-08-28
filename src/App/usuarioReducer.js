@@ -5,7 +5,7 @@ const initialState = {
   teste: 1,
 };
 
-const usuarioReducer = (state = initialState, action) => {
+const usuario = (state = initialState, action) => {
   switch (action.type) {
     case appActionTypes.ADD:
       return { ...state, total: state.total + 1 };
@@ -14,4 +14,4 @@ const usuarioReducer = (state = initialState, action) => {
   }
 };
 
-export default usuarioReducer;
+export { usuario };
