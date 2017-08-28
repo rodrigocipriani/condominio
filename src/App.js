@@ -1,6 +1,5 @@
 // import { UiAlert, UiButton } from 'keen-ui';
 import UiButton from 'keen-ui/lib/UiButton';
-import 'vue-material/dist/components/mdButton/index.css';
 
 
 export default {
