@@ -47,9 +47,9 @@ const webpackConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        include: [
-          config.sourceFolder,
-        ],
+        // include: [
+        //   config.sourceFolder,
+        // ],
       },
       {
         test: /\.vue$/,
