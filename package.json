@@ -15,10 +15,12 @@
     "keen-ui": "^1.0.0",
     "material-ui": "next",
     "normalize.css": "^7.0.0",
+    "pouchdb": "^6.3.4",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "redux": "^3.7.2",
+    "redux-pouchdb": "^0.1.1",
     "vue": "^2.4.2",
     "vue-material": "^0.7.4",
     "vuetify": "^0.15.0-beta.3"

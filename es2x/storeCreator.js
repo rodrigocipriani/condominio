@@ -6,6 +6,10 @@ import {
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import PouchDB from 'pouchdb';
+import { persistentStore } from 'redux-pouchdb';
+
+const db = new PouchDB('dbname');
 
 const storeCreator = (reducers, props) => {
   const { isProduction, showLoggers } = props;
@@ -16,20 +20,29 @@ const storeCreator = (reducers, props) => {
   }
   const loggerMiddleware = createLogger(loggerOptions);
 
-  const store = isProduction ? createStore(
+  const persistentStoreObject = persistentStore(db, (data) => {
+    console.log('data', data);
+  });
+
+  const store = isProduction ?
+    createStore(
       reducersObj,
-      applyMiddleware(thunkMiddleware),
-  )
-      : createStore(
-          reducersObj,
-          compose(
-              applyMiddleware(
-                  thunkMiddleware,
-                  loggerMiddleware,
-              ),
-              window.devToolsExtension ? window.devToolsExtension() : f => f,
-          ),
-      );
+      compose(
+        applyMiddleware(thunkMiddleware),
+        persistentStoreObject,
+      ),
+    )
+  : createStore(
+      reducersObj,
+      compose(
+        applyMiddleware(
+          thunkMiddleware,
+          loggerMiddleware,
+        ),
+        persistentStoreObject,
+        window.devToolsExtension ? window.devToolsExtension() : f => f,
+      ),
+    );
 
   // https://github.com/reactjs/react-redux/releases/tag/v2.0.0
   // Hot reloading reducers is now explicit (#80)

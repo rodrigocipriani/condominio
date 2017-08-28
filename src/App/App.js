@@ -36,7 +36,7 @@ function mapActionToProps(dispatch) {
     add() {
       dispatch({
         type: appActionTypes.ADD,
-        // data: { 1 },
+        // data: 'rodrigo',
       });
     },
   };
