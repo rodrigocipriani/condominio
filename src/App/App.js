@@ -6,7 +6,6 @@ import { appActionTypes } from './appActionTypes';
 const App = {
   data: () => ({
     isRed: true,
-    size: 'normal',
   }),
   components: {
     UiButton,
@@ -27,9 +26,9 @@ const App = {
   render(h) {
     return (
         <div class={{ 'is-red': this.isRed }}>
-          <p>Total: {this.total}</p>
-          <p>{this.size}</p>
-          <ui-button onClick={this.add} type="secondary">Normal</ui-button>
+          <h2>Vue App</h2>
+          <ui-button onClick={this.add} type="primary">Add from Vue</ui-button>
+          <div>Total: {this.total}</div>
         </div>
     );
   },

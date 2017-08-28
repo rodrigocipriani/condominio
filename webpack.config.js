@@ -14,6 +14,7 @@ const config = {
   buildFolder: path.resolve(__dirname, 'build'),
   sourceFolder: path.resolve(__dirname, 'src'),
   entryPoint: './main.js',
+  entryPointReact: './main.react.js',
   indexHtml: path.join(__dirname, 'assets', 'index.html'),
   isProduction: process.env.NODE_ENV === 'production',
   host: '127.0.0.1',
@@ -25,6 +26,7 @@ const webpackConfig = {
   context: config.sourceFolder,
   entry: {
     app: config.entryPoint,
+    appReact: config.entryPointReact,
   },
   output: {
     path: config.buildFolder,
@@ -47,6 +49,30 @@ const webpackConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        query: {
+          presets: [
+            ['es2015', { modules: false }],
+            // 'react',
+            'stage-0',
+          ],
+          plugins: ['transform-vue-jsx'],
+        },
+        // include: [
+        //   config.sourceFolder,
+        // ],
+      },
+      {
+        test: /\.react\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: [
+            ['es2015', { modules: false }],
+            'react',
+            'stage-0',
+          ],
+          // plugins: ['transform-vue-jsx'],
+        },
         // include: [
         //   config.sourceFolder,
         // ],
