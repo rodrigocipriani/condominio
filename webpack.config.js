@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
@@ -15,6 +16,7 @@ const config = {
   entryPoint: './main.js',
   indexHtml: path.join(__dirname, 'assets', 'index.html'),
   isProduction: process.env.NODE_ENV === 'production',
+  host: '127.0.0.1',
 };
 
 console.log(config, process.env.NODE_ENV);
@@ -36,6 +38,8 @@ const webpackConfig = {
   devtool: config.isProduction ? 'cheap-module-source-map' : 'eval',
   devServer: {
     contentBase: config.sourceFolder,
+    host: '0.0.0.0',
+    disableHostCheck: !config.isProduction,
   },
   module: {
     loaders: [
