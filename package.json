@@ -10,7 +10,7 @@
     "postinstall": "gulp install",
     "test": "jest"
   },
-  "devDependencies": {
+  "dependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^3.10.1",
     "eslint-config-airbnb": "^13.0.0",
