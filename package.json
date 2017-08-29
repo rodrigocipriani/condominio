@@ -21,8 +21,5 @@
     "gulp-sequence": "^0.4.6",
     "gulp-shell": "^0.6.3"
   },
-  "optionalDependencies": {},
-  "dependencies": {
-    "nano": "^6.4.0"
-  }
+  "optionalDependencies": {}
 }

@@ -6,4 +6,7 @@ module.exports = (app) => {
   app.route('/api/extrato')
         // .all(isLogged(app)) // desta forma verifica o login
         .get(extratoController.findAll);
+
+  app.route('/api/teste')
+        .get(extratoController.teste);
 };
