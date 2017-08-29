@@ -1,7 +1,6 @@
+
 const urlConexao = 'https://rodrigocipriani:LQP1wqj9PQ@couchdb.cloudno.de/condominio';
-// const urlConexao = 'https://couchdb.cloudno.de/condominio';
-// const nano = require('nano')(urlConexao);
-const db = require('nano')(urlConexao);
+const userStore = require('nano')(urlConexao);
 
 module.exports = (app) => {
   const controller = {};
@@ -10,13 +9,54 @@ module.exports = (app) => {
 
   controller.teste = function (req, res) {
     try {
-      // const condominio = nano.db.use('condominio');
-      return db.get('app', (err, body) => {
-        if (!err) {
+      const key = 'app';
+
+      userStore.get(key, (error, body) => {
+        if (!error) {
           console.log(body);
-          res.send(body);
+        } else {
+          console.log(error, body);
+          res.send({ error, body });
         }
+        const newBody = {
+          ...body,
+          madeBy: 'madeByServer',
+          state : {
+            ...body.state,
+            total: 0
+          }
+        };
+        userStore.insert(newBody, key, (error, bodySalvo) => {
+          if (!error) {
+            return res.send(newBody);
+          }
+          return res.send(error);
+        });
       });
+
+      // userStore.insert({
+      //   // "_id": "app",
+      //   // "_rev": "121-f48a29e0f0dc4c7ca244d6bffc5280a8",
+      //   "madeBy": "rodrigo",
+      //   "state": {
+      //     "total": 501,
+      //     "teste": 1
+      //   }
+      // }, 'app', function (error, body) {
+      //   if(!error) {
+      //     console.log(body);
+      //     res.send(body);
+      //   }else{
+      //     console.log(error, body);
+      //     res.send({error, body});
+      //   }
+      // });
+      // return userStore.get('app', (err, body) => {
+      //   if (!err) {
+      //     console.log(body);
+      //     res.send(body);
+      //   }
+      // });
     } catch (e) {
       console.log('2222e', e);
     }
