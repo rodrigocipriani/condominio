@@ -14,7 +14,8 @@ const dbname = 'condominio';
 const db = new PouchDB(dbname);
 // 'https://couchdb.cloudno.de/condominio'
 const sync = PouchDB.sync(
-  dbname, 'https://couchdb.cloudno.de/condominio',
+  dbname, 'https://rodrigocipriani:LQP1wqj9PQ@couchdb.cloudno.de/condominio',
+  // dbname, 'https://couchdb.cloudno.de/condominio',
   {
     live: true,
     retry: true,
