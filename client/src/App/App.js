@@ -17,7 +17,7 @@ class App extends PureComponent {
 
         <h2>React App</h2>
         <Button onClick={() => add(null)} raised color="primary">
-          Add 1
+          Add 1 (Client)
         </Button>
         <Button onClick={reset} raised color="primary">
           Zerar contador (Server)
