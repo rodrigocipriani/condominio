@@ -9,7 +9,7 @@ import BigListComponent from './BigListComponent';
 class App extends PureComponent {
 
   render() {
-    const { total, add, reset, biglist, criarLista, criarListaClient } = this.props;
+    const { total, add, reset, biglist, criarListaServer, criarListaClassic, criarListaClient } = this.props;
 
 
     return (
@@ -33,7 +33,11 @@ class App extends PureComponent {
 
         <br/><br/>
 
-        <Button onClick={() => criarLista(total)} raised color="primary">
+        <Button onClick={() => criarListaClassic(total)} raised color="primary">
+          Criar lista (Classic)
+        </Button>
+
+        <Button onClick={() => criarListaServer(total)} raised color="primary">
           Criar lista (Server)
         </Button>
 
@@ -69,8 +73,11 @@ function mapActionToProps(dispatch) {
     reset() {
       dispatch(appActions.reset());
     },
-    criarLista(total) {
-      dispatch(appActions.criarLista(total));
+    criarListaServer(total) {
+      dispatch(appActions.criarListaServer(total));
+    },
+    criarListaClassic(total) {
+      dispatch(appActions.criarListaClassic(total));
     },
     criarListaClient() {
       dispatch(appActions.criarListaClient());

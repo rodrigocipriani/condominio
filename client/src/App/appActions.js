@@ -15,9 +15,14 @@ export const reset = () => ({
   promise: appApi.get('/reset'),
 });
 
-export const criarLista = tamanho => ({
-  type: appActionTypes.CRIAR_LISTA,
-  promise: appApi.get(`/criarlista/${tamanho}`),
+export const criarListaServer = tamanho => ({
+  type: appActionTypes.CRIAR_LISTA_SERVER,
+  promise: appApi.get(`/criarlista/server/${tamanho}`),
+});
+
+export const criarListaClassic = tamanho => ({
+  type: appActionTypes.CRIAR_LISTA_CLASSIC,
+  promise: appApi.get(`/criarlista/classic/${tamanho}`),
 });
 
 export const criarListaClient = () => ({

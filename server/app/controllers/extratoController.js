@@ -7,7 +7,7 @@ module.exports = (app) => {
   const Erro = app.util.Erro;
   const ExtratoService = app.services.extratoService;
 
-  controller.criarlista = function (req, res) {
+  controller.criarlistaServer = function (req, res) {
     const tamanho = req.params.tamanho;
 
     console.log('tamanho', tamanho);
@@ -46,6 +46,25 @@ module.exports = (app) => {
           return res.send(error);
         });
       });
+    } catch (e) {
+      console.log('2222e', e);
+    }
+  };
+
+  controller.criarlistaClassic = function (req, res) {
+    const tamanho = req.params.tamanho;
+
+    console.log('tamanho', tamanho);
+
+    try {
+      const biglist = [];
+      for (let i = 0; i < tamanho; i++) {
+        biglist.push({
+          id  : i,
+          nome: `item ${ i }`
+        });
+      }
+      return res.send(biglist);
     } catch (e) {
       console.log('2222e', e);
     }

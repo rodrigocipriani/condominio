@@ -7,8 +7,11 @@ module.exports = (app) => {
         // .all(isLogged(app)) // desta forma verifica o login
         .get(extratoController.findAll);
 
-  app.route('/api/criarlista/:tamanho')
-        .get(extratoController.criarlista);
+  app.route('/api/criarlista/server/:tamanho')
+    .get(extratoController.criarlistaServer);
+
+  app.route('/api/criarlista/classic/:tamanho')
+        .get(extratoController.criarlistaClassic);
 
   app.route('/api/reset')
         .get(extratoController.reset);

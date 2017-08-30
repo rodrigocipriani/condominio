@@ -6,36 +6,50 @@ const initialState = {
   biglist: [{ id: 0, nome: 'item 0' }],
 };
 
-const app = (state = initialState, action) => {
-  console.log('action---', action);
+const actionsMap = {
 
-  switch (action.type) {
+  [appActionTypes.ADD]: (state, action) => {
+    const total = action.payload ? parseInt(action.payload, 0) : state.total + 1;
+    return { ...state, total };
+  },
 
-    case appActionTypes.ADD:
-      const total = action.payload ? parseInt(action.payload, 0) : state.total + 1;
-      return { ...state, total };
+  [appActionTypes.CRIAR_LISTA_CLIENT]: (state, action) => {
+    console.log('biglist111');
+    const biglist = [];
+    for (let i = 0; i < state.total; i++) {
+      biglist.push({
+        id: i,
+        nome: `item ${i}`,
+      });
+    }
+    console.log('biglist', biglist);
+    return { ...state, biglist };
+  },
 
-    case appActionTypes.CRIAR_LISTA_CLIENT:
-      console.log('biglist111');
-      const biglist = [];
-      for (let i = 0; i < state.total; i++) {
-        biglist.push({
-          id: i,
-          nome: `item ${i}`,
-        });
-      }
+  [appActionTypes.CRIAR_LISTA_CLASSIC]: (state, action) => {
+    console.log('*-*-*-*-*-*');
+    console.log('action', action);
+    console.log('state', state);
+    if (action.ready) {
+      const biglist = action.result.data;
       console.log('biglist', biglist);
       return { ...state, biglist };
+    }
+    return state;
+  },
 
-    case appActionTypes.RESET_TOTAL:
-      console.log('------------------');
-      console.log('action', action);
-      console.log('state', state);
-      return state;
+  [appActionTypes.RESET_TOTAL]: (state, action) => {
+    console.log('------------------');
+    console.log('action', action);
+    console.log('state', state);
+    return state;
+  },
 
-    default:
-      return state;
-  }
+};
+
+const app = (state = initialState, action = {}) => {
+  const fn = actionsMap[action.type];
+  return fn ? fn(state, action) : state;
 };
 
 export { app };
