@@ -1,6 +1,6 @@
-# Fidello # 0.0.1
+# Condomínio # 0.0.1
 
-Sistema de fidelização
+Sistema teste
 
 ## Dependências ##
 
@@ -11,15 +11,15 @@ Sistema de fidelização
 ## Como rodar o projeto ##
 
 - Crie uma pasta workspace no seu diretório home
-- Digite no console `git clone https://BITBUCKETUSER@bitbucket.org/rodrigocipriani/fidello.git`
+- Digite no console `git clone https://github.com/rodrigocipriani/condominio.git`
 - Execute o comando `npm i`
 - Execute o comando `npm start` ou `npm run dev` para o modo de desenvolvimento
-- Acesso o endereço `localhost:8000` no navegador
+- Acesso o endereço `localhost:8080` no navegador
 
 ## Como fazer deploy ##
 
 - Execute o comando `npm run depoy`
-- Acesse `fidello.herokuapp.com`
+- Acesse `rodrigocipriani.herokuapp.com`
 
 ## Scripts
 
@@ -82,6 +82,7 @@ Sistema de fidelização
 
 Para as tarefas utilizar o Trello [trello.com](trello.com)
 
+- [ ] Corrigir deploy para o heroku
 - [ ] Aplicar os conceitos abaixo e remover Sass
     - https://github.com/JedWatson/classnames
     - https://github.com/cssinjs/react-jss#custom-setup
