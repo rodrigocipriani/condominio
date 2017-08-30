@@ -1,26 +1,33 @@
 import { appActionTypes } from './appActionTypes';
-import config from '../../config';
-import api from '../../es2x/api';
-
-const appApi = api(config.urls.api);
 
 const initialState = {
   total: 0,
   teste: 1,
+  biglist: [{ id: 0, nome: 'item 0' }],
 };
 
 const app = (state = initialState, action) => {
+  console.log('action---', action);
+
   switch (action.type) {
 
     case appActionTypes.ADD:
-      return { ...state, total: state.total + 1 };
+      const total = action.payload ? parseInt(action.payload, 0) : state.total + 1;
+      return { ...state, total };
+
+    case appActionTypes.CRIAR_LISTA_CLIENT:
+      console.log('biglist111');
+      const biglist = [];
+      for (let i = 0; i < state.total; i++) {
+        biglist.push({
+          id: i,
+          nome: `item ${i}`,
+        });
+      }
+      console.log('biglist', biglist);
+      return { ...state, biglist };
 
     case appActionTypes.RESET_TOTAL:
-      // appApi.get('/reset').then((data) => {
-      //   console.log('data', data);
-      // }).catch((error) => {
-      //   console.log('error', error);
-      // });
       console.log('------------------');
       console.log('action', action);
       console.log('state', state);

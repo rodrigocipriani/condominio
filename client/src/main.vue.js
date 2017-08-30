@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import Vue from 'vue';
 import reduxStorePlugin from '../es2x/vue-redux-connect/reduxStorePlugin';
 import store from './store';

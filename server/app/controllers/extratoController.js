@@ -7,7 +7,11 @@ module.exports = (app) => {
   const Erro = app.util.Erro;
   const ExtratoService = app.services.extratoService;
 
-  controller.teste = function (req, res) {
+  controller.criarlista = function (req, res) {
+    const tamanho = req.params.tamanho;
+
+    console.log('tamanho', tamanho);
+
     try {
       const key = 'app';
 
@@ -18,17 +22,67 @@ module.exports = (app) => {
           console.log(error, body);
           res.send({ error, body });
         }
+
+        const biglist = [];
+        for (let i = 0; i < tamanho; i++) {
+          biglist.push({
+            id  : i,
+            nome: `item ${ i }`
+          });
+        }
+
         const newBody = {
           ...body,
           madeBy: 'madeByServer',
           state : {
+            ...body.state,
+            biglist,
+          }
+        };
+        userStore.insert(newBody, key, (error, bodySalvo) => {
+          if (!error) {
+            return res.send(bodySalvo);
+          }
+          return res.send(error);
+        });
+      });
+    } catch (e) {
+      console.log('2222e', e);
+    }
+  };
+
+  controller.reset = function (req, res) {
+    try {
+      const key = 'app';
+
+      userStore.get(key, (error, body) => {
+        if (!error) {
+          console.log(body);
+        } else {
+          console.log(error, body);
+          res.send({ error, body });
+        }
+
+        const biglist = [];
+        for (let i = 0; i < 1000; i++) {
+          biglist.push({
+            id  : i,
+            nome: `item ${ i }`
+          });
+        }
+
+        const newBody = {
+          ...body,
+          madeBy: 'madeByServer',
+          state : {
+            biglist,
             ...body.state,
             total: 0
           }
         };
         userStore.insert(newBody, key, (error, bodySalvo) => {
           if (!error) {
-            return res.send(newBody);
+            return res.send(bodySalvo);
           }
           return res.send(error);
         });

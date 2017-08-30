@@ -4,7 +4,7 @@ import {
   applyMiddleware,
   compose,
 } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+// import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import PouchDB from 'pouchdb';
 import { persistentStore } from 'redux-pouchdb';
@@ -97,9 +97,9 @@ const storeCreator = (reducers, props) => {
       reducersObj,
       compose(
         applyMiddleware(
-          thunkMiddleware,
+          // thunkMiddleware,
           readyStatePromise,
-          vanillaPromise,
+          // vanillaPromise,
         ),
         persistentStoreObject,
       ),
@@ -108,9 +108,9 @@ const storeCreator = (reducers, props) => {
       reducersObj,
       compose(
         applyMiddleware(
-          thunkMiddleware,
+          // thunkMiddleware,
           readyStatePromise,
-          vanillaPromise,
+          // vanillaPromise,
           loggerMiddleware,
         ),
         persistentStoreObject,
